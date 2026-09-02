@@ -38,6 +38,12 @@
   a:hover{text-decoration:underline;}
   :focus-visible{outline:2px solid #2997ff;outline-offset:3px;border-radius:6px;}
   input[type=range]{accent-color:#2997ff;}
+  .unavailable-cta{pointer-events:none;user-select:none;-webkit-user-select:none;}
+  @media (max-width:600px){
+    .hero-primary{min-height:0 !important;align-items:flex-start !important;background-size:100% auto !important;background-position:center top !important;background-repeat:no-repeat !important;background-color:#02090e !important;}
+    .hero-primary .hero-scrim{background:linear-gradient(to bottom,rgba(2,9,14,.08) 0%,rgba(2,9,14,.12) 20%,rgba(4,20,31,.78) 31%,rgba(4,15,23,.98) 41%,#020609 70%,#000 100%) !important;}
+    .hero-primary .hero-content{width:100% !important;max-width:600px !important;padding:clamp(180px,58vw,226px) 22px 52px !important;}
+  }
 </style>
 </helmet>
 
@@ -58,9 +64,9 @@
 
   <main id="main">
 
-  <section style="position:relative;min-height:clamp(520px,78vh,820px);display:flex;align-items:flex-end;justify-content:center;background-image:url('assets/hero.jpg');background-size:cover;background-position:58% center;background-color:#04141f;overflow:hidden;">
-    <div style="position:absolute;inset:0;pointer-events:none;background:linear-gradient(to bottom,rgba(4,20,31,.34) 0%,rgba(4,20,31,0) 30%,rgba(4,20,31,.62) 68%,rgba(4,20,31,.92) 100%);"></div>
-    <div style="position:relative;z-index:2;padding:0 22px 64px;display:flex;flex-direction:column;align-items:center;gap:16px;max-width:680px;">
+  <section class="hero-primary" style="position:relative;min-height:clamp(520px,78vh,820px);display:flex;align-items:flex-end;justify-content:center;background-image:url('assets/hero.jpg');background-size:cover;background-position:58% center;background-color:#04141f;overflow:hidden;">
+    <div class="hero-scrim" style="position:absolute;inset:0;pointer-events:none;background:linear-gradient(to bottom,rgba(4,20,31,.34) 0%,rgba(4,20,31,0) 30%,rgba(4,20,31,.62) 68%,rgba(4,20,31,.92) 100%);"></div>
+    <div class="hero-content" style="position:relative;z-index:2;padding:0 22px 64px;display:flex;flex-direction:column;align-items:center;gap:16px;max-width:680px;">
       <h1 style="font-size:clamp(42px,7vw,62px);line-height:1.04;letter-spacing:-.03em;font-weight:600;margin:0;color:#fff;text-shadow:0 2px 24px rgba(0,0,0,.4);text-wrap:balance;">Do you fish B.I.L.L.?</h1>
       <p style="margin:0;font-size:clamp(13px,1.9vw,15px);font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:#7fd4ff;">B.I.L.L. — <span style="color:rgba(255,255,255,.78);font-weight:400;">Breaks. Isotherms. Layers. Location.</span></p>
       <p style="margin:0;font-size:clamp(17px,2.1vw,21px);line-height:1.4;color:rgba(255,255,255,.92);max-width:40ch;text-shadow:0 1px 14px rgba(0,0,0,.45);">The satellite chart that carries the break forward to the hour you arrive.</p>
@@ -442,7 +448,7 @@
             <li style="display:grid;grid-template-columns:14px 1fr;gap:9px;align-items:start;"><span style="color:#2997ff;font-weight:600;">✓</span>Explore available water before upgrading</li>
             <li style="display:grid;grid-template-columns:14px 1fr;gap:9px;align-items:start;"><span style="color:#2997ff;font-weight:600;">✓</span>No account, no email, no trackers</li>
           </ul>
-          <button type="button" disabled aria-disabled="true" style="display:inline-flex;align-items:center;justify-content:center;width:100%;box-sizing:border-box;min-height:40px;border-radius:980px;background:transparent;color:#2997ff;border:1px solid #2997ff;font:inherit;font-size:15px;cursor:not-allowed;opacity:.72;">Coming to the App Store</button>
+          <button class="unavailable-cta" type="button" disabled aria-disabled="true" tabindex="-1" style="display:inline-flex;align-items:center;justify-content:center;width:100%;box-sizing:border-box;min-height:40px;border-radius:980px;background:transparent;color:#2997ff;border:1px solid #2997ff;font:inherit;font-size:15px;cursor:not-allowed;opacity:.72;">Coming to the App Store</button>
         </div>
         <div style="box-shadow:inset 0 1px 0 rgba(255,255,255,.13),inset 0 -1px 0 rgba(0,0,0,.55),0 8px 24px -8px rgba(0,0,0,.7);position:relative;background:linear-gradient(180deg,#27272b 0%,#1a1a1c 52%,#131315 100%);border:1px solid #2c2c2e;border-radius:18px;padding:26px 22px 22px;display:flex;flex-direction:column;text-align:center;">
           <div style="font-size:14px;font-weight:600;">B.I.L.L. Pro · Planned</div>
@@ -456,7 +462,7 @@
             <li style="display:grid;grid-template-columns:14px 1fr;gap:9px;align-items:start;"><span style="color:#2997ff;font-weight:600;">✓</span>Changing ocean layers show source or analysis time</li>
             <li style="display:grid;grid-template-columns:14px 1fr;gap:9px;align-items:start;"><span style="color:#2997ff;font-weight:600;">✓</span>Cancel any time in your Apple Account</li>
           </ul>
-          <button type="button" disabled aria-disabled="true" style="display:inline-flex;align-items:center;justify-content:center;width:100%;box-sizing:border-box;min-height:40px;border-radius:980px;background:linear-gradient(180deg,#3ba3ff 0%,#0071e3 52%,#0060c4 100%);box-shadow:inset 0 1px 0 rgba(255,255,255,.34),0 2px 10px -2px rgba(0,113,227,.55);color:#fff;border:0;font:inherit;font-size:15px;cursor:not-allowed;opacity:.72;">Coming soon</button>
+          <button class="unavailable-cta" type="button" disabled aria-disabled="true" tabindex="-1" style="display:inline-flex;align-items:center;justify-content:center;width:100%;box-sizing:border-box;min-height:40px;border-radius:980px;background:linear-gradient(180deg,#3ba3ff 0%,#0071e3 52%,#0060c4 100%);box-shadow:inset 0 1px 0 rgba(255,255,255,.34),0 2px 10px -2px rgba(0,113,227,.55);color:#fff;border:0;font:inherit;font-size:15px;cursor:not-allowed;opacity:.72;">Coming soon</button>
         </div>
         <div style="position:relative;background:linear-gradient(180deg,#27272b 0%,#1a1a1c 52%,#131315 100%);border:1px solid #2997ff;box-shadow:0 0 0 1px #2997ff;border-radius:18px;padding:26px 22px 22px;display:flex;flex-direction:column;text-align:center;">
           <span style="position:absolute;top:-11px;left:50%;transform:translateX(-50%);background:linear-gradient(180deg,#3ba3ff 0%,#0071e3 52%,#0060c4 100%);box-shadow:inset 0 1px 0 rgba(255,255,255,.34),0 2px 10px -2px rgba(0,113,227,.55);color:#fff;font-size:11px;font-weight:600;letter-spacing:.04em;padding:4px 12px;border-radius:980px;white-space:nowrap;">Best value</span>
@@ -470,7 +476,7 @@
             <li style="display:grid;grid-template-columns:14px 1fr;gap:9px;align-items:start;"><span style="color:#2997ff;font-weight:600;">✓</span>One planned annual billing period</li>
             <li style="display:grid;grid-template-columns:14px 1fr;gap:9px;align-items:start;"><span style="color:#2997ff;font-weight:600;">✓</span>Equivalent to $8.25 a month</li>
           </ul>
-          <button type="button" disabled aria-disabled="true" style="display:inline-flex;align-items:center;justify-content:center;width:100%;box-sizing:border-box;min-height:40px;border-radius:980px;background:linear-gradient(180deg,#3ba3ff 0%,#0071e3 52%,#0060c4 100%);box-shadow:inset 0 1px 0 rgba(255,255,255,.34),0 2px 10px -2px rgba(0,113,227,.55);color:#fff;border:0;font:inherit;font-size:15px;cursor:not-allowed;opacity:.72;">Coming soon</button>
+          <button class="unavailable-cta" type="button" disabled aria-disabled="true" tabindex="-1" style="display:inline-flex;align-items:center;justify-content:center;width:100%;box-sizing:border-box;min-height:40px;border-radius:980px;background:linear-gradient(180deg,#3ba3ff 0%,#0071e3 52%,#0060c4 100%);box-shadow:inset 0 1px 0 rgba(255,255,255,.34),0 2px 10px -2px rgba(0,113,227,.55);color:#fff;border:0;font:inherit;font-size:15px;cursor:not-allowed;opacity:.72;">Coming soon</button>
         </div>
       </div>
       <p style="margin:0;font-size:13px;line-height:1.42;color:#a1a1a6;max-width:56ch;">Planned B.I.L.L. Pro pricing is monthly or annual. Final App Store price, availability, billing period, and terms will be shown before purchase. When available, subscriptions will be managed through your Apple Account. <a href="https://www.apple.com/legal/internet-services/itunes/dev/stdeula/">Terms</a> · <a href="./privacy/">Privacy</a></p>
