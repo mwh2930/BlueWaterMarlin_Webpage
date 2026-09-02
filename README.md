@@ -9,6 +9,8 @@ offshore satellite chart app. Publisher: Red Oak Media House.
 |---|---|
 | `index.html` | The public website entry point served by GitHub Pages. |
 | `support.html` | Support page — email form posting to Formspree. |
+| `support/index.html` | Stable `/support` route used by the iOS app and App Store Connect. |
+| `privacy/index.html` | Stable `/privacy` route used by the iOS app and App Store Connect. |
 | `support.js` | Runtime the pages load. Required — do not edit by hand. |
 | `assets/hero.jpg` | Hero photo. Provenance still to be established. |
 | `data/readability.json` | Fallback Readability Index data the site fetches. |
