@@ -1,0 +1,8 @@
+{
+  "name": "bluewater-readability-api",
+  "version": "1.0.0",
+  "description": "Readability Index ingest + read API for BlueWater Marlin",
+  "main": "index.js",
+  "engines": { "node": ">=20" },
+  "dependencies": { "mssql": "^10.0.2" }
+}
