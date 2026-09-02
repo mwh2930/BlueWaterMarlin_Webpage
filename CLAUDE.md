@@ -7,7 +7,7 @@ offshore satellite chart app. Publisher: Red Oak Media House.
 
 | Path | What it is |
 |---|---|
-| `BlueWater Marlin.dc.html` | The site. Single Design Component, the deliverable. |
+| `index.html` | The site. Single Design Component, the deliverable. |
 | `Agent Review.dc.html` | Marketing-agent and market-agent review of the site. Update when the site changes materially. |
 | `assets/hero.jpg` | Hero photo (marlin, split water). Extracted from the original inline data URI — keep it a file, never re-inline. |
 | `data/readability.json` | Readability Index data the site fetches. `source: "illustration"` until a real month is counted. |

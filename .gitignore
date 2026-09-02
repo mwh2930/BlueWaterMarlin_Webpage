@@ -1,0 +1,11 @@
+# Local / editor
+.DS_Store
+.thumbnail
+*.log
+
+# Node
+node_modules/
+backend/azure/local.settings.json
+
+# Working material, not part of the repo
+uploads/
