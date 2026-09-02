@@ -144,7 +144,7 @@ def validate() -> tuple[list[str], list[str]]:
 
         for attribute, reference in parser.references:
             if reference == "#":
-                warnings.append(f"{page}: placeholder {attribute}=\"#\"")
+                errors.append(f"{page}: placeholder {attribute}=\"#\"")
                 continue
             target = local_target(page, reference)
             if target is not None and not target.is_file():
@@ -155,6 +155,51 @@ def validate() -> tuple[list[str], list[str]]:
         errors.append("index.html must link to the canonical /support/ route")
     if "/privacy/" not in homepage:
         errors.append("index.html must link to the canonical /privacy/ route")
+
+    required_homepage_copy = (
+        "48&nbsp;hours",
+        "$32.99",
+        "$99.00",
+        "$8.25",
+        "Planned",
+        "Final App Store price",
+        "Coming soon",
+        "supported regions",
+        "source or analysis time",
+        "no app-side interpolation",
+    )
+    for phrase in required_homepage_copy:
+        if phrase not in homepage:
+            errors.append(f"index.html: missing approved product copy {phrase!r}")
+
+    forbidden_homepage_copy = (
+        "3&nbsp;days",
+        "3 days",
+        "$99.99",
+        "$8.33",
+        "Every other chart",
+        "All six instruments, every region",
+        "Every forecast engineered is graded",
+        "Works offline, sixty miles out",
+        "Pre-rendered and cached on the device",
+        "Real-time satellite ocean data doesn't exist",
+        "every retrospective chart",
+        "every chart in this category",
+        "being built in the open",
+    )
+    for phrase in forbidden_homepage_copy:
+        if phrase in homepage:
+            errors.append(f"index.html: unapproved or stale product copy {phrase!r}")
+
+    support_copy = (ROOT / "support/index.html").read_text(encoding="utf-8")
+    required_support_copy = (
+        "Previously loaded SST, chlorophyll, and sargassum grids",
+        "no app-side interpolation",
+        "source or analysis time",
+    )
+    for phrase in required_support_copy:
+        if phrase not in support_copy:
+            errors.append(f"support/index.html: missing approved product copy {phrase!r}")
 
     redirect = (ROOT / "support.html").read_text(encoding="utf-8")
     if 'url=/support/' not in redirect:

@@ -76,6 +76,15 @@ chart-painting rules and copy discipline. The short version:
 - The product shows water. It never finds fish.
 - No accuracy figure or comparative claim until it is published with sample size
   and method. Never "real-time" for daily satellite passes.
+- Current marketing facts must stay aligned with the app: the projection window is
+  capped at 48 hours; the free tier is SST plus tap-to-read; and Pro tools vary by
+  supported region.
+- Offline language must identify the actual cache boundary: previously loaded SST,
+  chlorophyll and sargassum grids can be restored; currents, wind, tides, live
+  updates and new areas may require a connection.
+- Until the App Store listing is live, calls to action say "Coming soon" and
+  planned prices remain qualified. The current plan is $32.99 monthly or $99.00
+  annually ($8.25 per month equivalent); final App Store pricing may vary.
 - Charts on the page are illustrations and stay labelled as such.
 - Thresholds (0.4 °C, 70%, 25%) are one backend constant, printed under the
   graphic. Don't retune them silently.
@@ -88,4 +97,4 @@ chart-painting rules and copy discipline. The short version:
 - Font stack: drop SF Pro Display, use system fonts.
 - Hero photo provenance.
 - Terms and Privacy documents (required by any surface offering the subscription).
-- Offline / download-before-you-leave screen; App Store button with the chart on a phone.
+- Offline / download-before-you-leave screen; App Store button with the chart on a phone when the listing is live.
