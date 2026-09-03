@@ -109,7 +109,6 @@
   .section-heading{gap:10px !important;}
   .diagram-card{gap:14px !important;}
   .stats-grid,.journey-grid,.price-grid{gap:16px !important;}
-  .mobile-chart-hint{display:none;}
   .diagram-viewport{width:100%;}
   @media (max-width:600px){
     body{font-size:17px;line-height:1.47;letter-spacing:-.022em;}
@@ -153,10 +152,9 @@
     .stat-value{font-size:33px !important;font-variant-numeric:tabular-nums;}
     .diagram-card{padding:18px 15px 16px !important;border-radius:15px !important;gap:12px !important;}
     .diagram-card figcaption{font-size:15px !important;line-height:1.35 !important;font-weight:600 !important;}
-    .diagram-card > p{font-size:15px !important;line-height:1.5 !important;}
-    .mobile-chart-hint{display:block;margin:-3px 0 -2px;font-size:10px;line-height:1.3;letter-spacing:.055em;text-transform:uppercase;color:#8e8e93;text-align:left;}
-    .diagram-viewport{overflow-x:auto;overscroll-behavior-inline:contain;-webkit-overflow-scrolling:touch;scrollbar-width:thin;scrollbar-color:#48484a transparent;padding-bottom:8px;}
-    .diagram-viewport > svg{display:block;min-width:460px;}
+    .diagram-card > p{line-height:1.48 !important;}
+    .diagram-viewport{overflow:hidden;padding-bottom:0;}
+    .diagram-viewport > svg{display:block;width:100% !important;min-width:0 !important;height:auto !important;}
     .readability-card{padding:18px 16px !important;border-radius:16px !important;}
     .readability-head{align-items:flex-start !important;flex-direction:column;gap:2px !important;text-align:left;}
     .readability-grid{gap:4px !important;}
@@ -277,8 +275,7 @@
       </div>
       <figure class="diagram-card" style="border:1px solid rgba(255,255,255,.085);box-shadow:inset 0 1px 0 rgba(255,255,255,.13),inset 0 -1px 0 rgba(0,0,0,.55),0 8px 24px -8px rgba(0,0,0,.7);margin:0;width:100%;max-width:760px;background:linear-gradient(180deg,#27272b 0%,#1a1a1c 52%,#131315 100%);border-radius:18px;padding:28px 26px 22px;display:flex;flex-direction:column;gap:16px;">
         <figcaption style="font-size:14px;font-weight:600;letter-spacing:-.01em;text-align:left;">How far the edge walks while the chart holds still</figcaption>
-        <p class="mobile-chart-hint" aria-hidden="true">Swipe chart to inspect details</p>
-        <div class="diagram-viewport" role="region" aria-label="Scrollable edge displacement chart" tabindex="0">
+        <div class="diagram-viewport" role="region" aria-label="Edge displacement chart">
         <svg viewBox="0 0 700 300" role="img" aria-label="Edge displacement against time: a retrospective chart implies no movement, while the projection carries the edge 10.4 nautical miles by arrival" style="width:100%;height:auto;">
           <g font-family="Inter, sans-serif" font-size="18" font-weight="600">
             <rect x="130" y="14" width="24" height="4" rx="2" fill="#8e8e93"></rect>
@@ -358,8 +355,7 @@
 
       <figure class="diagram-card" style="border:1px solid rgba(255,255,255,.085);box-shadow:inset 0 1px 0 rgba(255,255,255,.13),inset 0 -1px 0 rgba(0,0,0,.55),0 8px 24px -8px rgba(0,0,0,.7);margin:0;width:100%;max-width:760px;background:linear-gradient(180deg,#27272b 0%,#1a1a1c 52%,#131315 100%);border-radius:18px;padding:28px 26px 22px;display:flex;flex-direction:column;gap:16px;">
         <figcaption style="font-size:14px;font-weight:600;letter-spacing:-.01em;text-align:left;">Two wavelengths, one cloud</figcaption>
-        <p class="mobile-chart-hint" aria-hidden="true">Swipe chart to inspect details</p>
-        <div class="diagram-viewport" role="region" aria-label="Scrollable cloud and wavelength diagram" tabindex="0">
+        <div class="diagram-viewport" role="region" aria-label="Cloud and wavelength diagram">
         <svg viewBox="0 0 700 232" role="img" aria-label="Diagram: infrared blocked by cloud, radar altimetry passing through to measure sea height" style="width:100%;height:auto;">
           <text x="150" y="26" text-anchor="middle" font-family="Inter, sans-serif" font-size="18" font-weight="600" letter-spacing="0.3" fill="#a1a1a6">INFRARED</text>
           <text x="530" y="26" text-anchor="middle" font-family="Inter, sans-serif" font-size="18" font-weight="600" letter-spacing="0.3" fill="#2997ff">RADAR</text>
@@ -434,8 +430,7 @@
 
       <figure class="diagram-card" style="border:1px solid rgba(255,255,255,.085);box-shadow:inset 0 1px 0 rgba(255,255,255,.13),inset 0 -1px 0 rgba(0,0,0,.55),0 8px 24px -8px rgba(0,0,0,.7);margin:0;width:100%;max-width:760px;background:linear-gradient(180deg,#27272b 0%,#1a1a1c 52%,#131315 100%);border-radius:18px;padding:28px 26px 22px;display:flex;flex-direction:column;gap:18px;">
         <figcaption style="font-size:14px;font-weight:600;letter-spacing:-.01em;text-align:left;">A radar-altimetry example from the research record</figcaption>
-        <p class="mobile-chart-hint" aria-hidden="true">Swipe chart to inspect details</p>
-        <div class="diagram-viewport" role="region" aria-label="Scrollable radar-altimetry diagram" tabindex="0">
+        <div class="diagram-viewport" role="region" aria-label="Radar-altimetry diagram">
         <svg viewBox="0 0 700 262" role="img" aria-label="Cross-section of an anticyclonic eddy as a raised dome of water, measured by radar altimeter ranging from orbit" style="width:100%;height:auto;">
           <rect x="316" y="26" width="52" height="20" rx="4" fill="#f5f5f7"></rect>
           <rect x="296" y="32" width="16" height="8" rx="2" fill="#8e8e93"></rect>
@@ -559,8 +554,7 @@
       </div>
       <figure class="diagram-card" style="margin:0;width:100%;max-width:720px;background:#000;border-radius:18px;padding:28px 26px 22px;display:flex;flex-direction:column;gap:14px;">
         <figcaption style="font-size:14px;font-weight:600;letter-spacing:-.01em;text-align:left;color:#f5f5f7;">Two knots of set, fifteen of wind, one answer</figcaption>
-        <p class="mobile-chart-hint" aria-hidden="true">Swipe chart to inspect details</p>
-        <div class="diagram-viewport" role="region" aria-label="Scrollable current and wind vector diagram" tabindex="0">
+        <div class="diagram-viewport" role="region" aria-label="Current and wind vector diagram">
         <svg viewBox="0 0 680 250" role="img" aria-label="Vector diagram: current plus three percent of wind speed, deflected right in the northern hemisphere" style="width:100%;height:auto;">
           <line x1="52" y1="150" x2="330" y2="150" stroke="#f5f5f7" stroke-width="2.6" stroke-linecap="round"></line>
           <path d="M330 150 l-13 -6 l0 12 Z" fill="#f5f5f7"></path>
