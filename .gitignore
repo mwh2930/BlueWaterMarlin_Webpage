@@ -2,6 +2,7 @@
 .DS_Store
 .thumbnail
 *.log
+.content-editor-backups/
 
 # Node
 node_modules/

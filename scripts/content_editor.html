@@ -1,0 +1,388 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="robots" content="noindex,nofollow">
+  <title>BlueWater Content Editor</title>
+  <style>
+    :root{color-scheme:dark;--blue:#2997ff;--panel:rgba(28,28,30,.88);--line:rgba(255,255,255,.1);font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","Helvetica Neue",Arial,sans-serif;}
+    *{box-sizing:border-box;}
+    body{margin:0;min-width:300px;background:#070709;color:#f5f5f7;font-size:14px;line-height:1.45;-webkit-font-smoothing:antialiased;}
+    button{font:inherit;}
+    .app{min-height:100vh;display:grid;grid-template-rows:auto 1fr;}
+    .toolbar{position:sticky;z-index:10;top:0;display:flex;align-items:center;gap:10px;padding:10px 14px;background:rgba(20,20,22,.9);border-bottom:1px solid var(--line);backdrop-filter:blur(24px) saturate(160%);-webkit-backdrop-filter:blur(24px) saturate(160%);}
+    .brand{min-width:190px;margin-right:auto;}
+    .brand strong{display:block;font-size:14px;font-weight:600;letter-spacing:-.01em;}
+    .brand span{display:block;margin-top:1px;color:#98989d;font-size:11px;}
+    .group{display:flex;align-items:center;gap:6px;padding:3px;border:1px solid var(--line);border-radius:11px;background:rgba(255,255,255,.035);}
+    .control{display:inline-flex;align-items:center;justify-content:center;min-height:36px;padding:0 12px;border:0;border-radius:8px;background:transparent;color:#d7d7db;text-decoration:none;cursor:pointer;transition:background .16s ease,color .16s ease,transform .16s ease;}
+    .control:hover{background:rgba(255,255,255,.08);color:#fff;text-decoration:none;}
+    .control:active{transform:scale(.98);}
+    .control[aria-pressed="true"]{background:rgba(41,151,255,.18);color:#8dccff;}
+    .control:disabled{cursor:not-allowed;opacity:.38;}
+    .save{min-height:38px;padding:0 16px;border:1px solid rgba(255,255,255,.32);border-radius:980px;background:linear-gradient(180deg,rgba(157,228,255,.72),rgba(55,169,255,.62) 46%,rgba(0,112,218,.68));box-shadow:inset 0 1px 0 rgba(255,255,255,.65),0 0 20px -3px rgba(41,151,255,.5);color:#fff;font-weight:600;cursor:pointer;}
+    .save:disabled{border-color:rgba(255,255,255,.1);background:rgba(255,255,255,.055);box-shadow:none;color:#6e6e73;cursor:not-allowed;}
+    .workspace{min-width:0;display:grid;grid-template-columns:minmax(0,1fr) 280px;}
+    .preview-area{min-width:0;overflow:auto;padding:20px;background:radial-gradient(circle at 50% 0,rgba(41,151,255,.09),transparent 42%),#09090b;}
+    .device{width:1180px;max-width:100%;min-height:720px;margin:0 auto;overflow:hidden;border:1px solid rgba(255,255,255,.16);border-radius:18px;background:#000;box-shadow:0 24px 70px -30px #000,0 0 0 1px rgba(0,0,0,.5);transition:width .28s cubic-bezier(.22,1,.36,1),border-radius .28s ease;}
+    .device.mobile{width:390px;border-radius:28px;}
+    iframe{display:block;width:100%;height:calc(100vh - 112px);min-height:680px;border:0;background:#000;}
+    .sidebar{padding:22px 18px;border-left:1px solid var(--line);background:rgba(17,17,19,.82);}
+    .sidebar h2{margin:0;font-size:17px;font-weight:600;letter-spacing:-.015em;}
+    .sidebar p{margin:8px 0 0;color:#a1a1a6;}
+    .status{margin-top:18px;padding:14px;border:1px solid var(--line);border-radius:14px;background:rgba(255,255,255,.035);}
+    .status-label{font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:#8dccff;}
+    .status-text{margin-top:5px;font-size:13px;color:#e8e8ed;word-break:break-word;}
+    .dirty{display:inline-flex;align-items:center;gap:6px;margin-top:14px;color:#a1a1a6;font-size:12px;}
+    .dirty::before{content:"";width:7px;height:7px;border-radius:50%;background:#636366;box-shadow:0 0 0 3px rgba(99,99,102,.12);}
+    .dirty[data-active="true"]::before{background:#2997ff;box-shadow:0 0 0 3px rgba(41,151,255,.16),0 0 12px rgba(41,151,255,.5);}
+    .tips{margin:22px 0 0;padding:18px 0 0;border-top:1px solid var(--line);list-style:none;color:#98989d;font-size:12px;}
+    .tips li+li{margin-top:10px;}
+    kbd{padding:2px 5px;border:1px solid rgba(255,255,255,.14);border-radius:5px;background:rgba(255,255,255,.06);color:#d1d1d6;font:11px -apple-system,BlinkMacSystemFont,sans-serif;}
+    .notice{margin-top:16px;color:#7d7d83;font-size:11px;}
+    .toast{position:fixed;z-index:30;left:50%;bottom:24px;max-width:min(520px,calc(100vw - 32px));padding:12px 16px;border:1px solid rgba(255,255,255,.14);border-radius:12px;background:rgba(36,36,40,.94);box-shadow:0 18px 50px -20px #000;color:#f5f5f7;opacity:0;pointer-events:none;transform:translate(-50%,12px);transition:opacity .2s ease,transform .2s ease;}
+    .toast.show{opacity:1;transform:translate(-50%,0);}
+    .toast.error{border-color:rgba(255,69,58,.45);}
+    .locked{max-width:560px;margin:18vh auto;padding:28px;border:1px solid var(--line);border-radius:18px;background:var(--panel);text-align:center;}
+    @media(max-width:900px){.workspace{grid-template-columns:1fr;}.sidebar{border-top:1px solid var(--line);border-left:0;}.toolbar{flex-wrap:wrap;}.brand{flex:1 1 100%;}.preview-area{padding:12px;}.device{max-width:none;}iframe{height:72vh;}}
+    @media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;transition-duration:.01ms!important;animation-duration:.01ms!important;}}
+  </style>
+</head>
+<body>
+  <div class="app" id="editorApp">
+    <header class="toolbar">
+      <div class="brand">
+        <strong>BlueWater Content Editor</strong>
+        <span>Click highlighted copy in the preview to edit it.</span>
+      </div>
+      <div class="group" aria-label="Preview width">
+        <button class="control" id="mobileView" type="button" aria-pressed="true">Mobile</button>
+        <button class="control" id="desktopView" type="button" aria-pressed="false">Desktop</button>
+      </div>
+      <a class="control" href="/?live_preview=1" target="_blank" rel="noopener">Live preview</a>
+      <div class="group" aria-label="Edit history">
+        <button class="control" id="undoButton" type="button" disabled>Undo</button>
+        <button class="control" id="resetButton" type="button" disabled>Reset</button>
+        <button class="control" id="reloadButton" type="button">Reload</button>
+      </div>
+      <button class="save" id="saveButton" type="button" disabled>Save index.html</button>
+    </header>
+
+    <div class="workspace">
+      <main class="preview-area">
+        <div class="device mobile" id="deviceFrame">
+          <iframe id="sitePreview" title="Editable BlueWater Marlin preview"></iframe>
+        </div>
+      </main>
+      <aside class="sidebar">
+        <h2>Edit the real copy</h2>
+        <p>Blue outlines mark wording that can be changed safely. Click once, type, then save.</p>
+        <div class="status" aria-live="polite">
+          <div class="status-label">Selected text</div>
+          <div class="status-text" id="selectionStatus">Nothing selected</div>
+        </div>
+        <div class="dirty" id="dirtyStatus" data-active="false">No unsaved changes</div>
+        <ul class="tips">
+          <li><kbd>Return</kbd> finishes the current edit.</li>
+          <li><kbd>⌘ S</kbd> saves the page.</li>
+          <li>Reset restores everything changed since the last save.</li>
+          <li>A timestamped backup is created before every save.</li>
+        </ul>
+        <p class="notice">The editor changes text only. Layout, links, charts, and CSS remain protected.</p>
+      </aside>
+    </div>
+  </div>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script>
+    (() => {
+      const localHosts = new Set(["127.0.0.1", "localhost", "::1"]);
+      if (!localHosts.has(location.hostname)) {
+        document.body.innerHTML = '<div class="locked"><h1>Local editor only</h1><p>Launch this editor from <code>Open Content Editor.command</code> in the project folder.</p></div>';
+        return;
+      }
+
+      const editorToken = "__EDITOR_TOKEN__";
+      let sourceHash = "__SOURCE_HASH__";
+      const frame = document.getElementById("sitePreview");
+      const device = document.getElementById("deviceFrame");
+      const saveButton = document.getElementById("saveButton");
+      const undoButton = document.getElementById("undoButton");
+      const resetButton = document.getElementById("resetButton");
+      const reloadButton = document.getElementById("reloadButton");
+      const dirtyStatus = document.getElementById("dirtyStatus");
+      const selectionStatus = document.getElementById("selectionStatus");
+      const toast = document.getElementById("toast");
+      const records = [];
+      const history = [];
+      let selectedRecord = null;
+      let toastTimer = 0;
+
+      const selector = [
+        "main h1", "main h2", "main h3", "main p", "main figcaption",
+        "main li b", "main li span", ".stats-grid > div > div",
+        ".journey-grid > div > div:first-child", "footer p", "main button",
+        "main a.primary-cta", "main a.secondary-cta", "nav a.site-nav-cta"
+      ].join(",");
+
+      function normalize(value) {
+        return value.replace(/\s+/g, " ").trim();
+      }
+
+      function showToast(message, isError = false) {
+        clearTimeout(toastTimer);
+        toast.textContent = message;
+        toast.classList.toggle("error", isError);
+        toast.classList.add("show");
+        toastTimer = setTimeout(() => toast.classList.remove("show"), 4200);
+      }
+
+      function currentValue(record) {
+        return normalize(record.element.textContent || "");
+      }
+
+      function calculateOccurrence(record) {
+        const same = [...record.document.querySelectorAll(record.tag)].filter((element) =>
+          element.childElementCount === 0 && normalize(element.textContent || "") === record.original
+        );
+        return Math.max(0, same.indexOf(record.element));
+      }
+
+      function dirtyRecords() {
+        return records.filter((record) => currentValue(record) !== record.original);
+      }
+
+      function updateControls() {
+        const count = dirtyRecords().length;
+        saveButton.disabled = count === 0;
+        resetButton.disabled = count === 0;
+        undoButton.disabled = history.length === 0;
+        dirtyStatus.dataset.active = String(count > 0);
+        dirtyStatus.textContent = count === 0
+          ? "No unsaved changes"
+          : `${count} unsaved ${count === 1 ? "change" : "changes"}`;
+      }
+
+      function selectRecord(record) {
+        if (selectedRecord && selectedRecord !== record) {
+          selectedRecord.element.dataset.editorActive = "false";
+        }
+        selectedRecord = record;
+        record.element.dataset.editorActive = "true";
+        const preview = currentValue(record);
+        selectionStatus.textContent = `${record.tag.toUpperCase()} · ${preview.slice(0, 120)}`;
+      }
+
+      function finishActiveEdit() {
+        const active = frame.contentDocument && frame.contentDocument.activeElement;
+        if (active && active.hasAttribute("data-copy-editor")) active.blur();
+      }
+
+      function makeEditable(document) {
+        records.length = 0;
+        history.length = 0;
+        selectedRecord = null;
+        selectionStatus.textContent = "Nothing selected";
+
+        const editorStyle = document.createElement("style");
+        editorStyle.textContent = `
+          [data-copy-editor]{pointer-events:auto!important;user-select:text!important;-webkit-user-select:text!important;cursor:text;outline:1px dashed rgba(41,151,255,.25);outline-offset:4px;border-radius:3px;transition:outline-color .16s ease,box-shadow .16s ease;}
+          [data-copy-editor]:hover{outline-color:rgba(110,194,255,.8);box-shadow:0 0 0 5px rgba(41,151,255,.08);}
+          [data-copy-editor][data-editor-active="true"]{outline:2px solid #2997ff;box-shadow:0 0 0 6px rgba(41,151,255,.12),0 0 22px rgba(41,151,255,.2);}
+          [data-copy-editor]:focus{outline:2px solid #64b5ff;}
+        `;
+        document.head.appendChild(editorStyle);
+
+        const candidates = [...new Set(document.querySelectorAll(selector))].filter((element) => {
+          const value = normalize(element.textContent || "");
+          return value.length > 1
+            && element.childElementCount === 0
+            && !element.closest("svg")
+            && !element.closest("#readable")
+            && !element.classList.contains("mobile-chart-hint")
+            && element.getAttribute("aria-hidden") !== "true"
+            && value !== "✓";
+        });
+
+        for (const element of candidates) {
+          if (element.tagName === "BUTTON") {
+            element.disabled = false;
+            element.setAttribute("aria-disabled", "false");
+            element.removeAttribute("tabindex");
+          }
+          const record = {
+            document,
+            element,
+            tag: element.tagName.toLowerCase(),
+            original: normalize(element.textContent || ""),
+            occurrence: 0,
+            focusStart: "",
+            liveHistory: null
+          };
+          record.occurrence = calculateOccurrence(record);
+          records.push(record);
+          element.setAttribute("data-copy-editor", "true");
+          element.setAttribute("contenteditable", "plaintext-only");
+          element.setAttribute("spellcheck", "true");
+
+          element.addEventListener("click", (event) => {
+            event.preventDefault();
+            event.stopPropagation();
+            selectRecord(record);
+            element.focus();
+          });
+          element.addEventListener("focus", () => {
+            record.focusStart = currentValue(record);
+            selectRecord(record);
+          });
+          element.addEventListener("keydown", (event) => {
+            if (event.key === "Enter") {
+              event.preventDefault();
+              element.blur();
+            }
+            if (event.key === "Escape") {
+              event.preventDefault();
+              if (record.liveHistory) {
+                const index = history.indexOf(record.liveHistory);
+                if (index >= 0) history.splice(index, 1);
+                record.liveHistory = null;
+              }
+              element.textContent = record.focusStart;
+              element.blur();
+              updateControls();
+            }
+          });
+          element.addEventListener("beforeinput", (event) => {
+            if (event.inputType === "insertParagraph" || event.inputType === "insertLineBreak") {
+              event.preventDefault();
+            }
+          });
+          element.addEventListener("input", () => {
+            const after = currentValue(record);
+            if (!record.liveHistory) {
+              record.liveHistory = {record, before: record.focusStart, after};
+              history.push(record.liveHistory);
+            } else {
+              record.liveHistory.after = after;
+            }
+            selectionStatus.textContent = `${record.tag.toUpperCase()} · ${after.slice(0, 120)}`;
+            updateControls();
+          });
+          element.addEventListener("blur", () => {
+            record.liveHistory = null;
+            updateControls();
+          });
+        }
+
+        document.addEventListener("click", (event) => {
+          const link = event.target.closest("a");
+          if (link && !link.hasAttribute("data-copy-editor")) event.preventDefault();
+        }, true);
+
+        updateControls();
+        showToast(`${records.length} text fields are ready to edit.`);
+      }
+
+      frame.addEventListener("load", async () => {
+        try {
+          const response = await fetch("/__editor__/state", {cache: "no-store"});
+          const state = await response.json();
+          sourceHash = state.sourceHash;
+          makeEditable(frame.contentDocument);
+        } catch (error) {
+          showToast(`Could not initialize the editor: ${error.message}`, true);
+        }
+      });
+
+      document.getElementById("mobileView").addEventListener("click", (event) => {
+        device.classList.add("mobile");
+        event.currentTarget.setAttribute("aria-pressed", "true");
+        document.getElementById("desktopView").setAttribute("aria-pressed", "false");
+      });
+      document.getElementById("desktopView").addEventListener("click", (event) => {
+        device.classList.remove("mobile");
+        event.currentTarget.setAttribute("aria-pressed", "true");
+        document.getElementById("mobileView").setAttribute("aria-pressed", "false");
+      });
+
+      undoButton.addEventListener("click", () => {
+        finishActiveEdit();
+        const change = history.pop();
+        if (!change) return;
+        change.record.element.textContent = change.before;
+        selectRecord(change.record);
+        updateControls();
+      });
+
+      resetButton.addEventListener("click", () => {
+        finishActiveEdit();
+        if (!confirm("Discard every unsaved wording change?")) return;
+        for (const record of records) record.element.textContent = record.original;
+        for (const record of records) record.liveHistory = null;
+        history.length = 0;
+        updateControls();
+        showToast("Unsaved wording changes were reset.");
+      });
+
+      reloadButton.addEventListener("click", () => {
+        finishActiveEdit();
+        if (dirtyRecords().length && !confirm("Reload and discard unsaved wording changes?")) return;
+        frame.src = `/?editor_preview=${Date.now()}`;
+      });
+
+      async function saveChanges() {
+        finishActiveEdit();
+        await new Promise((resolve) => setTimeout(resolve, 0));
+        const changed = dirtyRecords();
+        if (!changed.length) return;
+
+        saveButton.disabled = true;
+        saveButton.textContent = "Saving…";
+        try {
+          const response = await fetch("/__editor__/save", {
+            method: "POST",
+            headers: {"Content-Type": "application/json", "X-Editor-Token": editorToken},
+            body: JSON.stringify({
+              sourceHash,
+              changes: changed.map((record) => ({
+                tag: record.tag,
+                before: record.original,
+                after: currentValue(record),
+                occurrence: record.occurrence
+              }))
+            })
+          });
+          const result = await response.json();
+          if (!response.ok) throw new Error(result.error || "The page could not be saved.");
+
+          sourceHash = result.sourceHash;
+          for (const record of records) record.original = currentValue(record);
+          for (const record of records) record.liveHistory = null;
+          for (const record of records) record.occurrence = calculateOccurrence(record);
+          history.length = 0;
+          updateControls();
+          showToast(result.backup
+            ? `Saved ${result.changed} changes. Backup: ${result.backup}`
+            : "No file changes were needed.");
+        } catch (error) {
+          showToast(error.message, true);
+        } finally {
+          saveButton.textContent = "Save index.html";
+          updateControls();
+        }
+      }
+
+      saveButton.addEventListener("click", saveChanges);
+      window.addEventListener("keydown", (event) => {
+        if ((event.metaKey || event.ctrlKey) && event.key.toLowerCase() === "s") {
+          event.preventDefault();
+          saveChanges();
+        }
+      });
+
+      frame.src = `/?editor_preview=${Date.now()}`;
+    })();
+  </script>
+</body>
+</html>

@@ -181,7 +181,9 @@ def validate() -> tuple[list[str], list[str]]:
         "$32.99",
         "$99.00",
         "$8.25",
-        "Planned",
+        "Free chart &amp; plans available.",
+        "B.I.L.L. Pro · Monthly",
+        "B.I.L.L. Pro · Annual",
         "Final App Store price",
         "Coming soon",
         "supported regions",
@@ -206,6 +208,8 @@ def validate() -> tuple[list[str], list[str]]:
         "every retrospective chart",
         "every chart in this category",
         "being built in the open",
+        "Planned",
+        "planned",
     )
     for phrase in forbidden_homepage_copy:
         if phrase in homepage:

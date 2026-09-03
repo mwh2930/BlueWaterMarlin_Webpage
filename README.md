@@ -37,6 +37,26 @@ python3 -m http.server 8000
 Opening the file directly from disk works for layout but `fetch` of
 `data/readability.json` will be blocked by the browser.
 
+## Visual content editor
+
+On macOS, double-click `Open Content Editor.command`. The local editor opens in
+your default browser. Click any blue-outlined heading, paragraph, caption, list
+item or button label in the site preview, type the replacement, and choose
+**Save index.html**. Use the Mobile and Desktop controls to review both widths.
+Choose **Live preview** to open a clean page that refreshes automatically whenever
+`index.html` changes.
+
+The editor binds only to `127.0.0.1`, changes plain text only, refuses to save if
+`index.html` was changed elsewhere after the editor loaded, and writes a
+timestamped backup to `.content-editor-backups/` before every save. Stop it by
+closing its Terminal window or pressing Control-C.
+
+It can also be started from Terminal:
+
+```
+python3 scripts/content_editor.py
+```
+
 Validate the public route and link contract before committing:
 
 ```
@@ -98,7 +118,6 @@ chart-painting rules and copy discipline. The short version:
 
 ## Open items
 
-- Font stack: drop SF Pro Display, use system fonts.
 - Hero photo provenance.
 - Terms and Privacy documents (required by any surface offering the subscription).
 - Offline / download-before-you-leave screen; App Store button with the chart on a phone when the listing is live.
