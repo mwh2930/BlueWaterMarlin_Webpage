@@ -14,11 +14,11 @@ work.
 
 The app links to these stable website routes:
 
-- `https://www.bluewatermarlin.com/support`
-- `https://www.bluewatermarlin.com/privacy`
+- `https://bluewatermarlin.com/support/`
+- `https://bluewatermarlin.com/privacy/`
 
-GitHub Pages redirects the `www` hostname to the configured apex domain while
-preserving the route.
+These URLs already use the configured apex domain and canonical directory
+routes, so the app and App Store do not depend on a redirect.
 
 ## Public routes
 
