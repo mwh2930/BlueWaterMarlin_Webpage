@@ -5,105 +5,258 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>BlueWater Marlin — B.I.L.L. Offshore Satellite Charts</title>
 <meta name="description" content="B.I.L.L. turns offshore satellite data into clear, honest chart guidance for blue-water anglers.">
-<link rel="canonical" href="https://www.bluewatermarlin.com/">
+<link rel="canonical" href="https://bluewatermarlin.com/">
 <meta property="og:title" content="BlueWater Marlin — B.I.L.L.">
 <meta property="og:description" content="Offshore satellite charts designed to show the water clearly without pretending to find the fish.">
 <meta property="og:type" content="website">
-<meta property="og:url" content="https://www.bluewatermarlin.com/">
-<meta property="og:image" content="https://www.bluewatermarlin.com/assets/hero.jpg">
+<meta property="og:url" content="https://bluewatermarlin.com/">
+<meta property="og:image" content="https://bluewatermarlin.com/assets/hero.jpg">
 <script src="./support.js" defer></script>
 </head>
 <body>
 <a class="skip-link" href="#main">Skip to content</a>
 <x-dc>
 <helmet>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&amp;display=swap">
 <style>
   :root{color-scheme:dark;accent-color:#0071e3;
-    --metal-face:linear-gradient(180deg,#27272b 0%,#1a1a1c 52%,#131315 100%);
-    --metal-edge:inset 0 1px 0 rgba(255,255,255,.13),inset 0 -1px 0 rgba(0,0,0,.55),0 8px 24px -8px rgba(0,0,0,.7);}
+    --surface-raised:#151517;
+    --surface-edge:rgba(255,255,255,.09);
+    --surface-shadow:0 14px 36px -28px rgba(0,0,0,.9);
+    --glass-blue:linear-gradient(180deg,rgba(157,228,255,.7) 0%,rgba(55,169,255,.58) 46%,rgba(0,112,218,.62) 100%);
+    --glass-blue-hover:linear-gradient(180deg,rgba(180,237,255,.82) 0%,rgba(72,181,255,.7) 46%,rgba(0,126,239,.72) 100%);
+    --glass-blue-edge:inset 0 1px 0 rgba(255,255,255,.7),inset 0 -1px 0 rgba(0,34,72,.3),inset 0 -14px 18px -12px rgba(0,44,92,.34),0 9px 22px -12px rgba(0,126,239,.92),0 0 0 1px rgba(160,226,255,.3),0 0 26px -2px rgba(88,187,255,.46);}
   html{scroll-behavior:smooth;-webkit-text-size-adjust:100%;scrollbar-color:#3a3a3c #000;}
   *,*::before,*::after{box-sizing:inherit;}
   p{text-wrap:pretty;}
   h1,h2,h3{text-wrap:balance;}
+  svg text{font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","Helvetica Neue",Arial,sans-serif;}
   :focus-visible{outline:2px solid #2997ff;outline-offset:3px;border-radius:6px;}
   .skip-link{position:absolute;left:-9999px;top:12px;z-index:100;background:#fff;color:#000;padding:8px 12px;border-radius:8px;}
   .skip-link:focus{left:12px;}
   ::selection{background:rgba(41,151,255,.32);color:#fff;}
   @media (prefers-reduced-motion:reduce){*{animation-duration:.01ms !important;transition-duration:.01ms !important;}}
-  body{margin:0;background:#000000;color:#f5f5f7;font-family:"SF Pro Display","SF Pro Text",-apple-system,BlinkMacSystemFont,"Inter","Helvetica Neue",sans-serif;font-size:17px;font-optical-sizing:auto;text-rendering:optimizeLegibility;box-sizing:border-box;line-height:1.47;letter-spacing:-.374px;-webkit-font-smoothing:antialiased;}
+  body{margin:0;background:#000000;color:#f5f5f7;font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","Helvetica Neue",Arial,sans-serif;font-size:17px;font-optical-sizing:auto;font-kerning:normal;text-rendering:optimizeLegibility;box-sizing:border-box;line-height:1.47;letter-spacing:-.022em;-webkit-font-smoothing:antialiased;}
   a{color:#2997ff;text-decoration:none;}
   a:hover{text-decoration:underline;}
-  :focus-visible{outline:2px solid #2997ff;outline-offset:3px;border-radius:6px;}
   input[type=range]{accent-color:#2997ff;}
   .unavailable-cta{pointer-events:none;user-select:none;-webkit-user-select:none;}
+  .site-nav-cta,.primary-cta,.pricing-cta-primary,.pricing-cta-free{background:var(--glass-blue) !important;border:1px solid rgba(255,255,255,.3) !important;box-shadow:var(--glass-blue-edge) !important;color:#fff !important;text-shadow:0 1px 2px rgba(0,38,82,.45);backdrop-filter:blur(16px) saturate(180%);-webkit-backdrop-filter:blur(16px) saturate(180%);transition:background .18s ease,box-shadow .18s ease,filter .18s ease,transform .18s ease;}
+  .secondary-cta{background:linear-gradient(180deg,rgba(255,255,255,.16) 0%,rgba(255,255,255,.07) 100%) !important;border:1px solid rgba(255,255,255,.34) !important;box-shadow:inset 0 1px 0 rgba(255,255,255,.4),0 8px 20px -12px rgba(0,0,0,.7),0 0 18px -6px rgba(127,212,255,.3) !important;backdrop-filter:blur(16px) saturate(140%);-webkit-backdrop-filter:blur(16px) saturate(140%);transition:background .18s ease,box-shadow .18s ease,transform .18s ease;}
+  .site-nav{box-shadow:inset 0 1px 0 rgba(255,255,255,.07),0 1px 8px rgba(0,0,0,.42) !important;}
+  .closing-lockup{display:flex;flex-direction:column;align-items:center;gap:11px;width:100%;max-width:560px;margin-top:6px;padding-top:4px;text-align:center;}
+  .closing-wordmark{margin:0;color:#f5f5f7;font-size:clamp(34px,4.8vw,44px);font-weight:600;line-height:1;letter-spacing:-.035em;}
+  .closing-rule{display:block;width:40px;height:1px;background:rgba(100,181,255,.62);}
+  @media (hover:hover){
+    .site-nav-cta:hover,.primary-cta:hover{background:var(--glass-blue-hover) !important;box-shadow:inset 0 1px 0 rgba(255,255,255,.62),inset 0 -1px 0 rgba(0,34,72,.3),0 12px 30px -8px rgba(0,130,255,.62),0 0 0 1px rgba(127,212,255,.28),0 0 28px -2px rgba(127,212,255,.34) !important;transform:translateY(-1px);text-decoration:none;}
+    .secondary-cta:hover{background:linear-gradient(180deg,rgba(255,255,255,.25) 0%,rgba(255,255,255,.12) 100%) !important;box-shadow:inset 0 1px 0 rgba(255,255,255,.48),0 10px 24px -12px rgba(0,0,0,.72),0 0 22px -4px rgba(127,212,255,.34) !important;transform:translateY(-1px);text-decoration:none;}
+  }
+  .site-nav-cta:active,.primary-cta:active,.secondary-cta:active{transform:translateY(0);}
+  .hero-title{color:#f5f5f7;text-shadow:0 2px 18px rgba(0,0,0,.48);}
+  @supports ((-webkit-background-clip:text) or (background-clip:text)){
+    .hero-title{background:none;-webkit-text-fill-color:#f5f5f7;color:#f5f5f7;filter:none;}
+  }
+  .hero-tagline{margin:2px 0 0;display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:0 14px;font-size:clamp(11px,1.25vw,14px);line-height:1.35;text-transform:uppercase;}
+  .hero-mark{flex:0 0 auto;font-size:1.32em;font-weight:650;letter-spacing:.12em;background:none;-webkit-text-fill-color:#8dccff;color:#8dccff;filter:none;}
+  .hero-rule{flex:0 0 auto;width:36px;height:1px;border-radius:980px;background:rgba(141,204,255,.52);}
+  .hero-expansion{font-weight:500;letter-spacing:.12em;color:rgba(255,255,255,.78);text-shadow:0 1px 8px rgba(0,0,0,.5);}
+  .section-heading h2{color:#f5f5f7;}
+  @supports ((-webkit-background-clip:text) or (background-clip:text)){
+    .section-heading h2{background:none !important;-webkit-text-fill-color:#f5f5f7 !important;color:#f5f5f7 !important;filter:none;}
+  }
+  .section-kicker{margin:0;display:inline-flex;align-items:center;justify-content:center;gap:9px;font-size:12px;font-weight:600;line-height:1.3;letter-spacing:.14em;text-transform:uppercase;color:#64b5ff;-webkit-text-fill-color:currentColor;filter:none;}
+  .section-kicker::before,.section-kicker::after{content:"";display:block;width:22px;height:1px;background:linear-gradient(90deg,transparent,rgba(100,181,255,.5));}
+  .section-kicker::after{transform:scaleX(-1);}
+  .value-badge{background:rgba(41,151,255,.14) !important;border:1px solid rgba(100,181,255,.34) !important;box-shadow:none !important;color:#8dccff !important;text-shadow:none;backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);}
+  .diagram-card,.readability-card,.input-card,.price-card,.source-panel{background:var(--surface-raised) !important;border-color:var(--surface-edge) !important;box-shadow:var(--surface-shadow) !important;}
+  .price-card:last-child{border-color:rgba(41,151,255,.45) !important;box-shadow:0 16px 38px -30px rgba(41,151,255,.55) !important;}
+  .stats-grid > div{position:relative;isolation:isolate;overflow:hidden;padding:20px 14px;border:1px solid var(--surface-edge);border-radius:16px;background:var(--surface-raised);box-shadow:var(--surface-shadow);transition:border-color .22s ease,box-shadow .22s ease,transform .22s ease;animation:stat-enter .55s cubic-bezier(.22,1,.36,1) both;}
+  .stats-grid > div::before{content:"";position:absolute;z-index:-1;inset:-45% -30%;pointer-events:none;background:radial-gradient(circle at 24% 32%,rgba(75,178,255,.11),transparent 38%);opacity:.55;transform:translate3d(-8%,0,0);}
+  .stats-grid > div:nth-child(2){animation-delay:.07s;}
+  .stats-grid > div:nth-child(3){animation-delay:.14s;}
+  .stats-grid > div:nth-child(4){animation-delay:.21s;}
+  .stat-value{position:relative;color:#f5f5f7;}
+  @supports ((-webkit-background-clip:text) or (background-clip:text)){
+    .stat-value{background:none;-webkit-text-fill-color:#f5f5f7;color:#f5f5f7;filter:none;}
+  }
+  .stats-grid > div > div:last-child{position:relative;}
+  @media (hover:hover){.stats-grid > div:hover{transform:translateY(-2px);border-color:rgba(127,212,255,.2);box-shadow:inset 0 1px 0 rgba(255,255,255,.13),0 18px 38px -24px rgba(41,151,255,.34);}}
+  .journey-grid > div{position:relative;isolation:isolate;overflow:hidden;padding:22px 20px;text-align:left;border:1px solid var(--surface-edge);border-radius:16px;background:var(--surface-raised);box-shadow:var(--surface-shadow);transition:border-color .22s ease,box-shadow .22s ease,transform .22s ease;animation:stat-enter .55s cubic-bezier(.22,1,.36,1) both;}
+  .journey-grid > div::before{content:"";position:absolute;z-index:-1;inset:-50% -28%;pointer-events:none;background:radial-gradient(circle at 20% 28%,rgba(75,178,255,.09),transparent 40%);opacity:.5;transform:translate3d(-8%,0,0);}
+  .journey-grid > div:nth-child(2){animation-delay:.08s;}
+  .journey-grid > div:nth-child(3){animation-delay:.16s;}
+  @supports ((-webkit-background-clip:text) or (background-clip:text)){
+    .journey-grid > div > div:first-child{background:none;-webkit-text-fill-color:#f5f5f7;color:#f5f5f7;filter:none;}
+  }
+  @media (hover:hover){.journey-grid > div:hover{transform:translateY(-2px);border-color:rgba(127,212,255,.2);box-shadow:inset 0 1px 0 rgba(255,255,255,.13),0 18px 38px -24px rgba(41,151,255,.3);}}
+  @keyframes stat-enter{from{opacity:0;transform:translateY(10px) scale(.985);}to{opacity:1;transform:translateY(0) scale(1);}}
+  @keyframes dome-swell{0%,100%{transform:scaleY(.94);}50%{transform:scaleY(1.06);}}
+  @keyframes hero-drift{0%{transform:scale(1.02) translate3d(0,0,0);}50%{transform:scale(1.06) translate3d(-1.2%,-0.8%,0);}100%{transform:scale(1.02) translate3d(0,0,0);}}
+  @keyframes cone-pulse{0%,100%{opacity:.07;transform:scaleY(.9);}50%{opacity:.2;transform:scaleY(1.08);}}
+  @keyframes radar-pulse{0%,100%{transform:translateY(0);opacity:.62;}50%{transform:translateY(4px);opacity:1;}}
+  @keyframes flow-pulse{0%,100%{transform:translate(0,0);opacity:.62;}50%{transform:translate(5px,-2px);opacity:1;}}
+  main > section:not(.hero-primary){padding-top:80px !important;padding-bottom:80px !important;}
+  main > section:nth-of-type(2){padding-top:56px !important;padding-bottom:56px !important;}
+  .section-inner{gap:24px !important;}
+  .section-heading{gap:10px !important;}
+  .diagram-card{gap:14px !important;}
+  .stats-grid,.journey-grid,.price-grid{gap:16px !important;}
+  .mobile-chart-hint{display:none;}
+  .diagram-viewport{width:100%;}
   @media (max-width:600px){
+    body{font-size:17px;line-height:1.47;letter-spacing:-.022em;}
+    .site-nav-inner{height:60px !important;padding:0 18px !important;gap:14px !important;}
+    .site-nav-brand{display:inline-flex;align-items:center;min-height:44px;font-size:14px !important;font-weight:600 !important;overflow:hidden;text-overflow:ellipsis;}
+    .site-nav-suffix{display:none;}
+    .site-nav-cta{height:44px !important;padding:0 15px !important;flex:none;font-size:13px !important;}
+    main > section{scroll-margin-top:60px;}
     .hero-primary{min-height:0 !important;align-items:flex-start !important;background-size:100% auto !important;background-position:center top !important;background-repeat:no-repeat !important;background-color:#02090e !important;}
     .hero-primary .hero-scrim{background:linear-gradient(to bottom,rgba(2,9,14,.08) 0%,rgba(2,9,14,.12) 20%,rgba(4,20,31,.78) 31%,rgba(4,15,23,.98) 41%,#020609 70%,#000 100%) !important;}
-    .hero-primary .hero-content{width:100% !important;max-width:600px !important;padding:clamp(180px,58vw,226px) 22px 52px !important;}
-    .hero-primary .hero-tagline{flex-wrap:wrap !important;white-space:normal !important;gap:2px 14px !important;font-size:13px !important;}
-    main > section:not(.hero-primary){padding-top:56px !important;padding-bottom:56px !important;}
-    main > section:nth-of-type(2){padding-top:44px !important;padding-bottom:44px !important;}
-      }
+    .hero-primary .hero-content{width:100% !important;max-width:600px !important;padding:clamp(180px,58vw,226px) 18px 60px !important;gap:15px !important;}
+    .hero-title{font-size:clamp(38px,10.8vw,44px) !important;line-height:1.05 !important;font-weight:600 !important;letter-spacing:-.032em !important;}
+    .hero-tagline{display:flex;flex-wrap:nowrap;justify-content:center;align-items:center;gap:6px;font-size:clamp(9.5px,2.55vw,10px) !important;line-height:1.35 !important;white-space:nowrap;}
+    .hero-mark{font-size:1.14em;letter-spacing:.08em;}
+    .hero-rule{width:12px;height:1px;}
+    .hero-expansion{letter-spacing:.035em;}
+    .hero-subtitle{font-size:19px !important;line-height:1.42 !important;letter-spacing:-.022em !important;}
+    .hero-note{font-size:13px !important;line-height:1.45 !important;max-width:38ch;}
+    .hero-actions{width:100%;flex-direction:column;align-items:center;gap:10px !important;}
+    .hero-actions a{width:100%;max-width:320px;min-height:50px !important;font-size:17px !important;font-weight:400;}
+    .site-nav-cta,.primary-cta,.pricing-cta-primary,.pricing-cta-free{box-shadow:0 0 0 1px rgba(150,220,255,.4),0 0 24px rgba(41,151,255,.48),0 11px 30px -14px rgba(0,126,239,1),inset 0 1px 0 rgba(255,255,255,.58) !important;}
+    .secondary-cta{box-shadow:0 0 0 1px rgba(255,255,255,.08),0 0 18px rgba(41,151,255,.18),0 10px 24px -16px rgba(41,151,255,.8),inset 0 1px 0 rgba(255,255,255,.08) !important;}
+    main > section:not(.hero-primary){padding-top:60px !important;padding-bottom:60px !important;}
+    main > section:nth-of-type(2){padding-top:48px !important;padding-bottom:48px !important;}
+    main > section#advance,main > section:last-of-type{padding-top:64px !important;padding-bottom:64px !important;}
+    .section-inner{padding-left:18px !important;padding-right:18px !important;gap:24px !important;}
+    .section-heading{gap:10px !important;}
+    .section-heading > p:first-child{font-size:12px !important;line-height:1.3 !important;letter-spacing:.12em !important;}
+    .section-heading > .section-kicker{letter-spacing:.15em !important;}
+    .section-heading h2{font-size:clamp(30px,8.7vw,34px) !important;line-height:1.1 !important;font-weight:600 !important;letter-spacing:-.028em !important;}
+    .section-heading > p:last-child{font-size:17px !important;line-height:1.45 !important;}
+    .stats-grid{grid-template-columns:repeat(2,minmax(0,1fr)) !important;gap:14px !important;padding-left:18px !important;padding-right:18px !important;}
+    .stats-grid > div{min-height:132px;padding:20px 10px;display:flex;flex-direction:column;align-items:center;justify-content:center;}
+    .stat-value{font-size:34px !important;font-variant-numeric:tabular-nums;}
+    .diagram-card{padding:22px 18px 20px !important;border-radius:18px !important;gap:16px !important;}
+    .diagram-card figcaption{font-size:15px !important;line-height:1.35 !important;font-weight:600 !important;}
+    .diagram-card > p{font-size:15px !important;line-height:1.5 !important;}
+    .mobile-chart-hint{display:block;margin:-4px 0 -2px;font-size:11px;line-height:1.3;letter-spacing:.04em;text-transform:uppercase;color:#8e8e93;text-align:left;}
+    .diagram-viewport{overflow-x:auto;overscroll-behavior-inline:contain;-webkit-overflow-scrolling:touch;scrollbar-width:thin;scrollbar-color:#48484a transparent;padding-bottom:8px;}
+    .diagram-viewport > svg{display:block;min-width:520px;}
+    .readability-card{padding:18px 16px !important;}
+    .readability-head{align-items:flex-start !important;flex-direction:column;gap:2px !important;text-align:left;}
+    .readability-grid{gap:4px !important;}
+    .readability-grid > span{height:24px !important;}
+    .eddy-metrics{grid-template-columns:1fr !important;gap:16px !important;}
+    .eddy-metrics > div{padding-top:16px;border-top:1px solid rgba(255,255,255,.08);}
+    .eddy-metrics > div:first-child{padding-top:0;border-top:0;}
+    .eddy-metrics > div > div:last-child{font-size:14px !important;line-height:1.45 !important;}
+    .input-grid{grid-template-columns:1fr !important;gap:12px !important;}
+    .journey-grid{grid-template-columns:1fr !important;gap:12px !important;}
+    .journey-grid > div{padding:20px 18px;text-align:left;background:var(--surface-raised);border:1px solid var(--surface-edge);border-radius:16px;box-shadow:var(--surface-shadow);}
+    .journey-grid > div > div{font-size:22px !important;}
+    .journey-grid > div > p{font-size:15px !important;line-height:1.5 !important;}
+    .input-card{padding:22px 20px !important;border-radius:18px !important;}
+    .input-card > h3{font-size:20px !important;}
+    .input-card > p:not(:last-child){font-size:15px !important;line-height:1.5 !important;}
+    .feature-list,.truth-list{gap:24px !important;}
+    .feature-list > li,.truth-list > li{flex:1 1 100% !important;max-width:none !important;text-align:left;padding-bottom:24px;border-bottom:1px solid rgba(255,255,255,.08);}
+    .feature-list > li:last-child,.truth-list > li:last-child{padding-bottom:0;border-bottom:0;}
+    .feature-list > li svg{margin-left:0 !important;}
+    .feature-list > li b,.truth-list > li b{font-size:20px !important;line-height:1.25 !important;}
+    .feature-list > li span,.truth-list > li span{font-size:15px !important;line-height:1.5 !important;}
+    .source-row{display:grid !important;grid-template-columns:20px minmax(0,1fr);align-items:start !important;column-gap:12px !important;row-gap:2px !important;padding:14px 16px !important;}
+    .source-row > svg{grid-row:1 / span 2;}
+    .source-row > span{grid-column:2;margin-left:0 !important;font-size:14px !important;line-height:1.35 !important;text-align:left !important;}
+    .price-grid{grid-template-columns:1fr !important;gap:14px !important;}
+    .price-card{padding:26px 20px 22px !important;border-radius:18px !important;}
+    .price-card > div:first-of-type{font-size:15px !important;}
+    .price-card > div:nth-of-type(3){font-size:15px !important;line-height:1.45 !important;min-height:0 !important;}
+    .price-card small{font-size:.45em !important;color:#a1a1a6 !important;}
+    .price-card > ul{font-size:15px !important;line-height:1.5 !important;gap:10px !important;}
+    .unavailable-cta{min-height:44px !important;}
+    .closing-lockup{gap:9px;margin-top:4px;padding:2px 12px 0;}
+    .closing-wordmark{font-size:34px;letter-spacing:-.032em;}
+    .closing-rule{width:38px;}
+    .closing-kicker{max-width:30ch;font-size:12px !important;line-height:1.5 !important;letter-spacing:.045em !important;text-wrap:balance;}
+    .site-footer{padding:40px 0 !important;}
+    .site-footer-inner{padding:0 18px !important;gap:14px !important;}
+    .footer-links{gap:6px 18px !important;}
+    .footer-links a{display:inline-flex;align-items:center;min-height:44px;font-size:13px !important;}
+    .site-footer p{max-width:42ch;font-size:13px !important;line-height:1.5;}
+  }
+  @media (max-width:350px){
+    .site-nav-inner{padding:0 14px !important;gap:10px !important;}
+    .site-nav-brand{font-size:12px !important;}
+    .site-nav-cta{padding:0 11px !important;font-size:11px !important;}
+    .hero-primary .hero-content{padding-left:16px !important;padding-right:16px !important;}
+    .section-inner,.stats-grid{padding-left:16px !important;padding-right:16px !important;}
+    .hero-title{font-size:34px !important;}
+    .stat-value{font-size:31px !important;}
+  }
+  @media (pointer:coarse){
+    .site-nav-inner{height:60px !important;}
+    .site-nav-brand{display:inline-flex;align-items:center;min-height:44px;}
+    .site-nav-cta{height:44px !important;}
+    main > section{scroll-margin-top:60px;}
+  }
 </style>
 </helmet>
 
 <div style="width:100%;text-align:center;">
 
-  <nav aria-label="Primary" style="position:sticky;top:0;z-index:50;background:linear-gradient(180deg,rgba(34,34,38,.82) 0%,rgba(10,10,12,.72) 100%);backdrop-filter:saturate(200%) blur(24px);-webkit-backdrop-filter:saturate(200%) blur(24px);border-bottom:1px solid rgba(255,255,255,.09);box-shadow:inset 0 1px 0 rgba(255,255,255,.11),0 1px 12px rgba(0,0,0,.6);">
-    <div style="max-width:1020px;margin:0 auto;padding:0 22px;display:flex;align-items:center;gap:24px;height:48px;">
-      <a href="/" aria-label="BlueWater Marlin home" style="font-size:14px;font-weight:600;letter-spacing:-.01em;color:#f5f5f7;white-space:nowrap;">BlueWater Marlin - B.I.L.L.</a>
+  <nav class="site-nav" aria-label="Primary" style="position:sticky;top:0;z-index:50;background:linear-gradient(180deg,rgba(34,34,38,.82) 0%,rgba(10,10,12,.72) 100%);backdrop-filter:saturate(200%) blur(24px);-webkit-backdrop-filter:saturate(200%) blur(24px);border-bottom:1px solid rgba(255,255,255,.09);box-shadow:inset 0 1px 0 rgba(255,255,255,.11),0 1px 12px rgba(0,0,0,.6);">
+    <div class="site-nav-inner" style="max-width:1020px;margin:0 auto;padding:0 22px;display:flex;align-items:center;gap:24px;height:48px;">
+      <a class="site-nav-brand" href="/" aria-label="BlueWater Marlin — B.I.L.L. home" style="font-size:14px;font-weight:600;letter-spacing:-.01em;color:#f5f5f7;white-space:nowrap;">BlueWater Marlin <span class="site-nav-suffix">— B.I.L.L.</span></a>
       <div style="display:flex;align-items:center;gap:22px;margin-left:auto;">
         
         
         
         
-        <a href="#pricing" style="display:inline-flex;align-items:center;height:30px;padding:0 14px;border-radius:980px;background:linear-gradient(180deg,rgba(132,218,255,.46) 0%,rgba(48,158,255,.34) 46%,rgba(0,104,198,.40) 100%);backdrop-filter:blur(16px) saturate(180%);-webkit-backdrop-filter:blur(16px) saturate(180%);border:1px solid rgba(255,255,255,.3);box-shadow:inset 0 1px 0 rgba(255,255,255,.5),inset 0 -1px 0 rgba(0,34,72,.34),inset 0 -14px 18px -12px rgba(0,44,92,.4),0 2px 6px -3px rgba(0,113,227,.5),0 0 0 1px rgba(127,212,255,.16),0 0 20px -3px rgba(127,212,255,.24);color:#fff;text-shadow:0 1px 2px rgba(0,38,82,.45);transition:background .18s ease,box-shadow .18s ease,transform .18s ease;font-size:12px;font-weight:600;letter-spacing:-.01em;" style-hover="background:linear-gradient(180deg,rgba(150,212,255,.56) 0%,rgba(61,166,255,.44) 46%,rgba(0,116,225,.48) 100%);box-shadow:inset 0 1px 0 rgba(255,255,255,.6),inset 0 -1px 0 rgba(0,34,72,.3),0 12px 30px -8px rgba(0,130,255,.62),0 0 0 1px rgba(127,212,255,.26),0 0 26px -2px rgba(127,212,255,.3);transform:translateY(-1px);text-decoration:none;" style-active="transform:translateY(0);box-shadow:inset 0 2px 6px rgba(0,34,72,.45),0 4px 12px -6px rgba(0,113,227,.5);text-decoration:none;">Coming soon</a>
+        <a class="site-nav-cta" href="#pricing" style="display:inline-flex;align-items:center;height:30px;padding:0 14px;border-radius:980px;background:linear-gradient(180deg,#3ba3ff 0%,#0071e3 52%,#0060c4 100%);box-shadow:inset 0 1px 0 rgba(255,255,255,.34),0 2px 10px -2px rgba(0,113,227,.55);color:#fff;font-size:12px;font-weight:600;letter-spacing:-.01em;" style-hover="filter:brightness(1.08);text-decoration:none;">Coming soon</a>
       </div>
     </div>
   </nav>
 
   <main id="main">
 
-  <section class="hero-primary" style="position:relative;min-height:clamp(520px,78vh,820px);display:flex;align-items:flex-end;justify-content:center;background-image:url('assets/hero.jpg');background-size:cover;background-position:58% center;background-color:#04141f;overflow:hidden;">
+  <section class="hero-primary" style="position:relative;min-height:clamp(520px,78vh,820px);display:flex;align-items:flex-end;justify-content:center;background-color:#04141f;overflow:hidden;">
+    <div class="hero-photo" aria-hidden="true" style="position:absolute;inset:-2%;background-image:url('assets/hero.jpg');background-size:cover;background-position:58% center;animation:hero-drift 38s ease-in-out infinite;will-change:transform;"></div>
     <div class="hero-scrim" style="position:absolute;inset:0;pointer-events:none;background:linear-gradient(to bottom,rgba(4,20,31,.34) 0%,rgba(4,20,31,0) 30%,rgba(4,20,31,.62) 68%,rgba(4,20,31,.92) 100%);"></div>
-    <div class="hero-content" style="position:relative;z-index:2;padding:0 22px 64px;display:flex;flex-direction:column;align-items:center;gap:16px;max-width:1040px;">
-      <h1 style="font-size:clamp(42px,7vw,62px);line-height:1.04;letter-spacing:-.03em;font-weight:600;margin:0;background:linear-gradient(178deg,#ffffff 0%,#f4f4f7 26%,#cdcdd4 54%,#9c9ca4 84%,#bcbcc4 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:#f5f5f7;filter:drop-shadow(0 1px 0 rgba(0,0,0,.72)) drop-shadow(0 -1px 0 rgba(255,255,255,.16)) drop-shadow(0 12px 22px rgba(0,0,0,.55)) drop-shadow(0 2px 26px rgba(0,0,0,.45));text-wrap:balance;">Do you fish B.I.L.L.?</h1>
-      <p class="hero-tagline" style="margin:2px 0 0;display:flex;flex-wrap:nowrap;align-items:center;justify-content:center;gap:0 14px;white-space:nowrap;font-size:clamp(10px,1.95vw,20px);text-transform:uppercase;">
-        
-        <span style="font-size:1.4em;font-weight:700;letter-spacing:.14em;flex:0 0 auto;background:linear-gradient(180deg,#ffffff 0%,#d6f1ff 30%,#7fd4ff 62%,#2b9fe0 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;filter:drop-shadow(0 1px 0 rgba(0,20,38,.7)) drop-shadow(0 -1px 0 rgba(255,255,255,.2)) drop-shadow(0 0 26px rgba(127,212,255,.6));">B.I.L.L.</span><span aria-hidden="true" style="flex:0 0 auto;width:40px;height:2px;border-radius:980px;background:linear-gradient(90deg,rgba(127,212,255,.08) 0%,rgba(191,233,255,.58) 48%,rgba(127,212,255,.46) 62%,rgba(127,212,255,.08) 100%);box-shadow:0 0 6px rgba(127,212,255,.3);"></span>
-        <span style="font-weight:400;letter-spacing:.14em;color:rgba(255,255,255,.84);text-shadow:0 1px 12px rgba(0,20,38,.7);">Breaks. Isotherms. Layers. Location.</span>
+    <div class="hero-content" style="position:relative;z-index:2;padding:0 22px 64px;display:flex;flex-direction:column;align-items:center;gap:16px;max-width:780px;">
+      <h1 class="hero-title" style="font-size:clamp(42px,7vw,62px);line-height:1.04;letter-spacing:-.03em;font-weight:600;margin:0;text-wrap:balance;">Do you fish B.I.L.L.?</h1>
+      <p class="hero-tagline">
+        <span class="hero-mark">B.I.L.L.</span>
+        <span class="hero-rule" aria-hidden="true"></span>
+        <span class="hero-expansion">Breaks. Isotherms. Layers. Location.</span>
       </p>
-      <p style="margin:0;font-size:clamp(17px,2.1vw,21px);line-height:1.4;color:rgba(255,255,255,.92);max-width:40ch;text-shadow:0 1px 14px rgba(0,0,0,.45);">The satellite chart that carries the break forward to the hour you arrive.</p>
-      <div style="display:flex;flex-wrap:wrap;gap:14px;justify-content:center;margin-top:6px;">
-        <a href="#pricing" style="display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:0 24px;border-radius:980px;background:linear-gradient(180deg,rgba(132,218,255,.46) 0%,rgba(48,158,255,.34) 46%,rgba(0,104,198,.40) 100%);backdrop-filter:blur(16px) saturate(180%);-webkit-backdrop-filter:blur(16px) saturate(180%);border:1px solid rgba(255,255,255,.3);box-shadow:inset 0 1px 0 rgba(255,255,255,.5),inset 0 -1px 0 rgba(0,34,72,.34),inset 0 -14px 18px -12px rgba(0,44,92,.4),0 6px 18px -8px rgba(0,113,227,.5),0 0 0 1px rgba(127,212,255,.16),0 0 20px -3px rgba(127,212,255,.24);color:#fff;text-shadow:0 1px 2px rgba(0,38,82,.45);transition:background .18s ease,box-shadow .18s ease,transform .18s ease;font-size:17px;" style-hover="background:linear-gradient(180deg,rgba(150,212,255,.56) 0%,rgba(61,166,255,.44) 46%,rgba(0,116,225,.48) 100%);box-shadow:inset 0 1px 0 rgba(255,255,255,.6),inset 0 -1px 0 rgba(0,34,72,.3),0 12px 30px -8px rgba(0,130,255,.62),0 0 0 1px rgba(127,212,255,.26),0 0 26px -2px rgba(127,212,255,.3);transform:translateY(-1px);text-decoration:none;" style-active="transform:translateY(0);box-shadow:inset 0 2px 6px rgba(0,34,72,.45),0 4px 12px -6px rgba(0,113,227,.5);text-decoration:none;">Coming to the App Store</a>
-        <a href="#forward" style="display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:0 24px;border-radius:980px;background:linear-gradient(180deg,rgba(255,255,255,.16) 0%,rgba(255,255,255,.07) 100%);backdrop-filter:blur(16px) saturate(140%);-webkit-backdrop-filter:blur(16px) saturate(140%);color:#fff;border:1px solid rgba(255,255,255,.34);box-shadow:inset 0 1px 0 rgba(255,255,255,.4),0 6px 18px -8px rgba(0,0,0,.5);font-size:17px;transition:background .18s ease,box-shadow .18s ease,transform .18s ease;" style-hover="background:linear-gradient(180deg,rgba(255,255,255,.26) 0%,rgba(255,255,255,.13) 100%);transform:translateY(-1px);text-decoration:none;" style-active="transform:translateY(0);text-decoration:none;">See how it works</a>
+      <p class="hero-subtitle" style="margin:0;font-size:clamp(17px,2.1vw,21px);line-height:1.4;color:rgba(255,255,255,.92);max-width:40ch;text-shadow:0 1px 14px rgba(0,0,0,.45);">The satellite chart that carries the break forward to the hour you arrive.</p>
+      <div class="hero-actions" style="display:flex;flex-wrap:wrap;gap:14px;justify-content:center;margin-top:6px;">
+        <a class="primary-cta" href="#pricing" style="display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:0 24px;border-radius:980px;background:linear-gradient(180deg,#3ba3ff 0%,#0071e3 52%,#0060c4 100%);box-shadow:inset 0 1px 0 rgba(255,255,255,.34),0 2px 10px -2px rgba(0,113,227,.55);color:#fff;font-size:17px;" style-hover="filter:brightness(1.08);text-decoration:none;">Coming to the App Store</a>
+        <a class="secondary-cta" href="#forward" style="display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:0 24px;border-radius:980px;background:transparent;color:#fff;border:1px solid rgba(255,255,255,.7);font-size:17px;" style-hover="background:rgba(255,255,255,.12);text-decoration:none;">See how it works</a>
       </div>
-      <p style="margin:4px 0 0;font-size:12px;color:rgba(255,255,255,.66);letter-spacing:-.01em;">At launch, SST and tap-to-read are free. Planned Pro pricing is $32.99 a month or $99.00 a year. Final App Store price may vary.</p>
+      <p class="hero-note" style="margin:4px 0 0;font-size:12px;color:rgba(255,255,255,.66);letter-spacing:-.01em;">At launch, SST and tap-to-read are free. Pro pricing is $32.99 a month or $99.00 a year. Final App Store price may vary.</p>
     </div>
   </section>
 
 
   <section style="padding:72px 0;background:linear-gradient(180deg,#0d0d0f 0%,#07070a 100%);">
-    <div style="max-width:940px;margin:0 auto;padding:0 22px;display:grid;grid-template-columns:repeat(auto-fit,minmax(148px,1fr));gap:26px;">
-      <div><div style="font-size:40px;font-weight:600;line-height:1.02;letter-spacing:-.026em;">1&nbsp;km</div><div style="font-size:13px;color:#a1a1a6;letter-spacing:-.012em;margin-top:6px;text-wrap:balance;">MUR analysis grid (0.6 mi)</div></div>
-      <div><div style="font-size:40px;font-weight:600;line-height:1.02;letter-spacing:-.026em;">48&nbsp;hours</div><div style="font-size:13px;color:#a1a1a6;letter-spacing:-.012em;margin-top:6px;text-wrap:balance;">Maximum projection window</div></div>
-      <div><div style="font-size:40px;font-weight:600;line-height:1.02;letter-spacing:-.026em;">Zero</div><div style="font-size:13px;color:#a1a1a6;letter-spacing:-.012em;margin-top:6px;text-wrap:balance;">Accounts, trackers, ads</div></div>
-      <div><div style="font-size:40px;font-weight:600;line-height:1.02;letter-spacing:-.026em;">Cached</div><div style="font-size:13px;color:#a1a1a6;letter-spacing:-.012em;margin-top:6px;text-wrap:balance;">Previously loaded areas offshore</div></div>
+    <div class="stats-grid" style="max-width:940px;margin:0 auto;padding:0 22px;display:grid;grid-template-columns:repeat(auto-fit,minmax(148px,1fr));gap:26px;">
+      <div><div class="stat-value" style="font-size:40px;font-weight:600;line-height:1.02;letter-spacing:-.026em;">1&nbsp;km</div><div style="font-size:13px;color:#a1a1a6;letter-spacing:-.012em;margin-top:6px;text-wrap:balance;">MUR analysis grid (0.6 mi)</div></div>
+      <div><div class="stat-value" style="font-size:40px;font-weight:600;line-height:1.02;letter-spacing:-.026em;">48&nbsp;hours</div><div style="font-size:13px;color:#a1a1a6;letter-spacing:-.012em;margin-top:6px;text-wrap:balance;">Maximum projection window</div></div>
+      <div><div class="stat-value" style="font-size:40px;font-weight:600;line-height:1.02;letter-spacing:-.026em;">Zero</div><div style="font-size:13px;color:#a1a1a6;letter-spacing:-.012em;margin-top:6px;text-wrap:balance;">Accounts, trackers, ads</div></div>
+      <div><div class="stat-value" style="font-size:40px;font-weight:600;line-height:1.02;letter-spacing:-.026em;">Cached</div><div style="font-size:13px;color:#a1a1a6;letter-spacing:-.012em;margin-top:6px;text-wrap:balance;">Previously loaded areas offshore</div></div>
     </div>
   </section>
 
   <section id="forward" style="padding:88px 0;">
-    <div style="max-width:940px;margin:0 auto;padding:0 22px;display:flex;flex-direction:column;align-items:center;gap:28px;">
-      <div style="max-width:560px;display:flex;flex-direction:column;gap:12px;align-items:center;">
-        
-        <h2 style="background:linear-gradient(178deg,#ffffff 0%,#f4f4f7 26%,#cdcdd4 54%,#9c9ca4 84%,#bcbcc4 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:#f5f5f7;filter:drop-shadow(0 1px 0 rgba(0,0,0,.72)) drop-shadow(0 -1px 0 rgba(255,255,255,.16)) drop-shadow(0 12px 22px rgba(0,0,0,.55));margin:0;font-size:clamp(30px,4.6vw,42px);line-height:1.08;letter-spacing:-.024em;font-weight:600;text-wrap:balance;">Project the break&nbsp;</h2>
+    <div class="section-inner" style="max-width:940px;margin:0 auto;padding:0 22px;display:flex;flex-direction:column;align-items:center;gap:28px;">
+      <div class="section-heading" style="max-width:560px;display:flex;flex-direction:column;gap:12px;align-items:center;">
+        <h2 style="background:linear-gradient(178deg,#ffffff 12%,#d6d6db 62%,#a8a8ae 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:#f5f5f7;margin:0;font-size:clamp(30px,4.6vw,42px);line-height:1.08;letter-spacing:-.024em;font-weight:600;text-wrap:balance;">Project the break</h2>
         <p style="margin:0;font-size:clamp(17px,2.1vw,20px);line-height:1.4;color:#a1a1a6;max-width:40ch;">An edge walks ten miles overnight on two knots of set with fifteen behind it. Bill carries it forward to your arrival hour.</p>
       </div>
-      <figure style="border:1px solid rgba(255,255,255,.085);box-shadow:inset 0 1px 0 rgba(255,255,255,.13),inset 0 -1px 0 rgba(0,0,0,.55),0 8px 24px -8px rgba(0,0,0,.7);margin:0;width:100%;max-width:760px;background:linear-gradient(180deg,#27272b 0%,#1a1a1c 52%,#131315 100%);border-radius:18px;padding:28px 26px 22px;display:flex;flex-direction:column;gap:16px;">
+      <figure class="diagram-card" style="border:1px solid rgba(255,255,255,.085);box-shadow:inset 0 1px 0 rgba(255,255,255,.13),inset 0 -1px 0 rgba(0,0,0,.55),0 8px 24px -8px rgba(0,0,0,.7);margin:0;width:100%;max-width:760px;background:linear-gradient(180deg,#27272b 0%,#1a1a1c 52%,#131315 100%);border-radius:18px;padding:28px 26px 22px;display:flex;flex-direction:column;gap:16px;">
         <figcaption style="font-size:14px;font-weight:600;letter-spacing:-.01em;text-align:left;">How far the edge walks while the chart holds still</figcaption>
+        <p class="mobile-chart-hint" aria-hidden="true">Swipe chart to inspect details</p>
+        <div class="diagram-viewport" role="region" aria-label="Scrollable edge displacement chart" tabindex="0">
         <svg viewBox="0 0 700 300" role="img" aria-label="Edge displacement against time: a retrospective chart implies no movement, while the projection carries the edge 10.4 nautical miles by arrival" style="width:100%;height:auto;">
           <g font-family="Inter, sans-serif" font-size="18" font-weight="600">
             <rect x="130" y="14" width="24" height="4" rx="2" fill="#8e8e93"></rect>
@@ -123,7 +276,7 @@
             <text x="118" y="202">0</text>
           </g>
 
-          <path d="M130 196 C 320 191, 500 148, 620 45 L 620 97 C 500 172, 320 195, 130 196 Z" fill="#2997ff" opacity=".12"></path>
+          <path d="M130 196 C 320 191, 500 148, 620 45 L 620 97 C 500 172, 320 195, 130 196 Z" fill="#2997ff" opacity=".12" style="transform-box:view-box;transform-origin:130px 196px;animation:cone-pulse 14s ease-in-out infinite;will-change:transform,opacity;"></path>
           <path d="M130 196 C 320 193, 500 160, 620 71" fill="none" stroke="#2997ff" stroke-width="2.6"></path>
           <path d="M130 196 L 620 196" stroke="#8e8e93" stroke-width="2.6" stroke-dasharray="7 6"></path>
           <circle cx="130" cy="196" r="4.5" fill="#f5f5f7"></circle>
@@ -160,12 +313,13 @@
             <text x="620" y="264" fill="#2997ff">YOU ARRIVE</text>
           </g>
         </svg>
+        </div>
         <p style="margin:0;font-size:12px;line-height:1.4;font-weight:600;letter-spacing:.02em;color:#8e8e93;text-align:left;max-width:60ch;">Local time — the 05:00 pass is 09:00Z. The shaded band widens with the carry.</p>
         <p style="margin:0;font-size:13px;line-height:1.42;color:#a1a1a6;text-align:left;max-width:64ch;">Both lines describe the same illustrated edge over the same twenty-six hours. The dashed line treats the last observation as stationary, as a retrospective-only view must. A front does not travel at the full speed of the current along it, but at a fraction of it — and that fraction grows as the wind fills in overnight. Barely half a mile in the first six hours, most of the distance after dark, ten miles by the time you are on the numbers: four tenths of a knot averaged across the night, and well over that by dawn. The money goes down at 21:00, when the picture is already ten hours old.</p>
       </figure>
 
 
-      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:24px;width:100%;">
+      <div class="journey-grid" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:24px;width:100%;">
         <div><div style="font-size:26px;font-weight:600;letter-spacing:-.02em;line-height:1.1;">Seen.</div><p style="margin:8px 0 0;font-size:15px;color:#a1a1a6;letter-spacing:-.012em;">A clean pass can resolve the edge. That observation is the starting point.</p></div>
         <div><div style="font-size:26px;font-weight:600;letter-spacing:-.02em;line-height:1.1;">Moved.</div><p style="margin:8px 0 0;font-size:15px;color:#a1a1a6;letter-spacing:-.012em;">Current and wind walk it overnight. By the time you're on the numbers, the picture is history.</p></div>
         <div><div style="font-size:26px;font-weight:600;letter-spacing:-.02em;line-height:1.1;">Found again.</div><p style="margin:8px 0 0;font-size:15px;color:#a1a1a6;letter-spacing:-.012em;">We carry it forward to your arrival time, inside a cone that widens honestly as the wind builds.</p></div>
@@ -174,15 +328,16 @@
   </section>
 
   <section id="gaps" style="padding:88px 0;background:linear-gradient(180deg,#0d0d0f 0%,#07070a 100%);">
-    <div style="max-width:940px;margin:0 auto;padding:0 22px;display:flex;flex-direction:column;align-items:center;gap:28px;">
-      <div style="max-width:600px;display:flex;flex-direction:column;gap:12px;align-items:center;">
-        
-        <h2 style="background:linear-gradient(178deg,#ffffff 0%,#f4f4f7 26%,#cdcdd4 54%,#9c9ca4 84%,#bcbcc4 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:#f5f5f7;filter:drop-shadow(0 1px 0 rgba(0,0,0,.72)) drop-shadow(0 -1px 0 rgba(255,255,255,.16)) drop-shadow(0 12px 22px rgba(0,0,0,.55));margin:0;font-size:clamp(30px,4.6vw,42px);line-height:1.08;letter-spacing:-.024em;font-weight:600;text-wrap:balance;">What cloud cover changes.</h2>
+    <div class="section-inner" style="max-width:940px;margin:0 auto;padding:0 22px;display:flex;flex-direction:column;align-items:center;gap:28px;">
+      <div class="section-heading" style="max-width:600px;display:flex;flex-direction:column;gap:12px;align-items:center;">
+        <h2 style="background:linear-gradient(178deg,#ffffff 12%,#d6d6db 62%,#a8a8ae 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:#f5f5f7;margin:0;font-size:clamp(30px,4.6vw,42px);line-height:1.08;letter-spacing:-.024em;font-weight:600;text-wrap:balance;">What cloud cover changes.</h2>
         <p style="margin:0;font-size:clamp(17px,2.1vw,20px);line-height:1.4;color:#a1a1a6;max-width:44ch;">Infrared temperature observations can be blocked by cloud. Blended radar-altimetry sea-height data may still provide eddy context, while a projection continues only where current and wind inputs are available.</p>
       </div>
 
-      <figure style="border:1px solid rgba(255,255,255,.085);box-shadow:inset 0 1px 0 rgba(255,255,255,.13),inset 0 -1px 0 rgba(0,0,0,.55),0 8px 24px -8px rgba(0,0,0,.7);margin:0;width:100%;max-width:760px;background:linear-gradient(180deg,#27272b 0%,#1a1a1c 52%,#131315 100%);border-radius:18px;padding:28px 26px 22px;display:flex;flex-direction:column;gap:16px;">
+      <figure class="diagram-card" style="border:1px solid rgba(255,255,255,.085);box-shadow:inset 0 1px 0 rgba(255,255,255,.13),inset 0 -1px 0 rgba(0,0,0,.55),0 8px 24px -8px rgba(0,0,0,.7);margin:0;width:100%;max-width:760px;background:linear-gradient(180deg,#27272b 0%,#1a1a1c 52%,#131315 100%);border-radius:18px;padding:28px 26px 22px;display:flex;flex-direction:column;gap:16px;">
         <figcaption style="font-size:14px;font-weight:600;letter-spacing:-.01em;text-align:left;">Two wavelengths, one cloud</figcaption>
+        <p class="mobile-chart-hint" aria-hidden="true">Swipe chart to inspect details</p>
+        <div class="diagram-viewport" role="region" aria-label="Scrollable cloud and wavelength diagram" tabindex="0">
         <svg viewBox="0 0 700 232" role="img" aria-label="Diagram: infrared blocked by cloud, radar altimetry passing through to measure sea height" style="width:100%;height:auto;">
           <text x="150" y="26" text-anchor="middle" font-family="Inter, sans-serif" font-size="18" font-weight="600" letter-spacing="0.3" fill="#a1a1a6">INFRARED</text>
           <text x="530" y="26" text-anchor="middle" font-family="Inter, sans-serif" font-size="18" font-weight="600" letter-spacing="0.3" fill="#2997ff">RADAR</text>
@@ -194,20 +349,23 @@
           <path d="M104 100 h32 M164 100 h32" stroke="#8e8e93" stroke-width="2"></path>
           <path d="M110 108 l20 16 M130 108 l-20 16 M170 108 l20 16 M190 108 l-20 16" stroke="#8e8e93" stroke-width="1.6"></path>
 
-          <g stroke="#2997ff" stroke-width="2">
-            <line x1="500" y1="42" x2="500" y2="168"></line>
-            <line x1="560" y1="42" x2="560" y2="168"></line>
+          <g style="animation:radar-pulse 14s ease-in-out infinite;will-change:transform,opacity;">
+            <g stroke="#2997ff" stroke-width="2">
+              <line x1="500" y1="42" x2="500" y2="168"></line>
+              <line x1="560" y1="42" x2="560" y2="168"></line>
+            </g>
+            <path d="M500 176 l-5 -11 l10 0 Z M560 176 l-5 -11 l10 0 Z" fill="#2997ff"></path>
           </g>
-          <path d="M500 176 l-5 -11 l10 0 Z M560 176 l-5 -11 l10 0 Z" fill="#2997ff"></path>
 
           <path d="M64 118 c 22 -30, 76 -30, 100 0 c 34 -14, 66 10, 56 30 l -180 0 c -14 -20, 4 -38, 24 -30 Z" fill="#48484a" opacity=".85"></path>
           <path d="M444 118 c 22 -30, 76 -30, 100 0 c 34 -14, 66 10, 56 30 l -180 0 c -14 -20, 4 -38, 24 -30 Z" fill="#48484a" opacity=".85"></path>
 
           <line x1="24" y1="192" x2="336" y2="192" stroke="#8e8e93" stroke-width="2" stroke-dasharray="7 6"></line>
           <line x1="364" y1="192" x2="676" y2="192" stroke="#2997ff" stroke-width="2.4"></line>
-          <path d="M364 192 c 60 0, 76 -18, 130 -18 c 54 0, 70 18, 182 18" fill="none" stroke="#2997ff" stroke-width="1.4" opacity=".55"></path>
+          <path d="M364 192 c 60 0, 76 -18, 130 -18 c 54 0, 70 18, 182 18" fill="none" stroke="#2997ff" stroke-width="1.4" opacity=".55" style="transform-box:view-box;transform-origin:0px 192px;animation:dome-swell 14s ease-in-out infinite;will-change:transform;"></path>
 
         </svg>
+        </div>
         <p style="margin:0;font-size:12px;line-height:1.4;font-weight:600;letter-spacing:.02em;color:#8e8e93;text-align:left;max-width:60ch;">Left: temperature unavailable through cloud. Right: sea-height-derived eddy context may remain available.</p>
         <p style="margin:0;font-size:13px;line-height:1.42;color:#a1a1a6;text-align:left;max-width:64ch;">B.I.L.L.'s eddy context comes from blended altimetry rather than one infrared image. It can add context during cloud cover, but it does not replace a missing temperature observation.</p>
       </figure>
@@ -217,18 +375,17 @@
 
   <sc-if value="{{ showReadability }}" hint-placeholder-val="{{ true }}">
   <section id="readable" style="padding:88px 0;">
-    <div style="max-width:940px;margin:0 auto;padding:0 22px;display:flex;flex-direction:column;align-items:center;gap:28px;">
-      <div style="max-width:600px;display:flex;flex-direction:column;gap:12px;align-items:center;">
-        <p style="margin:0;font-size:12px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:#2997ff;background:linear-gradient(180deg,#a8dcff 0%,#2997ff 58%,#0a6fd0 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;filter:drop-shadow(0 1px 0 rgba(0,0,0,.55)) drop-shadow(0 0 16px rgba(41,151,255,.4));display:inline-flex;align-items:center;gap:10px;"><br></p>
-        <h2 style="background:linear-gradient(178deg,#ffffff 0%,#f4f4f7 26%,#cdcdd4 54%,#9c9ca4 84%,#bcbcc4 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:#f5f5f7;filter:drop-shadow(0 1px 0 rgba(0,0,0,.72)) drop-shadow(0 -1px 0 rgba(255,255,255,.16)) drop-shadow(0 12px 22px rgba(0,0,0,.55));margin:0;font-size:clamp(30px,4.6vw,42px);line-height:1.08;letter-spacing:-.024em;font-weight:600;text-wrap:balance;">{{ readHeading }}</h2>
+    <div class="section-inner" style="max-width:940px;margin:0 auto;padding:0 22px;display:flex;flex-direction:column;align-items:center;gap:28px;">
+      <div class="section-heading" style="max-width:600px;display:flex;flex-direction:column;gap:12px;align-items:center;">
+        <h2 style="background:linear-gradient(178deg,#ffffff 12%,#d6d6db 62%,#a8a8ae 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:#f5f5f7;margin:0;font-size:clamp(30px,4.6vw,42px);line-height:1.08;letter-spacing:-.024em;font-weight:600;text-wrap:balance;">{{ readHeading }}</h2>
         <p style="margin:0;font-size:clamp(17px,2.1vw,20px);line-height:1.4;color:#a1a1a6;max-width:44ch;">{{ readSub }}</p>
       </div>
-      <div style="border:1px solid rgba(255,255,255,.085);box-shadow:inset 0 1px 0 rgba(255,255,255,.13),inset 0 -1px 0 rgba(0,0,0,.55),0 8px 24px -8px rgba(0,0,0,.7);width:100%;max-width:760px;background:linear-gradient(180deg,#27272b 0%,#1a1a1c 52%,#131315 100%);border-radius:18px;padding:22px;display:flex;flex-direction:column;gap:14px;position:relative;">
-        <div style="display:flex;align-items:baseline;justify-content:space-between;gap:12px;">
+      <div class="readability-card" style="border:1px solid rgba(255,255,255,.085);box-shadow:inset 0 1px 0 rgba(255,255,255,.13),inset 0 -1px 0 rgba(0,0,0,.55),0 8px 24px -8px rgba(0,0,0,.7);width:100%;max-width:760px;background:linear-gradient(180deg,#27272b 0%,#1a1a1c 52%,#131315 100%);border-radius:18px;padding:22px;display:flex;flex-direction:column;gap:14px;position:relative;">
+        <div class="readability-head" style="display:flex;align-items:baseline;justify-content:space-between;gap:12px;">
           <span style="font-size:14px;font-weight:600;letter-spacing:-.01em;">{{ readTitle }}</span>
           <span style="font-size:11px;color:#a1a1a6;letter-spacing:.02em;text-transform:uppercase;">{{ readStamp }}</span>
         </div>
-        <div style="display:grid;grid-template-columns:repeat(15,1fr);gap:6px;">
+        <div class="readability-grid" style="display:grid;grid-template-columns:repeat(15,1fr);gap:6px;">
           <sc-for list="{{ days }}" as="day" hint-placeholder-count="30">
             <span title="{{ day.label }}" style="height:26px;border-radius:5px;background:{{ day.color }};display:block;"></span>
           </sc-for>
@@ -246,15 +403,17 @@
   </sc-if>
 
   <section style="padding:88px 0;background:linear-gradient(180deg,#0d0d0f 0%,#07070a 100%);">
-    <div style="max-width:940px;margin:0 auto;padding:0 22px;display:flex;flex-direction:column;align-items:center;gap:28px;">
-      <div style="max-width:560px;display:flex;flex-direction:column;gap:12px;align-items:center;">
-        <p style="margin:0;font-size:12px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:#2997ff;background:linear-gradient(180deg,#a8dcff 0%,#2997ff 58%,#0a6fd0 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;filter:drop-shadow(0 1px 0 rgba(0,0,0,.55)) drop-shadow(0 0 16px rgba(41,151,255,.4));display:inline-flex;align-items:center;gap:10px;"><span style="display:block;width:26px;height:1px;background:linear-gradient(90deg,rgba(41,151,255,0) 0%,rgba(41,151,255,.75) 100%);"></span>Eddy science<span style="display:block;width:26px;height:1px;background:linear-gradient(90deg,rgba(41,151,255,.75) 0%,rgba(41,151,255,0) 100%);"></span></p>
-        <h2 style="background:linear-gradient(178deg,#ffffff 0%,#f4f4f7 26%,#cdcdd4 54%,#9c9ca4 84%,#bcbcc4 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:#f5f5f7;filter:drop-shadow(0 1px 0 rgba(0,0,0,.72)) drop-shadow(0 -1px 0 rgba(255,255,255,.16)) drop-shadow(0 12px 22px rgba(0,0,0,.55));margin:0;font-size:clamp(30px,4.6vw,42px);line-height:1.08;letter-spacing:-.024em;font-weight:600;text-wrap:balance;">How sea-height data reveals eddies.</h2>
+    <div class="section-inner" style="max-width:940px;margin:0 auto;padding:0 22px;display:flex;flex-direction:column;align-items:center;gap:28px;">
+      <div class="section-heading" style="max-width:560px;display:flex;flex-direction:column;gap:12px;align-items:center;">
+        <p class="section-kicker">Eddy science</p>
+        <h2 style="background:linear-gradient(178deg,#ffffff 12%,#d6d6db 62%,#a8a8ae 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:#f5f5f7;margin:0;font-size:clamp(30px,4.6vw,42px);line-height:1.08;letter-spacing:-.024em;font-weight:600;text-wrap:balance;">How sea-height data reveals eddies.</h2>
         <p style="margin:0;font-size:clamp(17px,2.1vw,20px);line-height:1.4;color:#a1a1a6;max-width:44ch;">Radar altimetry measures sea-surface height. Research has shown how broad height anomalies can be used to identify and track mesoscale eddies.</p>
       </div>
 
-      <figure style="border:1px solid rgba(255,255,255,.085);box-shadow:inset 0 1px 0 rgba(255,255,255,.13),inset 0 -1px 0 rgba(0,0,0,.55),0 8px 24px -8px rgba(0,0,0,.7);margin:0;width:100%;max-width:760px;background:linear-gradient(180deg,#27272b 0%,#1a1a1c 52%,#131315 100%);border-radius:18px;padding:28px 26px 22px;display:flex;flex-direction:column;gap:18px;">
+      <figure class="diagram-card" style="border:1px solid rgba(255,255,255,.085);box-shadow:inset 0 1px 0 rgba(255,255,255,.13),inset 0 -1px 0 rgba(0,0,0,.55),0 8px 24px -8px rgba(0,0,0,.7);margin:0;width:100%;max-width:760px;background:linear-gradient(180deg,#27272b 0%,#1a1a1c 52%,#131315 100%);border-radius:18px;padding:28px 26px 22px;display:flex;flex-direction:column;gap:18px;">
         <figcaption style="font-size:14px;font-weight:600;letter-spacing:-.01em;text-align:left;">A radar-altimetry example from the research record</figcaption>
+        <p class="mobile-chart-hint" aria-hidden="true">Swipe chart to inspect details</p>
+        <div class="diagram-viewport" role="region" aria-label="Scrollable radar-altimetry diagram" tabindex="0">
         <svg viewBox="0 0 700 262" role="img" aria-label="Cross-section of an anticyclonic eddy as a raised dome of water, measured by radar altimeter ranging from orbit" style="width:100%;height:auto;">
           <rect x="316" y="26" width="52" height="20" rx="4" fill="#f5f5f7"></rect>
           <rect x="296" y="32" width="16" height="8" rx="2" fill="#8e8e93"></rect>
@@ -278,8 +437,10 @@
             <text x="396" y="134">OVER THE DOME</text>
           </g>
 
-          <path d="M24 196 L230 196 C 300 196, 320 170, 380 170 C 440 170, 460 196, 530 196 L676 196" fill="none" stroke="#f5f5f7" stroke-width="2.4"></path>
-          <path d="M230 196 C 300 196, 320 170, 380 170 C 440 170, 460 196, 530 196 Z" fill="#2997ff" opacity=".12"></path>
+          <g style="transform-box:view-box;transform-origin:0px 196px;animation:dome-swell 14s ease-in-out infinite;will-change:transform;">
+            <path d="M24 196 L230 196 C 300 196, 320 170, 380 170 C 440 170, 460 196, 530 196 L676 196" fill="none" stroke="#f5f5f7" stroke-width="2.4"></path>
+            <path d="M230 196 C 300 196, 320 170, 380 170 C 440 170, 460 196, 530 196 Z" fill="#2997ff" opacity=".12"></path>
+          </g>
           <line x1="24" y1="196" x2="676" y2="196" stroke="#48484a" stroke-width="1" stroke-dasharray="4 5"></line>
 
           <g stroke="#f5f5f7" stroke-width="1.2">
@@ -296,13 +457,16 @@
           </g>
           <text x="676" y="240" font-family="Inter, sans-serif" font-size="18" font-weight="600" fill="#a1a1a6" text-anchor="end">90 KM TYPICAL RADIUS</text>
 
-          <path d="M250 188 a 34 34 0 0 1 34 -12" fill="none" stroke="#2997ff" stroke-width="1.6"></path>
-          <path d="M284 176 l-10 -3 l1 9 Z" fill="#2997ff"></path>
+          <g style="transform-box:view-box;transform-origin:250px 188px;animation:flow-pulse 14s ease-in-out infinite;will-change:transform,opacity;">
+            <path d="M250 188 a 34 34 0 0 1 34 -12" fill="none" stroke="#2997ff" stroke-width="1.6"></path>
+            <path d="M284 176 l-10 -3 l1 9 Z" fill="#2997ff"></path>
+          </g>
           <text x="24" y="240" font-family="Inter, sans-serif" font-size="18" font-weight="600" fill="#2997ff">SLOPE DRIVES THE FLOW</text>
         </svg>
+        </div>
         <p style="margin:0;font-size:12px;line-height:1.4;font-weight:600;letter-spacing:.02em;color:#8e8e93;text-align:left;max-width:60ch;">Cross-section through an anticyclonic (warm-core) eddy. Vertical scale exaggerated roughly 200,000× — stated, not hidden.</p>
 
-        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:18px;text-align:left;">
+        <div class="eddy-metrics" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:18px;text-align:left;">
           <div><div style="font-size:26px;font-weight:600;letter-spacing:-.024em;line-height:1;font-variant-numeric:tabular-nums;">8 cm</div><div style="font-size:12px;color:#a1a1a6;margin-top:5px;">Mean amplitude of a long-lived eddy, from 35,891 tracked in sixteen years of altimetry</div></div>
           <div><div style="font-size:26px;font-weight:600;letter-spacing:-.024em;line-height:1;font-variant-numeric:tabular-nums;">3.5 cm</div><div style="font-size:12px;color:#a1a1a6;margin-top:5px;">Published two-day Sentinel-6 sea-height accuracy used here as a science reference</div></div>
           <div><div style="font-size:26px;font-weight:600;letter-spacing:-.024em;line-height:1;font-variant-numeric:tabular-nums;">32 wk</div><div style="font-size:12px;color:#a1a1a6;margin-top:5px;">Average lifetime, travelling about 550 km before it loses its identity</div></div>
@@ -316,46 +480,45 @@
   </section>
 
   <section style="padding:88px 0;background:linear-gradient(180deg,#0d0d0f 0%,#07070a 100%);">
-    <div style="max-width:940px;margin:0 auto;padding:0 22px;display:flex;flex-direction:column;align-items:center;gap:28px;">
-      <div style="max-width:560px;display:flex;flex-direction:column;gap:12px;align-items:center;">
-        <p style="margin:0;font-size:12px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:#2997ff;background:linear-gradient(180deg,#a8dcff 0%,#2997ff 58%,#0a6fd0 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;filter:drop-shadow(0 1px 0 rgba(0,0,0,.55)) drop-shadow(0 0 16px rgba(41,151,255,.4));display:inline-flex;align-items:center;gap:10px;"><br></p>
-        <h2 style="background:linear-gradient(178deg,#ffffff 0%,#f4f4f7 26%,#cdcdd4 54%,#9c9ca4 84%,#bcbcc4 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:#f5f5f7;filter:drop-shadow(0 1px 0 rgba(0,0,0,.72)) drop-shadow(0 -1px 0 rgba(255,255,255,.16)) drop-shadow(0 12px 22px rgba(0,0,0,.55));margin:0;font-size:clamp(30px,4.6vw,42px);line-height:1.08;letter-spacing:-.024em;font-weight:600;text-wrap:balance;">Six planning inputs, one chart.</h2>
+    <div class="section-inner" style="max-width:940px;margin:0 auto;padding:0 22px;display:flex;flex-direction:column;align-items:center;gap:28px;">
+      <div class="section-heading" style="max-width:560px;display:flex;flex-direction:column;gap:12px;align-items:center;">
+        <h2 style="background:linear-gradient(178deg,#ffffff 12%,#d6d6db 62%,#a8a8ae 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:#f5f5f7;margin:0;font-size:clamp(30px,4.6vw,42px);line-height:1.08;letter-spacing:-.024em;font-weight:600;text-wrap:balance;">Six planning inputs, one chart.</h2>
         <p style="margin:0;font-size:clamp(17px,2.1vw,20px);line-height:1.4;color:#a1a1a6;max-width:40ch;">Changing ocean layers are shown at their source-grid resolution and labelled with source or analysis time where applicable.</p>
       </div>
 
 
-      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:14px;width:100%;">
-        <div style="border:1px solid rgba(255,255,255,.085);box-shadow:inset 0 1px 0 rgba(255,255,255,.13),inset 0 -1px 0 rgba(0,0,0,.55),0 8px 24px -8px rgba(0,0,0,.7);background:linear-gradient(180deg,#27272b 0%,#1a1a1c 52%,#131315 100%);border-radius:18px;padding:22px 20px;display:flex;flex-direction:column;gap:6px;align-items:center;">
+      <div class="input-grid" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:14px;width:100%;">
+        <div class="input-card" style="border:1px solid rgba(255,255,255,.085);box-shadow:inset 0 1px 0 rgba(255,255,255,.13),inset 0 -1px 0 rgba(0,0,0,.55),0 8px 24px -8px rgba(0,0,0,.7);background:linear-gradient(180deg,#27272b 0%,#1a1a1c 52%,#131315 100%);border-radius:18px;padding:22px 20px;display:flex;flex-direction:column;gap:6px;align-items:center;">
           <svg viewBox="0 0 24 24" fill="none" stroke="#2997ff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="width:28px;height:28px;margin-bottom:2px;"><path d="M14 14.8V5a2 2 0 1 0-4 0v9.8a4 4 0 1 0 4 0Z"></path><path d="M12 9.5v5.8"></path></svg>
           <h3 style="margin:0;font-size:19px;font-weight:600;line-height:1.2;">Temperature</h3>
           <p style="margin:0;font-size:14px;color:#a1a1a6;letter-spacing:-.012em;max-width:28ch;">NASA/JPL MUR daily analysis, displayed on its native 0.01° grid.</p>
           <p style="margin:3px 0 0;font-size:11px;color:#a1a1a6;letter-spacing:.02em;">1 KM / 0.6 MI · DAILY</p>
         </div>
-        <div style="border:1px solid rgba(255,255,255,.085);box-shadow:inset 0 1px 0 rgba(255,255,255,.13),inset 0 -1px 0 rgba(0,0,0,.55),0 8px 24px -8px rgba(0,0,0,.7);background:linear-gradient(180deg,#27272b 0%,#1a1a1c 52%,#131315 100%);border-radius:18px;padding:22px 20px;display:flex;flex-direction:column;gap:6px;align-items:center;">
+        <div class="input-card" style="border:1px solid rgba(255,255,255,.085);box-shadow:inset 0 1px 0 rgba(255,255,255,.13),inset 0 -1px 0 rgba(0,0,0,.55),0 8px 24px -8px rgba(0,0,0,.7);background:linear-gradient(180deg,#27272b 0%,#1a1a1c 52%,#131315 100%);border-radius:18px;padding:22px 20px;display:flex;flex-direction:column;gap:6px;align-items:center;">
           <svg viewBox="0 0 24 24" fill="none" stroke="#2997ff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="width:28px;height:28px;margin-bottom:2px;"><path d="M12 3.2s6 6.3 6 10.1a6 6 0 0 1-12 0C6 9.5 12 3.2 12 3.2Z"></path></svg>
           <h3 style="margin:0;font-size:19px;font-weight:600;line-height:1.2;">Water color</h3>
           <p style="margin:0;font-size:14px;color:#a1a1a6;letter-spacing:-.012em;max-width:28ch;">Sentinel-3 OLCI at about 4 km where available; translucent DINEOF analysis may fill cloud gaps.</p>
           <p style="margin:3px 0 0;font-size:11px;color:#a1a1a6;letter-spacing:.02em;">~4 KM · DAILY</p>
         </div>
-        <div style="border:1px solid rgba(255,255,255,.085);box-shadow:inset 0 1px 0 rgba(255,255,255,.13),inset 0 -1px 0 rgba(0,0,0,.55),0 8px 24px -8px rgba(0,0,0,.7);background:linear-gradient(180deg,#27272b 0%,#1a1a1c 52%,#131315 100%);border-radius:18px;padding:22px 20px;display:flex;flex-direction:column;gap:6px;align-items:center;">
+        <div class="input-card" style="border:1px solid rgba(255,255,255,.085);box-shadow:inset 0 1px 0 rgba(255,255,255,.13),inset 0 -1px 0 rgba(0,0,0,.55),0 8px 24px -8px rgba(0,0,0,.7);background:linear-gradient(180deg,#27272b 0%,#1a1a1c 52%,#131315 100%);border-radius:18px;padding:22px 20px;display:flex;flex-direction:column;gap:6px;align-items:center;">
           <svg viewBox="0 0 24 24" fill="none" stroke="#2997ff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="width:28px;height:28px;margin-bottom:2px;"><path d="M3 9c2-2.2 4-2.2 6 0s4 2.2 6 0 4-2.2 6 0"></path><path d="M3 15c2-2.2 4-2.2 6 0s4 2.2 6 0 4-2.2 6 0"></path></svg>
           <h3 style="margin:0;font-size:19px;font-weight:600;line-height:1.2;">Currents</h3>
           <p style="margin:0;font-size:14px;color:#a1a1a6;letter-spacing:-.012em;max-width:28ch;">Water flows around the hills and hollows of the sea surface, drawn as arrows colored by speed.</p>
           <p style="margin:3px 0 0;font-size:11px;color:#a1a1a6;letter-spacing:.02em;">0.2° · DAILY</p>
         </div>
-        <div style="border:1px solid rgba(255,255,255,.085);box-shadow:inset 0 1px 0 rgba(255,255,255,.13),inset 0 -1px 0 rgba(0,0,0,.55),0 8px 24px -8px rgba(0,0,0,.7);background:linear-gradient(180deg,#27272b 0%,#1a1a1c 52%,#131315 100%);border-radius:18px;padding:22px 20px;display:flex;flex-direction:column;gap:6px;align-items:center;">
+        <div class="input-card" style="border:1px solid rgba(255,255,255,.085);box-shadow:inset 0 1px 0 rgba(255,255,255,.13),inset 0 -1px 0 rgba(0,0,0,.55),0 8px 24px -8px rgba(0,0,0,.7);background:linear-gradient(180deg,#27272b 0%,#1a1a1c 52%,#131315 100%);border-radius:18px;padding:22px 20px;display:flex;flex-direction:column;gap:6px;align-items:center;">
           <svg viewBox="0 0 24 24" fill="none" stroke="#2997ff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="width:28px;height:28px;margin-bottom:2px;"><path d="M13.6 12a1.6 1.6 0 1 1-1.6-1.6c2.1 0 3.7 1.6 3.7 3.7s-1.9 3.7-4.2 3.7S6.8 15.6 6.8 12.7 9.3 6.4 12.6 6.4s6.6 2.7 6.6 6.3"></path></svg>
           <h3 style="margin:0;font-size:19px;font-weight:600;line-height:1.2;">Eddies</h3>
           <p style="margin:0;font-size:14px;color:#a1a1a6;letter-spacing:-.012em;max-width:28ch;">Blended altimetry identifies candidates nightly; B.I.L.L. draws the estimated half-amplitude radius.</p>
           <p style="margin:3px 0 0;font-size:11px;color:#a1a1a6;letter-spacing:.02em;">8–120 NM ESTIMATED RADIUS</p>
         </div>
-        <div style="border:1px solid rgba(255,255,255,.085);box-shadow:inset 0 1px 0 rgba(255,255,255,.13),inset 0 -1px 0 rgba(0,0,0,.55),0 8px 24px -8px rgba(0,0,0,.7);background:linear-gradient(180deg,#27272b 0%,#1a1a1c 52%,#131315 100%);border-radius:18px;padding:22px 20px;display:flex;flex-direction:column;gap:6px;align-items:center;">
+        <div class="input-card" style="border:1px solid rgba(255,255,255,.085);box-shadow:inset 0 1px 0 rgba(255,255,255,.13),inset 0 -1px 0 rgba(0,0,0,.55),0 8px 24px -8px rgba(0,0,0,.7);background:linear-gradient(180deg,#27272b 0%,#1a1a1c 52%,#131315 100%);border-radius:18px;padding:22px 20px;display:flex;flex-direction:column;gap:6px;align-items:center;">
           <svg viewBox="0 0 24 24" fill="none" stroke="#2997ff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="width:28px;height:28px;margin-bottom:2px;"><path d="M3.5 20c2.2-5.4 5-8.1 8.5-8.1s6.3 2.7 8.5 8.1"></path><path d="M8.4 20c1.1-2.7 2.3-4 3.6-4s2.5 1.3 3.6 4"></path></svg>
           <h3 style="margin:0;font-size:19px;font-weight:600;line-height:1.2;">Bottom</h3>
           <p style="margin:0;font-size:14px;color:#a1a1a6;letter-spacing:-.012em;max-width:28ch;">Optional GEBCO context for the ledge, drop, and canyon walls.</p>
           <p style="margin:3px 0 0;font-size:11px;color:#a1a1a6;letter-spacing:.02em;">GLOBAL</p>
         </div>
-        <div style="border:1px solid rgba(255,255,255,.085);box-shadow:inset 0 1px 0 rgba(255,255,255,.13),inset 0 -1px 0 rgba(0,0,0,.55),0 8px 24px -8px rgba(0,0,0,.7);background:linear-gradient(180deg,#27272b 0%,#1a1a1c 52%,#131315 100%);border-radius:18px;padding:22px 20px;display:flex;flex-direction:column;gap:6px;align-items:center;">
+        <div class="input-card" style="border:1px solid rgba(255,255,255,.085);box-shadow:inset 0 1px 0 rgba(255,255,255,.13),inset 0 -1px 0 rgba(0,0,0,.55),0 8px 24px -8px rgba(0,0,0,.7);background:linear-gradient(180deg,#27272b 0%,#1a1a1c 52%,#131315 100%);border-radius:18px;padding:22px 20px;display:flex;flex-direction:column;gap:6px;align-items:center;">
           <svg viewBox="0 0 24 24" fill="none" stroke="#2997ff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="width:28px;height:28px;margin-bottom:2px;"><path d="M20.2 13.6A8.2 8.2 0 1 1 10.4 3.8a6.6 6.6 0 0 0 9.8 9.8Z"></path></svg>
           <h3 style="margin:0;font-size:19px;font-weight:600;line-height:1.2;">Wind, tides, moon</h3>
           <p style="margin:0;font-size:14px;color:#a1a1a6;letter-spacing:-.012em;max-width:28ch;">Wind folds into the projection. Tides name the gauge and its distance. Moon needs no signal.</p>
@@ -366,14 +529,16 @@
   </section>
 
   <section id="advance" style="padding:88px 0;background:linear-gradient(180deg,#0d0d0f 0%,#07070a 100%);color:#f5f5f7;">
-    <div style="max-width:940px;margin:0 auto;padding:0 22px;display:flex;flex-direction:column;align-items:center;gap:28px;">
-      <div style="max-width:600px;display:flex;flex-direction:column;gap:12px;align-items:center;">
-        <p style="margin:0;font-size:12px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:#2997ff;background:linear-gradient(180deg,#a8dcff 0%,#2997ff 58%,#0a6fd0 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;filter:drop-shadow(0 1px 0 rgba(0,0,0,.55)) drop-shadow(0 0 16px rgba(41,151,255,.4));display:inline-flex;align-items:center;gap:10px;"><span style="display:block;width:26px;height:1px;background:linear-gradient(90deg,rgba(41,151,255,0) 0%,rgba(41,151,255,.75) 100%);"></span>Engineering<span style="display:block;width:26px;height:1px;background:linear-gradient(90deg,rgba(41,151,255,.75) 0%,rgba(41,151,255,0) 100%);"></span></p>
-        <h2 style="background:linear-gradient(178deg,#ffffff 0%,#f4f4f7 26%,#cdcdd4 54%,#9c9ca4 84%,#bcbcc4 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:#f5f5f7;filter:drop-shadow(0 1px 0 rgba(0,0,0,.72)) drop-shadow(0 -1px 0 rgba(255,255,255,.16)) drop-shadow(0 12px 22px rgba(0,0,0,.55));margin:0;font-size:clamp(30px,4.6vw,42px);line-height:1.08;letter-spacing:-.024em;font-weight:600;text-wrap:balance;">How the chart is prepared.</h2>
+    <div class="section-inner" style="max-width:940px;margin:0 auto;padding:0 22px;display:flex;flex-direction:column;align-items:center;gap:28px;">
+      <div class="section-heading" style="max-width:600px;display:flex;flex-direction:column;gap:12px;align-items:center;">
+        <p class="section-kicker">Engineering</p>
+        <h2 style="background:linear-gradient(178deg,#ffffff 12%,#d6d6db 62%,#a8a8ae 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:#f5f5f7;margin:0;font-size:clamp(30px,4.6vw,42px);line-height:1.08;letter-spacing:-.024em;font-weight:600;text-wrap:balance;">How the chart is prepared.</h2>
         <p style="margin:0;font-size:clamp(17px,2.1vw,20px);line-height:1.4;color:#a1a1a6;max-width:40ch;">Ocean feeds vary in resolution, cloud coverage, and publication time.</p>
       </div>
-      <figure style="margin:0;width:100%;max-width:720px;background:#000;border-radius:18px;padding:28px 26px 22px;display:flex;flex-direction:column;gap:14px;">
+      <figure class="diagram-card" style="margin:0;width:100%;max-width:720px;background:#000;border-radius:18px;padding:28px 26px 22px;display:flex;flex-direction:column;gap:14px;">
         <figcaption style="font-size:14px;font-weight:600;letter-spacing:-.01em;text-align:left;color:#f5f5f7;">Two knots of set, fifteen of wind, one answer</figcaption>
+        <p class="mobile-chart-hint" aria-hidden="true">Swipe chart to inspect details</p>
+        <div class="diagram-viewport" role="region" aria-label="Scrollable current and wind vector diagram" tabindex="0">
         <svg viewBox="0 0 680 250" role="img" aria-label="Vector diagram: current plus three percent of wind speed, deflected right in the northern hemisphere" style="width:100%;height:auto;">
           <line x1="52" y1="150" x2="330" y2="150" stroke="#f5f5f7" stroke-width="2.6" stroke-linecap="round"></line>
           <path d="M330 150 l-13 -6 l0 12 Z" fill="#f5f5f7"></path>
@@ -390,10 +555,11 @@
           <path d="M356 150 a 42 42 0 0 0 -10 -30" fill="none" stroke="#a1a1a6" stroke-width="1.2"></path>
           <text x="52" y="214" font-family="Inter, sans-serif" font-size="18" font-weight="600" letter-spacing="0.3" fill="#a1a1a6">DEFLECTED RIGHT IN THE NORTHERN HEMISPHERE</text>
         </svg>
+        </div>
         <p style="margin:0;font-size:12px;line-height:1.4;font-weight:600;letter-spacing:.02em;color:#a1a1a6;text-align:left;max-width:60ch;">South of the equator the same wind deflects the edge left.</p>
       </figure>
 
-      <ul style="display:flex;flex-wrap:wrap;justify-content:center;gap:26px;list-style:none;padding:0;margin:0;width:100%;">
+      <ul class="feature-list" style="display:flex;flex-wrap:wrap;justify-content:center;gap:26px;list-style:none;padding:0;margin:0;width:100%;">
         <li style="flex:0 1 276px;max-width:33ch;"><svg viewBox="0 0 24 24" fill="none" stroke="#2997ff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="width:28px;height:28px;margin:0 auto 8px;display:block;"><rect x="3.5" y="3.5" width="17" height="17" rx="3.2"></rect><path d="M3.5 9.2h17M3.5 14.8h17M9.2 3.5v17M14.8 3.5v17"></path></svg><b style="display:block;font-size:19px;font-weight:600;line-height:1.2;">Displayed on the source grid.</b><span style="display:block;color:#a1a1a6;font-size:14px;line-height:1.45;margin-top:6px;">MUR temperature uses its native 0.01° analysis cells. Tap-to-read selects the nearest displayed source or analysis grid cell, with no app-side interpolation.</span></li>
         <li style="flex:0 1 276px;max-width:33ch;"><svg viewBox="0 0 24 24" fill="none" stroke="#2997ff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="width:28px;height:28px;margin:0 auto 8px;display:block;"><path d="M3 12h3.6M9.2 12h3.6"></path><path d="M15.4 12h4.4"></path><path d="M16.9 8.6 20.3 12l-3.4 3.4"></path></svg><b style="display:block;font-size:19px;font-weight:600;line-height:1.2;">Projected forward.</b><span style="display:block;color:#a1a1a6;font-size:14px;line-height:1.45;margin-top:6px;">When current data is available, the break can be projected to the arrival hour. A matching wind forecast can be included.</span></li>
         <li style="flex:0 1 276px;max-width:33ch;"><svg viewBox="0 0 24 24" fill="none" stroke="#2997ff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="width:28px;height:28px;margin:0 auto 8px;display:block;"><circle cx="12" cy="12" r="8.4"></circle><path d="M3.6 12h16.8"></path><path d="M12 3.6c2.6 2.6 2.6 14.2 0 16.8M12 3.6c-2.6 2.6-2.6 14.2 0 16.8"></path></svg><b style="display:block;font-size:19px;font-weight:600;line-height:1.2;">Hemisphere-aware leeway.</b><span style="display:block;color:#a1a1a6;font-size:14px;line-height:1.45;margin-top:6px;">The current default applies 3% of wind speed at 15°, right in the Northern Hemisphere and left in the Southern Hemisphere.</span></li>
@@ -404,48 +570,45 @@
   </section>
 
   <section id="data" style="padding:88px 0;background:linear-gradient(180deg,#0d0d0f 0%,#07070a 100%);">
-    <div style="max-width:940px;margin:0 auto;padding:0 22px;display:flex;flex-direction:column;align-items:center;gap:28px;">
-      <div style="max-width:560px;display:flex;flex-direction:column;gap:12px;align-items:center;">
-        <p style="margin:0;font-size:12px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:#2997ff;background:linear-gradient(180deg,#a8dcff 0%,#2997ff 58%,#0a6fd0 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;filter:drop-shadow(0 1px 0 rgba(0,0,0,.55)) drop-shadow(0 0 16px rgba(41,151,255,.4));display:inline-flex;align-items:center;gap:10px;"><br></p>
-        <h2 style="background:linear-gradient(178deg,#ffffff 0%,#f4f4f7 26%,#cdcdd4 54%,#9c9ca4 84%,#bcbcc4 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:#f5f5f7;filter:drop-shadow(0 1px 0 rgba(0,0,0,.72)) drop-shadow(0 -1px 0 rgba(255,255,255,.16)) drop-shadow(0 12px 22px rgba(0,0,0,.55));margin:0;font-size:clamp(30px,4.6vw,42px);line-height:1.08;letter-spacing:-.024em;font-weight:600;text-wrap:balance;">Public data sources.</h2>
+    <div class="section-inner" style="max-width:940px;margin:0 auto;padding:0 22px;display:flex;flex-direction:column;align-items:center;gap:28px;">
+      <div class="section-heading" style="max-width:560px;display:flex;flex-direction:column;gap:12px;align-items:center;">
+        <h2 style="background:linear-gradient(178deg,#ffffff 12%,#d6d6db 62%,#a8a8ae 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:#f5f5f7;margin:0;font-size:clamp(30px,4.6vw,42px);line-height:1.08;letter-spacing:-.024em;font-weight:600;text-wrap:balance;">Public data sources.</h2>
         <p style="margin:0;font-size:clamp(17px,2.1vw,20px);line-height:1.4;color:#a1a1a6;max-width:40ch;">B.I.L.L. uses public data from established ocean and weather programs.</p>
       </div>
-      <div style="border:1px solid rgba(255,255,255,.085);box-shadow:inset 0 1px 0 rgba(255,255,255,.13),inset 0 -1px 0 rgba(0,0,0,.55),0 8px 24px -8px rgba(0,0,0,.7);box-sizing:border-box;width:100%;max-width:560px;background:linear-gradient(180deg,#27272b 0%,#1a1a1c 52%,#131315 100%);border-radius:18px;overflow:hidden;">
-        <div style="display:flex;align-items:center;gap:12px;padding:12px 18px;text-align:left;"><svg viewBox="0 0 24 24" fill="none" stroke="#2997ff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="width:20px;height:20px;flex:none;"><circle cx="12" cy="12" r="4.2"></circle><path d="M4 12a8 3.1 0 1 0 16 0a8 3.1 0 1 0 -16 0"></path></svg><b style="font-size:15px;font-weight:600;letter-spacing:-.01em;">NASA</b><span style="margin-left:auto;font-size:13px;color:#a1a1a6;text-align:right;">MUR sea temperature</span></div>
-        <div style="border-top:1px solid rgba(255,255,255,.08);display:flex;align-items:center;gap:12px;padding:12px 18px;text-align:left;"><svg viewBox="0 0 24 24" fill="none" stroke="#2997ff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="width:20px;height:20px;flex:none;"><path d="M12 3.2s6 6.3 6 10.1a6 6 0 0 1-12 0C6 9.5 12 3.2 12 3.2Z"></path></svg><b style="font-size:15px;font-weight:600;letter-spacing:-.01em;">ESA Copernicus</b><span style="margin-left:auto;font-size:13px;color:#a1a1a6;text-align:right;">Sentinel-3 ocean color</span></div>
-        <div style="border-top:1px solid rgba(255,255,255,.08);display:flex;align-items:center;gap:12px;padding:12px 18px;text-align:left;"><svg viewBox="0 0 24 24" fill="none" stroke="#2997ff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="width:20px;height:20px;flex:none;"><path d="M3 9c2-2.2 4-2.2 6 0s4 2.2 6 0 4-2.2 6 0"></path><path d="M3 15c2-2.2 4-2.2 6 0s4 2.2 6 0 4-2.2 6 0"></path></svg><b style="font-size:15px;font-weight:600;letter-spacing:-.01em;">NOAA</b><span style="margin-left:auto;font-size:13px;color:#a1a1a6;text-align:right;">Sea height, wind, tides, fill</span></div>
-        <div style="border-top:1px solid rgba(255,255,255,.08);display:flex;align-items:center;gap:12px;padding:12px 18px;text-align:left;"><svg viewBox="0 0 24 24" fill="none" stroke="#2997ff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="width:20px;height:20px;flex:none;"><path d="M3.5 8.5h9a2.5 2.5 0 1 0-2.5-2.5"></path><path d="M3.5 13h13a2.5 2.5 0 1 1-2.5 2.5"></path><path d="M3.5 17.5h6"></path></svg><b style="font-size:15px;font-weight:600;letter-spacing:-.01em;">MET Norway</b><span style="margin-left:auto;font-size:13px;color:#a1a1a6;text-align:right;">Global wind</span></div>
-        <div style="border-top:1px solid rgba(255,255,255,.08);display:flex;align-items:center;gap:12px;padding:12px 18px;text-align:left;"><svg viewBox="0 0 24 24" fill="none" stroke="#2997ff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="width:20px;height:20px;flex:none;"><path d="M3.5 20c2.2-5.4 5-8.1 8.5-8.1s6.3 2.7 8.5 8.1"></path><path d="M8.4 20c1.1-2.7 2.3-4 3.6-4s2.5 1.3 3.6 4"></path></svg><b style="font-size:15px;font-weight:600;letter-spacing:-.01em;">GEBCO</b><span style="margin-left:auto;font-size:13px;color:#a1a1a6;text-align:right;">Bathymetry</span></div>
+      <div class="source-panel" style="border:1px solid rgba(255,255,255,.085);box-shadow:inset 0 1px 0 rgba(255,255,255,.13),inset 0 -1px 0 rgba(0,0,0,.55),0 8px 24px -8px rgba(0,0,0,.7);box-sizing:border-box;width:100%;max-width:560px;background:linear-gradient(180deg,#27272b 0%,#1a1a1c 52%,#131315 100%);border-radius:18px;overflow:hidden;">
+        <div class="source-row" style="display:flex;align-items:center;gap:12px;padding:12px 18px;text-align:left;"><svg viewBox="0 0 24 24" fill="none" stroke="#2997ff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="width:20px;height:20px;flex:none;"><circle cx="12" cy="12" r="4.2"></circle><path d="M4 12a8 3.1 0 1 0 16 0a8 3.1 0 1 0 -16 0"></path></svg><b style="font-size:15px;font-weight:600;letter-spacing:-.01em;">NASA</b><span style="margin-left:auto;font-size:13px;color:#a1a1a6;text-align:right;">MUR sea temperature</span></div>
+        <div class="source-row" style="border-top:1px solid rgba(255,255,255,.08);display:flex;align-items:center;gap:12px;padding:12px 18px;text-align:left;"><svg viewBox="0 0 24 24" fill="none" stroke="#2997ff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="width:20px;height:20px;flex:none;"><path d="M12 3.2s6 6.3 6 10.1a6 6 0 0 1-12 0C6 9.5 12 3.2 12 3.2Z"></path></svg><b style="font-size:15px;font-weight:600;letter-spacing:-.01em;">ESA Copernicus</b><span style="margin-left:auto;font-size:13px;color:#a1a1a6;text-align:right;">Sentinel-3 ocean color</span></div>
+        <div class="source-row" style="border-top:1px solid rgba(255,255,255,.08);display:flex;align-items:center;gap:12px;padding:12px 18px;text-align:left;"><svg viewBox="0 0 24 24" fill="none" stroke="#2997ff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="width:20px;height:20px;flex:none;"><path d="M3 9c2-2.2 4-2.2 6 0s4 2.2 6 0 4-2.2 6 0"></path><path d="M3 15c2-2.2 4-2.2 6 0s4 2.2 6 0 4-2.2 6 0"></path></svg><b style="font-size:15px;font-weight:600;letter-spacing:-.01em;">NOAA</b><span style="margin-left:auto;font-size:13px;color:#a1a1a6;text-align:right;">Sea height, wind, tides, fill</span></div>
+        <div class="source-row" style="border-top:1px solid rgba(255,255,255,.08);display:flex;align-items:center;gap:12px;padding:12px 18px;text-align:left;"><svg viewBox="0 0 24 24" fill="none" stroke="#2997ff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="width:20px;height:20px;flex:none;"><path d="M3.5 8.5h9a2.5 2.5 0 1 0-2.5-2.5"></path><path d="M3.5 13h13a2.5 2.5 0 1 1-2.5 2.5"></path><path d="M3.5 17.5h6"></path></svg><b style="font-size:15px;font-weight:600;letter-spacing:-.01em;">MET Norway</b><span style="margin-left:auto;font-size:13px;color:#a1a1a6;text-align:right;">Global wind</span></div>
+        <div class="source-row" style="border-top:1px solid rgba(255,255,255,.08);display:flex;align-items:center;gap:12px;padding:12px 18px;text-align:left;"><svg viewBox="0 0 24 24" fill="none" stroke="#2997ff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="width:20px;height:20px;flex:none;"><path d="M3.5 20c2.2-5.4 5-8.1 8.5-8.1s6.3 2.7 8.5 8.1"></path><path d="M8.4 20c1.1-2.7 2.3-4 3.6-4s2.5 1.3 3.6 4"></path></svg><b style="font-size:15px;font-weight:600;letter-spacing:-.01em;">GEBCO</b><span style="margin-left:auto;font-size:13px;color:#a1a1a6;text-align:right;">Bathymetry</span></div>
       </div>
       <p style="margin:0;font-size:13px;color:#a1a1a6;max-width:56ch;">The subscription supports the processing, presentation, and planning tools built around those feeds.</p>
     </div>
   </section>
 
   <section style="padding:88px 0;">
-    <div style="max-width:940px;margin:0 auto;padding:0 22px;display:flex;flex-direction:column;align-items:center;gap:28px;">
-      <div style="max-width:600px;display:flex;flex-direction:column;gap:12px;align-items:center;">
-        
-        <h2 style="background:linear-gradient(178deg,#ffffff 0%,#f4f4f7 26%,#cdcdd4 54%,#9c9ca4 84%,#bcbcc4 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:#f5f5f7;filter:drop-shadow(0 1px 0 rgba(0,0,0,.72)) drop-shadow(0 -1px 0 rgba(255,255,255,.16)) drop-shadow(0 12px 22px rgba(0,0,0,.55));margin:0;font-size:clamp(30px,4.6vw,42px);line-height:1.08;letter-spacing:-.024em;font-weight:600;text-wrap:balance;">Straight Answers</h2>
+    <div class="section-inner" style="max-width:940px;margin:0 auto;padding:0 22px;display:flex;flex-direction:column;align-items:center;gap:28px;">
+      <div class="section-heading" style="max-width:600px;display:flex;flex-direction:column;gap:12px;align-items:center;">
+        <h2 style="background:linear-gradient(178deg,#ffffff 12%,#d6d6db 62%,#a8a8ae 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:#f5f5f7;margin:0;font-size:clamp(30px,4.6vw,42px);line-height:1.08;letter-spacing:-.024em;font-weight:600;text-wrap:balance;">Straight Answers</h2>
         
       </div>
-      <ul style="display:flex;flex-wrap:wrap;justify-content:center;gap:22px 26px;list-style:none;padding:0;margin:0;width:100%;">
+      <ul class="truth-list" style="display:flex;flex-wrap:wrap;justify-content:center;gap:22px 26px;list-style:none;padding:0;margin:0;width:100%;">
         <li style="flex:0 1 276px;max-width:33ch;"><b style="display:block;font-size:19px;font-weight:600;line-height:1.2;">Clouds Block</b><span style="display:block;color:#a1a1a6;font-size:14px;line-height:1.45;margin-top:6px;">Cloud can block infrared observations for days. Cloud-affected areas may show translucent analysis or no observation, with the distinction kept visible.</span></li>
-        <li style="flex:0 1 276px;max-width:33ch;"><b style="display:block;font-size:19px;font-weight:600;line-height:1.2;">Not a chartplotter.</b><span style="display:block;color:#a1a1a6;font-size:14px;line-height:1.45;margin-top:6px;">This is a planning tool. It doesn't replace a GPS or official charts. Verify against them, every time.</span></li><li style="flex:0 1 276px;max-width:33ch;"><b style="display:block;font-size:19px;font-weight:600;line-height:1.2;">Works from published feeds.</b><span style="display:block;color:#a1a1a6;font-size:14px;line-height:1.45;margin-top:6px;">The ocean layers are not real-time; source ages vary. Changing ocean layers show source or analysis time where applicable.</span></li>
-        
-        
+        <li style="flex:0 1 276px;max-width:33ch;"><b style="display:block;font-size:19px;font-weight:600;line-height:1.2;">Not a chartplotter.</b><span style="display:block;color:#a1a1a6;font-size:14px;line-height:1.45;margin-top:6px;">This is a planning tool. It doesn't replace a GPS or official charts. Verify against them, every time.</span></li>
+        <li style="flex:0 1 276px;max-width:33ch;"><b style="display:block;font-size:19px;font-weight:600;line-height:1.2;">Works from published feeds.</b><span style="display:block;color:#a1a1a6;font-size:14px;line-height:1.45;margin-top:6px;">The ocean layers are not real-time; source ages vary. Changing ocean layers show source or analysis time where applicable.</span></li>
       </ul>
     </div>
   </section>
 
   <section id="pricing" style="padding:88px 0;background:linear-gradient(180deg,#0d0d0f 0%,#07070a 100%);">
-    <div style="max-width:940px;margin:0 auto;padding:0 22px;display:flex;flex-direction:column;align-items:center;gap:28px;">
-      <div style="max-width:560px;display:flex;flex-direction:column;gap:12px;align-items:center;">
-        <p style="margin:0;font-size:12px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:#2997ff;background:linear-gradient(180deg,#a8dcff 0%,#2997ff 58%,#0a6fd0 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;filter:drop-shadow(0 1px 0 rgba(0,0,0,.55)) drop-shadow(0 0 16px rgba(41,151,255,.4));display:inline-flex;align-items:center;gap:10px;"><span style="display:block;width:26px;height:1px;background:linear-gradient(90deg,rgba(41,151,255,0) 0%,rgba(41,151,255,.75) 100%);"></span>Pricing<span style="display:block;width:26px;height:1px;background:linear-gradient(90deg,rgba(41,151,255,.75) 0%,rgba(41,151,255,0) 100%);"></span></p>
-        <h2 style="background:linear-gradient(178deg,#ffffff 0%,#f4f4f7 26%,#cdcdd4 54%,#9c9ca4 84%,#bcbcc4 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:#f5f5f7;filter:drop-shadow(0 1px 0 rgba(0,0,0,.72)) drop-shadow(0 -1px 0 rgba(255,255,255,.16)) drop-shadow(0 12px 22px rgba(0,0,0,.55));margin:0;font-size:clamp(30px,4.6vw,42px);line-height:1.08;letter-spacing:-.024em;font-weight:600;text-wrap:balance;">Free chart and planned Pro options.</h2>
-        <p style="margin:0;font-size:clamp(17px,2.1vw,20px);line-height:1.4;color:#a1a1a6;max-width:40ch;">These prices are planned for launch and may vary when App Store availability opens.</p>
+    <div class="section-inner" style="max-width:940px;margin:0 auto;padding:0 22px;display:flex;flex-direction:column;align-items:center;gap:28px;">
+      <div class="section-heading" style="max-width:560px;display:flex;flex-direction:column;gap:12px;align-items:center;">
+        <p class="section-kicker">Pricing</p>
+        <h2 style="background:linear-gradient(178deg,#ffffff 12%,#d6d6db 62%,#a8a8ae 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:#f5f5f7;margin:0;font-size:clamp(30px,4.6vw,42px);line-height:1.08;letter-spacing:-.024em;font-weight:600;text-wrap:balance;">Free chart &amp; plans available.</h2>
+        <p style="margin:0;font-size:clamp(17px,2.1vw,20px);line-height:1.4;color:#a1a1a6;max-width:40ch;">Pricing may vary when App Store availability opens.</p>
       </div>
-      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:16px;align-items:stretch;max-width:880px;margin:0 auto;width:100%;">
-        <div style="box-shadow:inset 0 1px 0 rgba(255,255,255,.13),inset 0 -1px 0 rgba(0,0,0,.55),0 8px 24px -8px rgba(0,0,0,.7);position:relative;background:linear-gradient(180deg,#27272b 0%,#1a1a1c 52%,#131315 100%);border:1px solid #2c2c2e;border-radius:18px;padding:26px 22px 22px;display:flex;flex-direction:column;text-align:center;">
+      <div class="price-grid" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:16px;align-items:stretch;max-width:880px;margin:0 auto;width:100%;">
+        <div class="price-card" style="box-shadow:inset 0 1px 0 rgba(255,255,255,.13),inset 0 -1px 0 rgba(0,0,0,.55),0 8px 24px -8px rgba(0,0,0,.7);position:relative;background:linear-gradient(180deg,#27272b 0%,#1a1a1c 52%,#131315 100%);border:1px solid #2c2c2e;border-radius:18px;padding:26px 22px 22px;display:flex;flex-direction:column;text-align:center;">
           <div style="font-size:14px;font-weight:600;">B.I.L.L.</div>
           <div style="font-size:clamp(28px,3.6vw,38px);font-weight:600;letter-spacing:-.028em;line-height:1;margin-top:10px;white-space:nowrap;">Free</div>
           <div style="font-size:13px;color:#a1a1a6;margin-top:8px;min-height:2.6em;">Look at your water before you decide anything.</div>
@@ -455,10 +618,10 @@
             <li style="display:grid;grid-template-columns:14px 1fr;gap:9px;align-items:start;"><span style="color:#2997ff;font-weight:600;">✓</span>Explore available water before upgrading</li>
             <li style="display:grid;grid-template-columns:14px 1fr;gap:9px;align-items:start;"><span style="color:#2997ff;font-weight:600;">✓</span>No account, no email, no trackers</li>
           </ul>
-          <button class="unavailable-cta" type="button" disabled="" aria-disabled="true" tabindex="-1" style="display:inline-flex;align-items:center;justify-content:center;width:100%;box-sizing:border-box;min-height:40px;border-radius:980px;background:linear-gradient(180deg,rgba(41,151,255,.16) 0%,rgba(41,151,255,.06) 100%);backdrop-filter:blur(12px) saturate(150%);-webkit-backdrop-filter:blur(12px) saturate(150%);color:#7fc4ff;border:1px solid rgba(41,151,255,.55);box-shadow:inset 0 1px 0 rgba(255,255,255,.16);font:inherit;font-size:15px;cursor:not-allowed;opacity:.86;">Coming to the App Store</button>
+          <button class="unavailable-cta pricing-cta-free" type="button" disabled aria-disabled="true" tabindex="-1" style="display:inline-flex;align-items:center;justify-content:center;width:100%;box-sizing:border-box;min-height:40px;border-radius:980px;background:transparent;color:#2997ff;border:1px solid #2997ff;font:inherit;font-size:15px;cursor:not-allowed;opacity:.86;">Coming to the App Store</button>
         </div>
-        <div style="box-shadow:inset 0 1px 0 rgba(255,255,255,.13),inset 0 -1px 0 rgba(0,0,0,.55),0 8px 24px -8px rgba(0,0,0,.7);position:relative;background:linear-gradient(180deg,#27272b 0%,#1a1a1c 52%,#131315 100%);border:1px solid #2c2c2e;border-radius:18px;padding:26px 22px 22px;display:flex;flex-direction:column;text-align:center;">
-          <div style="font-size:14px;font-weight:600;">B.I.L.L. Pro · Planned</div>
+        <div class="price-card" style="box-shadow:inset 0 1px 0 rgba(255,255,255,.13),inset 0 -1px 0 rgba(0,0,0,.55),0 8px 24px -8px rgba(0,0,0,.7);position:relative;background:linear-gradient(180deg,#27272b 0%,#1a1a1c 52%,#131315 100%);border:1px solid #2c2c2e;border-radius:18px;padding:26px 22px 22px;display:flex;flex-direction:column;text-align:center;">
+          <div style="font-size:14px;font-weight:600;">B.I.L.L. Pro · Monthly</div>
           <div style="font-size:clamp(28px,3.6vw,38px);font-weight:600;letter-spacing:-.028em;line-height:1;margin-top:10px;white-space:nowrap;font-variant-numeric:tabular-nums;">$32.99<small style="font-size: 0.42em; font-weight: 400; color: rgb(110, 110, 115);">/mo.</small></div>
           <div style="font-size:13px;color:#a1a1a6;margin-top:8px;min-height:2.6em;">On for the season, off when you're not going.</div>
           <hr style="border:none;border-top:1px solid #2c2c2e;margin:16px 0 14px;width:100%;">
@@ -469,45 +632,49 @@
             <li style="display:grid;grid-template-columns:14px 1fr;gap:9px;align-items:start;"><span style="color:#2997ff;font-weight:600;">✓</span>Changing ocean layers show source or analysis time</li>
             <li style="display:grid;grid-template-columns:14px 1fr;gap:9px;align-items:start;"><span style="color:#2997ff;font-weight:600;">✓</span>Cancel any time in your Apple Account</li>
           </ul>
-          <button class="unavailable-cta" type="button" disabled="" aria-disabled="true" tabindex="-1" style="display:inline-flex;align-items:center;justify-content:center;width:100%;box-sizing:border-box;min-height:40px;border-radius:980px;background:linear-gradient(180deg,rgba(132,218,255,.46) 0%,rgba(48,158,255,.34) 46%,rgba(0,104,198,.40) 100%);backdrop-filter:blur(16px) saturate(180%);-webkit-backdrop-filter:blur(16px) saturate(180%);border:1px solid rgba(255,255,255,.3);box-shadow:inset 0 1px 0 rgba(255,255,255,.5),inset 0 -1px 0 rgba(0,34,72,.34),inset 0 -14px 18px -12px rgba(0,44,92,.4),0 4px 12px -6px rgba(0,113,227,.5),0 0 0 1px rgba(127,212,255,.16),0 0 20px -3px rgba(127,212,255,.24);color:#fff;text-shadow:0 1px 2px rgba(0,38,82,.45);transition:background .18s ease,box-shadow .18s ease,transform .18s ease;font:inherit;font-size:15px;cursor:not-allowed;opacity:.86;">Coming soon</button>
+          <button class="unavailable-cta pricing-cta-primary" type="button" disabled aria-disabled="true" tabindex="-1" style="display:inline-flex;align-items:center;justify-content:center;width:100%;box-sizing:border-box;min-height:40px;border-radius:980px;background:linear-gradient(180deg,#3ba3ff 0%,#0071e3 52%,#0060c4 100%);box-shadow:inset 0 1px 0 rgba(255,255,255,.34),0 2px 10px -2px rgba(0,113,227,.55);color:#fff;border:0;font:inherit;font-size:15px;cursor:not-allowed;opacity:.86;">Coming soon</button>
         </div>
-        <div style="position:relative;background:linear-gradient(180deg,#27272b 0%,#1a1a1c 52%,#131315 100%);border:1px solid #2997ff;box-shadow:0 0 0 1px #2997ff;border-radius:18px;padding:26px 22px 22px;display:flex;flex-direction:column;text-align:center;">
-          <span style="position:absolute;top:-11px;left:50%;transform:translateX(-50%);background:linear-gradient(180deg,rgba(132,218,255,.46) 0%,rgba(48,158,255,.34) 46%,rgba(0,104,198,.40) 100%);backdrop-filter:blur(16px) saturate(180%);-webkit-backdrop-filter:blur(16px) saturate(180%);border:1px solid rgba(255,255,255,.3);box-shadow:inset 0 1px 0 rgba(255,255,255,.5),inset 0 -1px 0 rgba(0,34,72,.34),inset 0 -14px 18px -12px rgba(0,44,92,.4),0 3px 9px -4px rgba(0,113,227,.5),0 0 0 1px rgba(127,212,255,.16),0 0 20px -3px rgba(127,212,255,.24);color:#fff;text-shadow:0 1px 2px rgba(0,38,82,.45);transition:background .18s ease,box-shadow .18s ease,transform .18s ease;font-size:11px;font-weight:600;letter-spacing:.04em;padding:4px 12px;border-radius:980px;white-space:nowrap;">Best value</span>
-          <div style="font-size:14px;font-weight:600;">B.I.L.L. Pro · Planned</div>
+        <div class="price-card" style="position:relative;background:linear-gradient(180deg,#27272b 0%,#1a1a1c 52%,#131315 100%);border:1px solid #2997ff;box-shadow:0 0 0 1px #2997ff;border-radius:18px;padding:26px 22px 22px;display:flex;flex-direction:column;text-align:center;">
+          <span class="value-badge" style="position:absolute;top:-11px;left:50%;transform:translateX(-50%);background:linear-gradient(180deg,#3ba3ff 0%,#0071e3 52%,#0060c4 100%);box-shadow:inset 0 1px 0 rgba(255,255,255,.34),0 2px 10px -2px rgba(0,113,227,.55);color:#fff;font-size:11px;font-weight:600;letter-spacing:.04em;padding:4px 12px;border-radius:980px;white-space:nowrap;">Best value</span>
+          <div style="font-size:14px;font-weight:600;">B.I.L.L. Pro · Annual</div>
           <div style="font-size:clamp(28px,3.6vw,38px);font-weight:600;letter-spacing:-.028em;line-height:1;margin-top:10px;white-space:nowrap;font-variant-numeric:tabular-nums;">$99.00<small style="font-size:.42em;font-weight:400;color:#a1a1a6;">/yr.</small></div>
           <div style="font-size:13px;color:#a1a1a6;margin-top:8px;min-height:2.6em;">About the price of three monthly periods.</div>
           <hr style="border:none;border-top:1px solid #2c2c2e;margin:16px 0 14px;width:100%;">
           <ul style="list-style:none;padding:0;margin:0 0 18px;display:flex;flex-direction:column;gap:9px;text-align:left;flex:1;font-size:13.5px;line-height:1.4;color:#a1a1a6;">
             <li style="display:grid;grid-template-columns:14px 1fr;gap:9px;align-items:start;"><span style="color:#2997ff;font-weight:600;">✓</span>Everything in Pro, billed once</li>
             <li style="display:grid;grid-template-columns:14px 1fr;gap:9px;align-items:start;"><span style="color:#2997ff;font-weight:600;">✓</span>Use supported regions across seasons</li>
-            <li style="display:grid;grid-template-columns:14px 1fr;gap:9px;align-items:start;"><span style="color:#2997ff;font-weight:600;">✓</span>One planned annual billing period</li>
+            <li style="display:grid;grid-template-columns:14px 1fr;gap:9px;align-items:start;"><span style="color:#2997ff;font-weight:600;">✓</span>One annual billing period</li>
             <li style="display:grid;grid-template-columns:14px 1fr;gap:9px;align-items:start;"><span style="color:#2997ff;font-weight:600;">✓</span>Equivalent to $8.25 a month</li>
           </ul>
-          <button class="unavailable-cta" type="button" disabled="" aria-disabled="true" tabindex="-1" style="display:inline-flex;align-items:center;justify-content:center;width:100%;box-sizing:border-box;min-height:40px;border-radius:980px;background:linear-gradient(180deg,rgba(132,218,255,.46) 0%,rgba(48,158,255,.34) 46%,rgba(0,104,198,.40) 100%);backdrop-filter:blur(16px) saturate(180%);-webkit-backdrop-filter:blur(16px) saturate(180%);border:1px solid rgba(255,255,255,.3);box-shadow:inset 0 1px 0 rgba(255,255,255,.5),inset 0 -1px 0 rgba(0,34,72,.34),inset 0 -14px 18px -12px rgba(0,44,92,.4),0 4px 12px -6px rgba(0,113,227,.5),0 0 0 1px rgba(127,212,255,.16),0 0 20px -3px rgba(127,212,255,.24);color:#fff;text-shadow:0 1px 2px rgba(0,38,82,.45);transition:background .18s ease,box-shadow .18s ease,transform .18s ease;font:inherit;font-size:15px;cursor:not-allowed;opacity:.86;">Coming soon</button>
+          <button class="unavailable-cta pricing-cta-primary" type="button" disabled aria-disabled="true" tabindex="-1" style="display:inline-flex;align-items:center;justify-content:center;width:100%;box-sizing:border-box;min-height:40px;border-radius:980px;background:linear-gradient(180deg,#3ba3ff 0%,#0071e3 52%,#0060c4 100%);box-shadow:inset 0 1px 0 rgba(255,255,255,.34),0 2px 10px -2px rgba(0,113,227,.55);color:#fff;border:0;font:inherit;font-size:15px;cursor:not-allowed;opacity:.86;">Coming soon</button>
         </div>
       </div>
-      <p style="margin:0;font-size:13px;line-height:1.42;color:#a1a1a6;max-width:56ch;">Planned B.I.L.L. Pro pricing is monthly or annual. Final App Store price, availability, billing period, and terms will be shown before purchase. When available, subscriptions will be managed through your Apple Account. <a href="https://www.apple.com/legal/internet-services/itunes/dev/stdeula/">Terms</a> · <a href="./privacy/">Privacy</a></p>
+      <p style="margin:0;font-size:13px;line-height:1.42;color:#a1a1a6;max-width:56ch;">B.I.L.L. Pro pricing is monthly or annual. Final App Store price, availability, billing period, and terms will be shown before purchase. When available, subscriptions will be managed through your Apple Account. <a href="https://www.apple.com/legal/internet-services/itunes/dev/stdeula/">Terms</a> · <a href="./privacy/">Privacy</a></p>
     </div>
   </section>
 
   <section style="padding:88px 0;background:linear-gradient(180deg,#0d0d0f 0%,#07070a 100%);color:#f5f5f7;">
-    <div style="max-width:940px;margin:0 auto;padding:0 22px;display:flex;flex-direction:column;align-items:center;gap:28px;">
-      <div style="max-width:560px;display:flex;flex-direction:column;gap:12px;align-items:center;">
-        <h2 style="background:linear-gradient(178deg,#ffffff 0%,#f4f4f7 26%,#cdcdd4 54%,#9c9ca4 84%,#bcbcc4 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:#f5f5f7;filter:drop-shadow(0 1px 0 rgba(0,0,0,.72)) drop-shadow(0 -1px 0 rgba(255,255,255,.16)) drop-shadow(0 12px 22px rgba(0,0,0,.55));margin:0;font-size:clamp(30px,4.6vw,42px);line-height:1.08;letter-spacing:-.024em;font-weight:600;text-wrap:balance;">Built for offshore planning.</h2>
+    <div class="section-inner" style="max-width:940px;margin:0 auto;padding:0 22px;display:flex;flex-direction:column;align-items:center;gap:28px;">
+      <div class="section-heading" style="max-width:560px;display:flex;flex-direction:column;gap:12px;align-items:center;">
+        <h2 style="background:linear-gradient(178deg,#ffffff 12%,#d6d6db 62%,#a8a8ae 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:#f5f5f7;margin:0;font-size:clamp(30px,4.6vw,42px);line-height:1.08;letter-spacing:-.024em;font-weight:600;text-wrap:balance;">Built for offshore planning.</h2>
         <p style="margin:0;font-size:clamp(17px,2.1vw,20px);line-height:1.4;color:#a1a1a6;max-width:44ch;">Eligible internal forecasts are graded when a usable next pass is available, including misses. Results will be published with their sample size and method.</p>
       </div>
       <div style="display:flex;flex-wrap:wrap;gap:14px;justify-content:center;">
-        <a href="#pricing" style="display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:0 24px;border-radius:980px;background:linear-gradient(180deg,rgba(132,218,255,.46) 0%,rgba(48,158,255,.34) 46%,rgba(0,104,198,.40) 100%);backdrop-filter:blur(16px) saturate(180%);-webkit-backdrop-filter:blur(16px) saturate(180%);border:1px solid rgba(255,255,255,.3);box-shadow:inset 0 1px 0 rgba(255,255,255,.5),inset 0 -1px 0 rgba(0,34,72,.34),inset 0 -14px 18px -12px rgba(0,44,92,.4),0 6px 18px -8px rgba(0,113,227,.5),0 0 0 1px rgba(127,212,255,.16),0 0 20px -3px rgba(127,212,255,.24);color:#fff;text-shadow:0 1px 2px rgba(0,38,82,.45);transition:background .18s ease,box-shadow .18s ease,transform .18s ease;font-size:17px;" style-hover="background:linear-gradient(180deg,rgba(150,212,255,.56) 0%,rgba(61,166,255,.44) 46%,rgba(0,116,225,.48) 100%);box-shadow:inset 0 1px 0 rgba(255,255,255,.6),inset 0 -1px 0 rgba(0,34,72,.3),0 12px 30px -8px rgba(0,130,255,.62),0 0 0 1px rgba(127,212,255,.26),0 0 26px -2px rgba(127,212,255,.3);transform:translateY(-1px);text-decoration:none;" style-active="transform:translateY(0);box-shadow:inset 0 2px 6px rgba(0,34,72,.45),0 4px 12px -6px rgba(0,113,227,.5);text-decoration:none;">Coming to the App Store</a>
+        <a class="primary-cta" href="#pricing" style="display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:0 24px;border-radius:980px;background:#2997ff;color:#fff;font-size:17px;" style-hover="filter:brightness(1.08);text-decoration:none;">Coming to the App Store</a>
       </div>
-      <p style="margin:8px 0 0;font-size:clamp(13px,1.9vw,15px);font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:#2997ff;">Breaks. Isotherms. Layers. Location.</p>
+      <div class="closing-lockup">
+        <p class="closing-wordmark">B.I.L.L.</p>
+        <span class="closing-rule" aria-hidden="true"></span>
+        <p class="closing-kicker" style="margin:0;font-size:clamp(13px,1.9vw,15px);font-weight:500;line-height:1.45;letter-spacing:.065em;color:#8dccff;text-wrap:balance;">Breaks. Isotherms. Layers. Location.</p>
+      </div>
     </div>
   </section>
 
   </main>
 
-  <footer style="padding:46px 0;border-top:1px solid #2c2c2e;">
-    <div style="max-width:940px;margin:0 auto;padding:0 22px;display:flex;flex-direction:column;gap:12px;align-items:center;">
-      <div style="display:flex;flex-wrap:wrap;gap:18px;justify-content:center;">
+  <footer class="site-footer" style="padding:46px 0;border-top:1px solid #2c2c2e;">
+    <div class="site-footer-inner" style="max-width:940px;margin:0 auto;padding:0 22px;display:flex;flex-direction:column;gap:12px;align-items:center;">
+      <div class="footer-links" style="display:flex;flex-wrap:wrap;gap:18px;justify-content:center;">
         
         <a href="#data" style="font-size:12px;">Data sources</a>
         
