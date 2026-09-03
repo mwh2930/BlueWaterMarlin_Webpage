@@ -7,11 +7,12 @@ offshore satellite chart app. Publisher: Red Oak Media House.
 
 | Path | What it is |
 |---|---|
-| `index.html` | The public website entry point served by GitHub Pages. |
+| `index.html` | The public website entry point served by Azure Static Web Apps. |
 | `support/index.html` | Canonical `/support/` route used by the iOS app and App Store Connect. |
 | `support.html` | Compatibility redirect to the canonical `/support/` route. |
 | `privacy/index.html` | Stable `/privacy` route used by the iOS app and App Store Connect. |
-| `404.html` | Recovery page for missing GitHub Pages routes. |
+| `404.html` | Recovery page for missing public routes. |
+| `staticwebapp.config.json` | Azure routes, MIME overrides, and production security headers. |
 | `support.js` | Runtime the pages load. Required — do not edit by hand. |
 | `assets/hero.jpg` | Hero photo. Provenance still to be established. |
 | `assets/css/public.css` | Shared styling for support and system pages. |
@@ -63,9 +64,12 @@ gitignored; copy `local.settings.example.json` to create it.
 
 ## Website deployment
 
-GitHub Pages publishes the `main` branch from the repository root. The custom
-domain is `bluewatermarlin.com`; the root `CNAME` file keeps that association in
-source control. GoDaddy remains the DNS provider.
+Azure Static Web Apps publishes the allow-listed artifact produced by
+`scripts/build_static_site.sh` after validation passes on `main`. The canonical
+host is `www.bluewatermarlin.com`; the deployment deliberately excludes source,
+backend, documentation, archives, and Git metadata. GoDaddy remains the DNS
+provider. `CNAME` is retained only while the former GitHub Pages apex serves as
+a temporary cutover fallback.
 
 ## Architecture and conventions
 

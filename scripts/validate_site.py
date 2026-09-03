@@ -1,10 +1,11 @@
 #!/usr/bin/env python3
-"""Validate the static routes and local references published by GitHub Pages."""
+"""Validate the public website and its Azure Static Web Apps contract."""
 
 from __future__ import annotations
 
 from collections import Counter
 from html.parser import HTMLParser
+import json
 from pathlib import Path
 from urllib.parse import unquote, urlsplit
 
@@ -18,6 +19,22 @@ PUBLIC_PAGES = (
     Path("404.html"),
 )
 CANONICAL_PAGES = set(PUBLIC_PAGES) - {Path("404.html")}
+EXPECTED_CANONICALS = {
+    Path("index.html"): "https://www.bluewatermarlin.com/",
+    Path("support/index.html"): "https://www.bluewatermarlin.com/support/",
+    Path("privacy/index.html"): "https://www.bluewatermarlin.com/privacy/",
+    Path("support.html"): "https://www.bluewatermarlin.com/support/",
+}
+REQUIRED_GLOBAL_HEADERS = {
+    "content-security-policy",
+    "cross-origin-opener-policy",
+    "cross-origin-resource-policy",
+    "permissions-policy",
+    "referrer-policy",
+    "strict-transport-security",
+    "x-content-type-options",
+    "x-frame-options",
+}
 
 
 class PageParser(HTMLParser):
@@ -132,8 +149,11 @@ def validate() -> tuple[list[str], list[str]]:
             errors.append(f"{page}: missing viewport meta tag")
         if parser.main_count != 1:
             errors.append(f"{page}: expected one main element, found {parser.main_count}")
-        if page in CANONICAL_PAGES and not parser.canonical.startswith("https://bluewatermarlin.com/"):
-            errors.append(f"{page}: missing canonical bluewatermarlin.com URL")
+        if page in CANONICAL_PAGES and parser.canonical != EXPECTED_CANONICALS[page]:
+            errors.append(
+                f"{page}: canonical must be {EXPECTED_CANONICALS[page]!r}, "
+                f"found {parser.canonical!r}"
+            )
 
         duplicates = sorted(name for name, count in Counter(parser.ids).items() if count > 1)
         if duplicates:
@@ -204,6 +224,39 @@ def validate() -> tuple[list[str], list[str]]:
     redirect = (ROOT / "support.html").read_text(encoding="utf-8")
     if 'url=/support/' not in redirect:
         errors.append("support.html must redirect to /support/")
+
+    privacy = (ROOT / "privacy/index.html").read_text(encoding="utf-8")
+    for phrase in (
+        "Microsoft Azure hosts our public website",
+        "https://www.microsoft.com/privacy/privacystatement",
+    ):
+        if phrase not in privacy:
+            errors.append(f"privacy/index.html: missing Azure disclosure {phrase!r}")
+
+    config_path = ROOT / "staticwebapp.config.json"
+    try:
+        config = json.loads(config_path.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError) as error:
+        errors.append(f"staticwebapp.config.json: invalid or unreadable: {error}")
+    else:
+        headers = config.get("globalHeaders", {})
+        missing_headers = sorted(REQUIRED_GLOBAL_HEADERS - set(headers))
+        if missing_headers:
+            errors.append(
+                "staticwebapp.config.json: missing security headers: "
+                + ", ".join(missing_headers)
+            )
+        csp = headers.get("content-security-policy", "")
+        for directive in ("default-src 'self'", "frame-ancestors 'none'", "object-src 'none'"):
+            if directive not in csp:
+                errors.append(
+                    "staticwebapp.config.json: content-security-policy missing "
+                    f"{directive!r}"
+                )
+        if headers.get("x-frame-options") != "DENY":
+            errors.append("staticwebapp.config.json: x-frame-options must be DENY")
+        if headers.get("x-content-type-options") != "nosniff":
+            errors.append("staticwebapp.config.json: x-content-type-options must be nosniff")
 
     return errors, warnings
 

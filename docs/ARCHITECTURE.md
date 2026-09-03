@@ -3,21 +3,22 @@
 This repository is the source of truth for the public BlueWater Marlin website.
 It is intentionally separate from the iOS application repository so website
 deployments cannot accidentally include application source or uncommitted app
-work.
+work. Azure receives only the allow-listed static artifact, never this complete
+repository.
 
 ## Repository boundary
 
 | Repository | Responsibility | Canonical remote |
 |---|---|---|
-| `BlueWaterMarlin_Webpage` | Marketing, support, privacy, and GitHub Pages configuration | `mwh2930/BlueWaterMarlin_Webpage` |
+| `BlueWaterMarlin_Webpage` | Marketing, support, privacy, and Azure Static Web Apps configuration | `mwh2930/BlueWaterMarlin_Webpage` |
 | `BlueWater_MarlinV2` | iOS app, tests, release metadata, Azure relay and tile services | `mwh2930/BlueWater_MarlinV2` |
 
 The app links to these stable website routes:
 
-- `https://bluewatermarlin.com/support/`
-- `https://bluewatermarlin.com/privacy/`
+- `https://www.bluewatermarlin.com/support/`
+- `https://www.bluewatermarlin.com/privacy/`
 
-These URLs already use the configured apex domain and canonical directory
+These URLs use the configured `www` domain and canonical directory
 routes, so the app and App Store do not depend on a redirect.
 
 ## Public routes
@@ -42,11 +43,14 @@ of support or privacy content at a `.html` URL.
 
 ## Deployment
 
-GitHub Pages publishes the repository root from `main`. The `CNAME` file binds
-the Pages site to `bluewatermarlin.com`; GoDaddy remains the DNS provider.
+GitHub Actions validates `main`, builds `.azure-dist/` from an explicit public
+allow-list, and deploys that directory to `swa-bluewatermarlin` in Azure Static
+Web Apps. `www.bluewatermarlin.com` is the canonical production host. GoDaddy
+remains the DNS provider.
 
-Run `python3 scripts/validate_site.py` before committing. The same check runs on
-GitHub for every pull request and push to `main`.
+Run `python3 scripts/validate_site.py` and
+`scripts/build_static_site.sh .azure-dist` before committing. The same checks
+run on every pull request; pushes to `main` deploy only after validation.
 
 ## Structural debt
 

@@ -13,3 +13,4 @@ __pycache__/
 
 # Working material, not part of the repo
 uploads/
+.azure-dist/
