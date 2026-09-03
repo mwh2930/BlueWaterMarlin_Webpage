@@ -22,7 +22,6 @@ offshore satellite chart app. Publisher: Red Oak Media House.
 | `backend/azure-endpoint.md` | Data contract for the readability endpoint. |
 | `docs/ARCHITECTURE.md` | Repository boundaries, canonical routes, deployment, and structural debt. |
 | `CLAUDE.md` | Historical design and copy notes from the original site build. |
-| `archive/` | Source package, screenshots and internal working material. Not linked from the site. |
 
 ## Running locally
 
