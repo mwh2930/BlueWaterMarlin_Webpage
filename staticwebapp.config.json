@@ -11,6 +11,11 @@
       "statusCode": 301
     },
     {
+      "route": "/sources",
+      "redirect": "/sources/",
+      "statusCode": 301
+    },
+    {
       "route": "/assets/*",
       "headers": {
         "cache-control": "public, max-age=86400"

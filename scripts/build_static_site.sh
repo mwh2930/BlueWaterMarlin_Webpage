@@ -14,7 +14,7 @@ esac
 destination="$repository_root/.azure-dist"
 
 if find "$repository_root/assets" "$repository_root/data" \
-  "$repository_root/privacy" "$repository_root/support" -type l | grep -q .; then
+  "$repository_root/privacy" "$repository_root/support" "$repository_root/sources" -type l | grep -q .; then
   echo "Symbolic links are not permitted in the Azure artifact inputs." >&2
   exit 1
 fi
@@ -28,11 +28,14 @@ cp "$repository_root/index.html" "$repository_root/404.html" \
   "$repository_root/support.html" "$repository_root/support.js" \
   "$repository_root/staticwebapp.config.json" "$destination/"
 cp -R "$repository_root/assets" "$repository_root/data" \
-  "$repository_root/privacy" "$repository_root/support" "$destination/"
+  "$repository_root/privacy" "$repository_root/support" "$repository_root/sources" "$destination/"
 
 test -s "$destination/index.html"
 test -s "$destination/privacy/index.html"
 test -s "$destination/support/index.html"
+test -s "$destination/sources/index.html"
+test -s "$destination/assets/css/sources.css"
+test -s "$destination/assets/js/sources-motion.js"
 if find "$destination" -type l | grep -q .; then
   echo "Symbolic links entered the Azure artifact." >&2
   exit 1

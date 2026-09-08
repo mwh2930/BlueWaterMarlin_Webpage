@@ -15,6 +15,7 @@ PUBLIC_PAGES = (
     Path("index.html"),
     Path("support/index.html"),
     Path("privacy/index.html"),
+    Path("sources/index.html"),
     Path("support.html"),
     Path("404.html"),
 )
@@ -23,6 +24,7 @@ EXPECTED_CANONICALS = {
     Path("index.html"): "https://www.bluewatermarlin.com/",
     Path("support/index.html"): "https://www.bluewatermarlin.com/support/",
     Path("privacy/index.html"): "https://www.bluewatermarlin.com/privacy/",
+    Path("sources/index.html"): "https://www.bluewatermarlin.com/sources/",
     Path("support.html"): "https://www.bluewatermarlin.com/support/",
 }
 REQUIRED_GLOBAL_HEADERS = {
@@ -42,6 +44,9 @@ class PageParser(HTMLParser):
         super().__init__(convert_charrefs=True)
         self.html_lang = ""
         self.in_title = False
+        self.in_head = False
+        self.in_footer = False
+        self.footer_links: list[str] = []
         self.title_parts: list[str] = []
         self.description = ""
         self.viewport = ""
@@ -60,7 +65,11 @@ class PageParser(HTMLParser):
 
         if tag == "html":
             self.html_lang = values.get("lang", "").strip()
-        elif tag == "title":
+        elif tag == "head":
+            self.in_head = True
+        elif tag == "footer":
+            self.in_footer = True
+        elif tag == "title" and self.in_head:
             self.in_title = True
         elif tag == "main":
             self.main_count += 1
@@ -83,9 +92,15 @@ class PageParser(HTMLParser):
             value = values.get(attribute, "").strip()
             if value:
                 self.references.append((attribute, value))
+                if tag == "a" and attribute == "href" and self.in_footer:
+                    self.footer_links.append(value)
 
     def handle_endtag(self, tag: str) -> None:
-        if tag.lower() == "title":
+        if tag.lower() == "head":
+            self.in_head = False
+        elif tag.lower() == "footer":
+            self.in_footer = False
+        elif tag.lower() == "title":
             self.in_title = False
 
     def handle_data(self, data: str) -> None:
@@ -170,6 +185,27 @@ def validate() -> tuple[list[str], list[str]]:
             if target is not None and not target.is_file():
                 errors.append(f"{page}: broken {attribute} {reference!r}")
 
+    # Verify in-page links (including the source register contents) after all
+    # route IDs have been collected. External fragments belong to their providers.
+    for page, parser in parsed_pages.items():
+        for attribute, reference in parser.references:
+            parsed = urlsplit(reference)
+            if not parsed.fragment or parsed.scheme or parsed.netloc:
+                continue
+            target = local_target(page, reference) or ROOT / page
+            try:
+                target_page = target.resolve().relative_to(ROOT.resolve())
+            except ValueError:
+                continue
+            target_parser = parsed_pages.get(target_page)
+            if target_parser and unquote(parsed.fragment) not in target_parser.ids:
+                errors.append(f"{page}: missing fragment target for {attribute} {reference!r}")
+
+    for page in (Path("index.html"), Path("support/index.html")):
+        parser = parsed_pages.get(page)
+        if parser and "/sources/" not in parser.footer_links:
+            errors.append(f"{page}: footer must link to the canonical /sources/ route")
+
     homepage = (ROOT / "index.html").read_text(encoding="utf-8")
     if 'href="/support/"' not in homepage:
         errors.append("index.html must link to the canonical /support/ route")
@@ -243,6 +279,13 @@ def validate() -> tuple[list[str], list[str]]:
     except (OSError, json.JSONDecodeError) as error:
         errors.append(f"staticwebapp.config.json: invalid or unreadable: {error}")
     else:
+        if not any(
+            route.get("route") == "/sources"
+            and route.get("redirect") == "/sources/"
+            and route.get("statusCode") == 301
+            for route in config.get("routes", [])
+        ):
+            errors.append("staticwebapp.config.json: /sources must permanently redirect to /sources/")
         headers = config.get("globalHeaders", {})
         missing_headers = sorted(REQUIRED_GLOBAL_HEADERS - set(headers))
         if missing_headers:

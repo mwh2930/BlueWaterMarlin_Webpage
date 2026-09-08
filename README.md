@@ -11,11 +11,14 @@ offshore satellite chart app. Publisher: Red Oak Media House.
 | `support/index.html` | Canonical `/support/` route used by the iOS app and App Store Connect. |
 | `support.html` | Compatibility redirect to the canonical `/support/` route. |
 | `privacy/index.html` | Stable `/privacy` route used by the iOS app and App Store Connect. |
+| `sources/index.html` | Canonical `/sources/` educational data register, limitations, and attribution page. |
 | `404.html` | Recovery page for missing public routes. |
 | `staticwebapp.config.json` | Azure routes, MIME overrides, and production security headers. |
 | `support.js` | Runtime the pages load. Required — do not edit by hand. |
 | `assets/hero.jpg` | Hero photo. Provenance still to be established. |
-| `assets/css/public.css` | Shared styling for support and system pages. |
+| `assets/css/public.css` | Shared base styling for support and system pages. |
+| `assets/css/sources.css` | Scoped dark-to-light source-page layout and inline-SVG motion. |
+| `assets/js/sources-motion.js` | Source-page pause control, reduced-motion and offscreen handling. |
 | `data/readability.json` | Fallback Readability Index data the site fetches. |
 | `backend/build-readability.mjs` | Local job: NOAA ERDDAP → `data/readability.json`. |
 | `backend/azure/` | Deployed backend: ingest timer + readability HTTP API. |
@@ -61,6 +64,31 @@ Validate the public route and link contract before committing:
 ```
 python3 scripts/validate_site.py
 ```
+
+## Data sources page
+
+The homepage and support footer **Data sources** links open `/sources/`.
+The homepage `#data` preview remains part of the product education.
+`/sources` permanently redirects to `/sources/` in Azure.
+
+Source-page styling is isolated from support and privacy. Inline SVG figures are
+conceptual, not live data. They render completely without JavaScript. Motion uses
+only transforms and opacity, pauses outside the viewport or when the tab is hidden,
+and respects both the **Pause motion** control and OS reduced-motion settings.
+No external animation library, provider logo, analytics or network data feed is used.
+
+When updating the register, verify exact products against the current iOS and relay
+source configuration and official provider records. Keep citations, licenses,
+modification acknowledgements, source limitations, review date and correction contact
+current. Do not copy internal projection parameters or claim provider endorsement.
+This transparency page does not replace professional legal review.
+
+Before release, test 320px, 390px and desktop widths, 200% text sizing, keyboard
+navigation, pause/resume, reduced motion, and no-JavaScript reading. Then run the
+validator and Azure artifact build; the new page and both scoped assets are
+explicitly included in the public artifact. Run `bash scripts/build_static_site.sh .azure-dist`
+after validation. See `docs/SOURCES_REVIEW.md` for verification notes and the
+commercial-use licensing item that remains for the publisher to resolve.
 
 ## Backend
 

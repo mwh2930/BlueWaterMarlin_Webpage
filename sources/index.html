@@ -1,0 +1,219 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Data Sources &amp; Attribution — BlueWater Marlin</title>
+  <meta name="description" content="The ocean, weather, chart and terrain sources behind BlueWater Marlin. Explore their origins, data types, limitations and required attributions.">
+  <link rel="canonical" href="https://www.bluewatermarlin.com/sources/">
+  <meta property="og:title" content="Data Sources &amp; Attribution — BlueWater Marlin">
+  <meta property="og:description" content="A field guide to our ocean and weather data: where it comes from, what it represents, and how to read its limits.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://www.bluewatermarlin.com/sources/">
+  <link rel="stylesheet" href="../assets/css/public.css">
+  <link rel="stylesheet" href="../assets/css/sources.css">
+  <script src="../assets/js/sources-motion.js" defer></script>
+</head>
+<body class="sources-page">
+  <a class="skip-link" href="#main">Skip to sources</a>
+  <header class="s-header">
+    <nav class="s-shell s-nav" aria-label="Primary">
+      <a class="s-brand" href="../">BlueWater Marlin <span>B.I.L.L.</span></a>
+      <div class="s-nav-links"><a href="../support/">Support</a><a href="../privacy/">Privacy</a></div>
+    </nav>
+  </header>
+
+  <main id="main">
+    <section class="s-hero" aria-labelledby="page-title">
+      <div class="s-shell s-hero-layout">
+        <div class="s-hero-copy">
+          <p class="s-eyebrow">Origins of the data</p>
+          <h1 id="page-title">Data Sources<br><span>&amp; Attribution</span></h1>
+          <p class="s-hero-lede">A clearer picture begins<br class="s-desktop-break"> with knowing the source.</p>
+          <p class="s-hero-note">The ocean and weather programs behind BlueWater Marlin. What they provide, how their products differ, and where their limits begin.</p>
+          <a class="s-glass-link" href="#source-register">Explore the sources <span aria-hidden="true">↓</span></a>
+          <p class="s-reviewed">Last reviewed <time datetime="2026-09-08">September 8, 2026</time></p>
+        </div>
+        <figure class="s-observatory s-animated" aria-labelledby="observatory-caption">
+          <svg viewBox="0 0 640 490" role="img" aria-labelledby="observatory-title observatory-desc">
+            <title id="observatory-title">An observatory from orbit to ocean floor</title>
+            <desc id="observatory-desc">A satellite follows a dotted orbital path. An optical beam stops at cloud while another reaches an ocean grid. Separate arrows represent wind and currents. Layered contours below represent bathymetry. This is a conceptual illustration, not live data or a scale model.</desc>
+            <defs>
+              <linearGradient id="s-water" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#226783" stop-opacity=".3"/><stop offset="1" stop-color="#122b48" stop-opacity=".08"/></linearGradient>
+              <linearGradient id="s-beam" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#a6e5ff" stop-opacity=".26"/><stop offset="1" stop-color="#4cacdc" stop-opacity=".02"/></linearGradient>
+              <linearGradient id="s-metal" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#fff"/><stop offset=".55" stop-color="#a3c6d8"/><stop offset="1" stop-color="#e2f1f6"/></linearGradient>
+            </defs>
+            <g fill="none" stroke="#78b6d2" stroke-width="1">
+              <path d="M60 159 Q270 -18 572 102" stroke-opacity=".35" stroke-dasharray="3 8"/>
+              <path d="M38 194 Q286 55 608 161" stroke-opacity=".1"/>
+            </g>
+            <g class="s-orbit-motion">
+              <g transform="translate(302 81) rotate(16)">
+                <path d="M-49 -12h29v27h-29zM20 -12h29v27H20z" fill="#214c65" stroke="#7daac0"/>
+                <path d="M-39 -12v27m10-27v27m58-27v27m10-27v27M-49 1h29m40 0h29" stroke="#56849d"/>
+                <path d="M-20 0h12m16 0h12" stroke="#c1dce9" stroke-width="2"/>
+                <rect x="-10" y="-16" width="20" height="32" rx="4" fill="url(#s-metal)"/>
+                <path d="M-6 20q6 8 12 0M0 18v13" fill="none" stroke="#a6cee1"/>
+              </g>
+            </g>
+            <path d="M306 113 380 275 239 229Z" fill="url(#s-beam)"/>
+            <g class="s-signal-motion" fill="none" stroke="#91d4f2" stroke-width="1.5">
+              <path d="M308 118 343 215" stroke-dasharray="5 8"/>
+              <path d="m337 209 7 9 1-12"/>
+              <path d="M272 122 234 163" stroke-opacity=".65"/>
+              <path d="m227 165 6 6m0-6-6 6" stroke="#c9d7e2"/>
+            </g>
+            <g class="s-cloud-motion" fill="#29445a" stroke="#66869c" stroke-opacity=".5">
+              <path d="M141 184c-15-21 8-42 28-34 10-30 55-29 65-2 26-3 43 18 32 36Z"/>
+            </g>
+            <g fill="none" stroke="#66d0d4" stroke-width="1.5" class="s-flow-motion">
+              <path d="M421 160q35-17 64-1m-6-6 7 6-9 2M448 179q35-17 64-1m-6-6 7 6-9 2"/>
+            </g>
+            <g stroke="#39718d" stroke-width="1" fill="url(#s-water)">
+              <path d="m83 234 240-65 251 118-244 85Z"/>
+              <path d="m123 223 249 134m-210-144 249 131m-210-142 250 128m-210-139 250 125m-210-136 251 123M124 256l240-67M166 279l240-70M207 302l241-73M248 325l242-76M289 348l241-79" fill="none" stroke-opacity=".5"/>
+            </g>
+            <g class="s-cell-motion" fill="#7bcff3" fill-opacity=".24" stroke="#80cfee" stroke-opacity=".3">
+              <path d="m241 191 41-11 42 20-42 12Z"/><path d="m282 212 42-12 42 20-42 12Z"/><path d="m324 232 42-12 42 20-42 13Z"/><path d="m366 253 42-13 42 20-42 14Z"/>
+            </g>
+            <g class="s-flow-motion s-slow" fill="none" stroke="#57a9ee" stroke-width="2">
+              <path d="M198 280q45-16 90 9m-9-10 10 10-15 1M348 310q45-16 90 9m-9-10 10 10-15 1"/>
+            </g>
+            <g fill="none" stroke="#527d98" stroke-width="1.2">
+              <path d="m83 234 1 76m490-23v67M330 372v64" stroke-dasharray="3 6" stroke-opacity=".4"/>
+              <g class="s-depth-motion"><path d="M87 310q79-6 128 26t125 36 113-3 115-13"/><path d="M108 336q88-8 133 30t117 27 92-3 89-10" stroke-opacity=".7"/><path d="M149 365q59-5 101 30t89 18 107 4 63-12" stroke-opacity=".45"/></g>
+              <path d="M185 406q72-4 105 20t148 5" stroke-opacity=".3"/>
+            </g>
+            <g class="s-diagram-labels" fill="#a8becb">
+              <text x="410" y="71">ORBIT</text><text x="83" y="213">SURFACE</text><text x="92" y="385">DEPTH</text>
+            </g>
+          </svg>
+          <figcaption id="observatory-caption">From orbit to ocean floor <span>Conceptual illustration · not live data</span></figcaption>
+        </figure>
+      </div>
+      <div class="s-shell s-hero-bottom">
+        <span class="s-hero-index">Ocean · Atmosphere · Seafloor</span>
+        <button class="s-motion-toggle" type="button" aria-pressed="false" aria-label="Pause motion" hidden><span class="s-motion-icon" aria-hidden="true">Ⅱ</span><span data-motion-label>Pause motion</span></button>
+      </div>
+      <svg class="s-profile-edge" viewBox="0 0 1440 72" preserveAspectRatio="none" aria-hidden="true"><path d="M0 49C225 49 286 14 488 21S763 69 980 47 1250 20 1440 32V72H0Z"/></svg>
+    </section>
+
+    <div class="s-shell s-document">
+      <section class="s-intro" aria-labelledby="reading-title">
+        <div><p class="s-eyebrow">A field guide to the sources</p><h2 id="reading-title">One ocean.<br>Different kinds of information.</h2></div>
+        <p>Some products begin with an instrument measurement. Others combine measurements into an analysis, estimate future conditions, or describe the seabed. Knowing the difference helps you interpret what a source can tell you.</p>
+      </section>
+      <div class="s-definitions" role="group" aria-label="Four types of data">
+        <article><svg viewBox="0 0 64 48" aria-hidden="true"><circle cx="32" cy="24" r="17"/><path d="M32 1v9m0 28v9M9 24H0m64 0h-9"/><circle cx="32" cy="24" r="4" class="s-icon-fill"/></svg><h3>Observation</h3><p>A measurement at a place and time. Satellites can have cloud gaps; instruments have limits.</p></article>
+        <article><svg viewBox="0 0 64 48" aria-hidden="true"><path d="M10 8h44v32H10zM21 8v32M32 8v32M43 8v32M10 19h44M10 29h44"/><path d="M21 19h11v10H21zM43 29h11v11H43z" class="s-icon-fill"/></svg><h3>Analysis</h3><p>Measurements combined or reconstructed on a grid. A filled cell may be an estimate.</p></article>
+        <article><svg viewBox="0 0 64 48" aria-hidden="true"><path d="M3 35q14 0 24-12"/><path d="M27 23q15-19 32-15" stroke-dasharray="3 4"/><path d="m50 3 10 5-8 8"/><circle cx="27" cy="23" r="3" class="s-icon-fill"/></svg><h3>Forecast</h3><p>A model estimate for a future time. Its issue time and valid time describe different things.</p></article>
+        <article><svg viewBox="0 0 64 48" aria-hidden="true"><path d="m4 18 28-13 28 13-28 13ZM4 26l28 13 28-13M4 34l28 13 28-13"/></svg><h3>Reference layer</h3><p>Chart, coastline or terrain context. Detail and revision schedules vary by source.</p></article>
+      </div>
+      <nav class="s-toc" aria-label="On this page"><span>On this page</span><a href="#satellite">Ocean data</a><a href="#weather">Weather &amp; tides</a><a href="#reference">Charts &amp; terrain</a><a href="#attribution">Attribution &amp; use</a></nav>
+
+      <div id="source-register">
+        <section class="s-source-section" id="satellite" aria-labelledby="satellite-title">
+          <div class="s-section-heading"><span class="s-section-number">01 / Ocean</span><h2 id="satellite-title">Satellite observations &amp; analyses</h2><p>The product matters as much as the satellite. These feeds include both observed and reconstructed information.</p></div>
+
+          <article class="s-source-entry" aria-labelledby="sst-title">
+            <figure class="s-source-figure s-animated">
+              <svg viewBox="0 0 300 200" role="img" aria-labelledby="sst-svg-title sst-svg-desc">
+                <title id="sst-svg-title">Sea-temperature analysis grid</title><desc id="sst-svg-desc">A scan line crosses colored grid cells. Colors illustrate a temperature gradient, not actual readings.</desc>
+                <defs><linearGradient id="sst-ramp"><stop stop-color="#163f79"/><stop offset=".36" stop-color="#328bba"/><stop offset=".68" stop-color="#78c8c5"/><stop offset="1" stop-color="#e4c88f"/></linearGradient><pattern id="sst-grid" width="22" height="22" patternUnits="userSpaceOnUse"><path d="M22 0H0V22" fill="none" stroke="#fff" stroke-opacity=".23"/></pattern><clipPath id="sst-clip"><rect x="28" y="24" width="244" height="146" rx="8"/></clipPath></defs>
+                <g clip-path="url(#sst-clip)"><path d="M28 24h244v146H28z" fill="url(#sst-ramp)"/><path d="M49 179q19-76 85-102t36-71M83 187q11-74 79-102t41-84M17 173q23-75 80-101t39-67" fill="none" stroke="#e6f6fa" stroke-opacity=".24"/><path d="M28 24h244v146H28z" fill="url(#sst-grid)"/><g class="s-scan-motion"><path d="M111 24h15v146h-15z" fill="#fff" opacity=".12"/><path d="M126 24v146" stroke="#fff" stroke-opacity=".8"/></g></g>
+                <path d="M28 183h64m116 0h64" stroke="#8aabba"/><circle cx="150" cy="183" r="2" fill="#36778f"/>
+              </svg><figcaption>Temperature, on an analysis grid.<span>Illustration · no measured values</span></figcaption>
+            </figure>
+            <div class="s-source-copy"><p class="s-provider">NASA / JPL · NOAA CoastWatch</p><h3 id="sst-title">Sea-surface temperature</h3><p>MUR v4.1 combines satellite and in-water measurements into a daily, global sea-surface temperature analysis. It is a Level 4 foundation-temperature product; each cell is an analysed estimate, even where the map looks continuous.</p>
+              <dl class="s-facts"><div><dt>Product</dt><dd>MUR-JPL-L4-GLOB-v4.1 · <code>jplMURSST41</code></dd></div><div><dt>Type / grid</dt><dd>Analysis · 0.01° (about 1 km)</dd></div><div><dt>Timing / extent</dt><dd>Daily · global ocean; recent fields can be revised.</dd></div></dl>
+              <p class="s-limitation"><strong>Read its limits.</strong> Grid spacing is not a guarantee of feature accuracy or a fresh observation in every cell. The field timestamp is the nominal analysis time. Publication and delivery occur later.</p>
+              <p class="s-credit">These data were provided by JPL under support by NASA MEaSUREs program.</p>
+              <div class="s-source-links"><a href="https://podaac.jpl.nasa.gov/dataset/MUR-JPL-L4-GLOB-v4.1">NASA product record</a><a href="https://coastwatch.pfeg.noaa.gov/erddap/griddap/jplMURSST41.html">NOAA metadata &amp; terms</a><a href="https://doi.org/10.5067/GHGMR-4FJ04">Dataset citation</a></div>
+            </div>
+          </article>
+
+          <article class="s-source-entry" aria-labelledby="chl-title">
+            <figure class="s-source-figure s-animated"><svg viewBox="0 0 300 200" role="img" aria-labelledby="chl-svg-title chl-svg-desc"><title id="chl-svg-title">Observed and reconstructed chlorophyll</title><desc id="chl-svg-desc">Solid cells represent observations; striped translucent cells identify a separate reconstruction. Cloud gaps are not shown as new observations.</desc><defs><pattern id="chl-cells" width="27" height="27" patternUnits="userSpaceOnUse"><rect x="2" y="2" width="23" height="23" rx="3" fill="#307d94"/></pattern><pattern id="chl-fill" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(35)"><path d="M0 0v7" stroke="#487b88" stroke-width="2"/></pattern></defs><rect x="28" y="24" width="244" height="146" rx="8" fill="#dfeced"/><path d="M28 25h244v145H28z" fill="url(#chl-cells)"/><path d="M113 24h81v27h27v81h-54v38h-54v-65H86V51h27Z" fill="#e3eef0"/><g class="s-fill-motion"><path d="M113 24h81v27h27v81h-54v38h-54v-65H86V51h27Z" fill="url(#chl-fill)" opacity=".55"/></g><path d="M39 181h19" stroke="#307d94" stroke-width="4"/><path d="M181 181h19" stroke="#95b4be" stroke-width="4" stroke-dasharray="2 3"/></svg><figcaption>Observed cells. Reconstructed gaps.<span>Illustration · patterns identify analysis</span></figcaption></figure>
+            <div class="s-source-copy"><p class="s-provider">Copernicus Sentinel-3 · NOAA CoastWatch / PolarWatch</p><h3 id="chl-title">Chlorophyll &amp; ocean color</h3><p>Ocean-color sensors measure reflected light. Processing estimates chlorophyll concentration from that signal. The source collection includes Sentinel-3A OLCI observations and a separate VIIRS DINEOF reconstruction.</p>
+              <dl class="s-facts"><div><dt>OLCI</dt><dd><code>noaacwS3AOLCIchlaDaily</code> · Level 3 satellite product · daily, 0.0375° (about 4 km), global grid.</dd></div><div><dt>VIIRS DINEOF</dt><dd><code>noaacwNPPN20VIIRSDINEOFDaily</code> · reconstructed analysis · daily, about 0.0833° (9 km), global grid.</dd></div><div><dt>Regional VIIRS</dt><dd><code>noaacwN21VIIRSchlaSectorUSDaily</code> and <code>noaacwN20VIIRSchlaSectorUSDaily</code> · satellite products · daily, 0.0075°, US-sector grid (approximately 0–60°N, 142.38–52.39°W).</dd></div><div><dt>Coverage</dt><dd>Grid extent is not the extent of valid observations; clouds and quality flags leave gaps.</dd></div></dl>
+              <p class="s-limitation"><strong>Read its limits.</strong> Clouds and retrieval quality can remove observed cells. DINEOF estimates missing values from spatial and temporal patterns; a reconstructed cell is not a new cloud-free measurement. NOAA identifies these products as experimental.</p>
+              <p class="s-credit">Contains modified Copernicus Sentinel data 2026. Ocean-color products distributed by NOAA CoastWatch and PolarWatch; originating sensor and product credits remain with their providers.</p>
+              <div class="s-source-links"><a href="https://coastwatch.noaa.gov/erddap/griddap/noaacwS3AOLCIchlaDaily.html">OLCI metadata &amp; terms</a><a href="https://coastwatch.noaa.gov/erddap/griddap/noaacwNPPN20VIIRSDINEOFDaily.html">VIIRS DINEOF metadata &amp; terms</a><a href="https://polarwatch.noaa.gov/erddap/griddap/noaacwN21VIIRSchlaSectorUSDaily.html">NOAA-21 regional metadata</a><a href="https://polarwatch.noaa.gov/erddap/griddap/noaacwN20VIIRSchlaSectorUSDaily.html">NOAA-20 regional metadata</a><a href="https://www.copernicus.eu/en/faq">Copernicus use &amp; credits</a></div>
+            </div>
+          </article>
+
+          <article class="s-source-entry" aria-labelledby="altimetry-title">
+            <figure class="s-source-figure s-animated"><svg viewBox="0 0 300 200" role="img" aria-labelledby="alt-svg-title alt-svg-desc"><title id="alt-svg-title">Sea height and geostrophic flow</title><desc id="alt-svg-desc">A fixed sea-height profile is shown with directional arrows. Moving highlights indicate the relationship of slope and flow; the diagram does not give a measured height or speed.</desc><path d="M25 125H275M25 75H275" stroke="#c8d9e1" stroke-dasharray="3 5"/><path d="M25 125c57 0 79-51 125-51s68 51 125 51" fill="#bedae8" fill-opacity=".5" stroke="#33799d" stroke-width="2"/><g class="s-flow-motion" fill="none" stroke="#347e9e" stroke-width="1.8"><path d="M50 58h43m-7-5 7 5-7 5M204 58h43m-7-5 7 5-7 5M54 157h43m-7-5 7 5-7 5M204 157h43m-7-5 7 5-7 5"/></g><path d="M150 74v51m-5-51h10m-10 51h10" stroke="#59839a"/><circle class="s-signal-motion" cx="150" cy="74" r="4" fill="#246789"/></svg><figcaption>Sea height informs ocean circulation.<span>Illustration · vertical scale exaggerated</span></figcaption></figure>
+            <div class="s-source-copy"><p class="s-provider">NOAA / NESDIS · NOAA AOML</p><h3 id="altimetry-title">Sea height &amp; surface currents</h3><p>Satellite radar altimeters provide sea-height measurements. Blended sea-level anomaly products supply broad ocean structure; NOAA AOML provides a separate geostrophic-current analysis derived from altimetry and climatology.</p>
+              <dl class="s-facts"><div><dt>Sea-level anomaly</dt><dd><code>noaacwBLENDEDsshDaily</code> · daily blended analysis · 0.25° global grid, relative to the DTU15 mean sea surface.</dd></div><div><dt>Currents</dt><dd><code>miamicurrents</code> · eastward and northward velocity · daily, 0.2° grid.</dd></div><div><dt>Current extent</dt><dd>Approximately 64.7°S to 64.7°N.</dd></div></dl>
+              <p class="s-limitation"><strong>Read its limits.</strong> Geostrophic flow is an estimate of a component of ocean circulation. It does not describe every tidal, coastal or wind-driven motion. A broad sea-height anomaly is not a direct temperature measurement.</p>
+              <p class="s-credit">Data courtesy of NOAA; Sentinel data courtesy of Copernicus Program; Generated using AVISO+ products.</p>
+              <div class="s-source-links"><a href="https://coastwatch.noaa.gov/erddap/griddap/noaacwBLENDEDsshDaily.html">Blended sea-height metadata &amp; terms</a><a href="https://cwcgom.aoml.noaa.gov/erddap/griddap/miamicurrents.html">AOML currents &amp; terms</a></div>
+            </div>
+          </article>
+
+          <article class="s-source-entry" aria-labelledby="sargassum-title">
+            <figure class="s-source-figure s-animated"><svg viewBox="0 0 300 200" role="img" aria-labelledby="afai-svg-title afai-svg-desc"><title id="afai-svg-title">Floating-algae signal</title><desc id="afai-svg-desc">Small amber pixels over a blue field illustrate patches of a floating-algae index. Their subtle movement is illustrative and is not an algae forecast.</desc><rect x="28" y="24" width="244" height="146" rx="8" fill="#e3eef2"/><path d="M28 71q73-27 131 0t113 0M28 111q73-27 131 0t113 0M28 151q73-27 131 0t113 0" stroke="#bdd4e0" fill="none"/><g class="s-pixel-motion" fill="#a78137"><rect x="56" y="71" width="5" height="5"/><rect x="70" y="78" width="4" height="4"/><rect x="82" y="82" width="7" height="6"/><rect x="96" y="93" width="4" height="4"/><rect x="110" y="86" width="6" height="5"/><rect x="120" y="96" width="8" height="6"/><rect x="133" y="99" width="5" height="5"/><rect x="148" y="93" width="4" height="4"/><rect x="169" y="107" width="8" height="6"/><rect x="183" y="100" width="6" height="5"/><rect x="199" y="94" width="4" height="4"/><rect x="219" y="83" width="6" height="6"/><rect x="236" y="77" width="4" height="4"/></g></svg><figcaption>A surface signal, accumulated over days.<span>Illustration · not a location forecast</span></figcaption></figure>
+            <div class="s-source-copy"><p class="s-provider">University of South Florida · NOAA AOML</p><h3 id="sargassum-title">Sargassum / floating-algae index</h3><p>The Alternate Floating Algae Index (AFAI) is a reflectance-based signal sensitive to floating material such as Sargassum. This feed contains seven-day cumulative fields from USF, distributed by NOAA AOML.</p>
+              <dl class="s-facts"><div><dt>Product</dt><dd><code>noaa_aoml_atlantic_oceanwatch_AFAI_7D</code></dd></div><div><dt>Type / grid</dt><dd>Satellite-derived composite · 0.015° grid.</dd></div><div><dt>Time / extent</dt><dd>Seven-day accumulation · 0–38°N, 98–38°W.</dd></div></dl>
+              <p class="s-limitation"><strong>Read its limits.</strong> A cumulative field combines different observation times. Sun glint, clouds and thick aerosols can saturate the signal. AFAI alone does not establish species, biomass or a current patch boundary.</p>
+              <div class="s-source-links"><a href="https://cwcgom.aoml.noaa.gov/erddap/griddap/noaa_aoml_atlantic_oceanwatch_AFAI_7D.html">AFAI product &amp; terms</a><a href="https://doi.org/10.1016/j.rse.2015.05.022">Hu et al. (2015)</a></div>
+            </div>
+          </article>
+        </section>
+
+        <section class="s-source-section" id="weather" aria-labelledby="weather-title">
+          <div class="s-section-heading"><span class="s-section-number">02 / Atmosphere</span><h2 id="weather-title">Weather &amp; tide forecasts</h2><p>Forecasts describe a valid time and location. Their publication time is a separate part of the picture.</p></div>
+          <article class="s-source-entry" aria-labelledby="wind-title">
+            <figure class="s-source-figure s-animated"><svg viewBox="0 0 300 200" role="img" aria-labelledby="wind-svg-title wind-svg-desc"><title id="wind-svg-title">Directional wind streamlines</title><desc id="wind-svg-desc">Three streamlines indicate wind direction over a reference grid. They illustrate the idea of a wind field, not a forecast for any place.</desc><path d="M30 50h240M30 100h240M30 150h240M75 25v150M150 25v150M225 25v150" stroke="#d6e4e9"/><g class="s-wind-motion" stroke="#3d9199" stroke-width="2" fill="none"><path d="M40 65q46-32 99 0t109 0m-9-2 10 1-4 10M30 101q46-32 99 0t109 0m-9-2 10 1-4 10M50 137q46-32 99 0t109 0m-9-2 10 1-4 10"/></g></svg><figcaption>Direction and speed, for a valid time.<span>Illustration · not a weather forecast</span></figcaption></figure>
+            <div class="s-source-copy"><p class="s-provider">NOAA National Weather Service · MET Norway</p><h3 id="wind-title">Marine wind &amp; pressure</h3><p>NOAA NWS grid forecasts provide wind in supported US areas. MET Norway’s Locationforecast 2.0 supplies a global forecast source, including wind and pressure. NWS forecast grids are approximately 2.5 km. MET Norway’s global model is approximately 9 km, with regional differences; forecast intervals vary by service and region.</p>
+              <dl class="s-facts"><div><dt>NWS service</dt><dd><code>api.weather.gov</code> · point lookup and forecast grid data.</dd></div><div><dt>MET service</dt><dd><code>Locationforecast 2.0 / compact</code> · forecasts by coordinate.</dd></div><div><dt>Type / timing</dt><dd>Forecast · use the issue time and the interval for which the forecast is valid.</dd></div></dl>
+              <p class="s-limitation"><strong>Read its limits.</strong> Modelled winds may differ from local conditions, especially near shore or rapidly changing weather. Service coverage and delivery are not guaranteed.</p>
+              <p class="s-credit">Based on data from MET Norway, licensed under <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>. BlueWater Marlin selects forecast intervals, converts units and presents derived displays; these are not MET Norway’s original presentation. NWS-sourced government information is not claimed as BlueWater Marlin copyright.</p>
+              <div class="s-source-links"><a href="https://www.weather.gov/documentation/services-web-api">NWS documentation</a><a href="https://www.weather.gov/disclaimer/">NWS use &amp; disclaimer</a><a href="https://api.met.no/weatherapi/locationforecast/2.0/documentation">MET forecast documentation</a><a href="https://docs.api.met.no/doc/locationforecast/datamodel.html">MET data model</a><a href="https://api.met.no/doc/License">MET licensing</a><a href="https://api.met.no/doc/TermsOfService">MET terms</a></div>
+            </div>
+          </article>
+          <article class="s-source-entry" aria-labelledby="tide-title">
+            <figure class="s-source-figure s-animated"><svg viewBox="0 0 300 200" role="img" aria-labelledby="tide-svg-title tide-svg-desc"><title id="tide-svg-title">Tide prediction at a station</title><desc id="tide-svg-desc">A fixed tide curve rises and falls about a reference line. A station marker highlights a single point. This is an illustrative predicted curve, not observed water levels.</desc><path d="M25 100h250M25 40v122" stroke="#bacfdc"/><path d="M25 100q31-100 62 0t62 0 62 0 64 0" fill="none" stroke="#498aa9" stroke-width="2"/><path d="M150 27v140" stroke="#759ba9" stroke-dasharray="3 5"/><circle class="s-tide-motion" cx="150" cy="100" r="14" fill="#3284a0" opacity=".12"/><circle cx="150" cy="100" r="4" fill="#276d8b"/><path d="M137 176h26m-22-6 9 6-9 6" stroke="#799da9" fill="none"/></svg><figcaption>A tide prediction belongs to a station.<span>Illustration · not observed water levels</span></figcaption></figure>
+            <div class="s-source-copy"><p class="s-provider">NOAA CO-OPS</p><h3 id="tide-title">Tide predictions</h3><p>The Center for Operational Oceanographic Products and Services publishes station-based predictions of high and low water. The requested product is <code>predictions</code>, with a high/low interval.</p>
+              <dl class="s-facts"><div><dt>Service</dt><dd>CO-OPS Data API and station metadata API.</dd></div><div><dt>Type / coverage</dt><dd>Tide prediction · locations in the NOAA prediction-station network.</dd></div></dl>
+              <p class="s-limitation"><strong>Read its limits.</strong> A nearby station does not establish the tide at an offshore location. Prediction heights depend on the stated vertical datum; wind and pressure can affect actual water levels.</p>
+              <div class="s-source-links"><a href="https://api.tidesandcurrents.noaa.gov/api/prod/">CO-OPS data documentation</a><a href="https://tidesandcurrents.noaa.gov/">Stations, products &amp; notices</a></div>
+            </div>
+          </article>
+        </section>
+
+        <section class="s-source-section" id="reference" aria-labelledby="reference-title">
+          <div class="s-section-heading"><span class="s-section-number">03 / Seafloor &amp; coast</span><h2 id="reference-title">Charts, depth &amp; coastlines</h2><p>Reference layers give geographic context. A detailed-looking map may include modelled terrain, generalized coastlines and survey data of different ages.</p></div>
+          <article class="s-source-entry" aria-labelledby="depth-title">
+            <figure class="s-source-figure s-animated"><svg viewBox="0 0 300 220" role="img" aria-labelledby="depth-svg-title depth-svg-desc"><title id="depth-svg-title">Layered bathymetric contours</title><desc id="depth-svg-desc">Three nested sets of depth contours separate gently to illustrate seabed relief. The levels are schematic and do not represent surveyed depths.</desc><g fill="none" stroke="#3d7a99" stroke-width="1.5"><g class="s-depth-motion"><path d="M32 78q38-46 104-39t132 53q-41 40-117 23T32 78Z" fill="#d5e5eb"/><path d="M67 76q33-24 76-13t86 29q-38 17-79 4T67 76Z"/><path d="M107 76q36-4 80 11-41 2-80-11Z"/></g><g class="s-depth-motion s-depth-middle" stroke-opacity=".65"><path d="M32 116q38-46 104-39t132 53q-41 40-117 23T32 116Z"/><path d="M67 114q33-24 76-13t86 29q-38 17-79 4T67 114Z"/></g><path d="M32 154q38-46 104-39t132 53q-41 40-117 23T32 154Z" stroke-opacity=".35"/></g></svg><figcaption>Depth is compiled from many sources.<span>Illustration · no surveyed depths</span></figcaption></figure>
+            <div class="s-source-copy"><p class="s-provider">GEBCO · NOAA NCEI · Scripps / UC San Diego</p><h3 id="depth-title">Bathymetry &amp; terrain</h3><dl class="s-facts s-facts-products"><div><dt>GEBCO 2026</dt><dd>Global terrain and shaded relief · 15 arc-second grid. <a href="https://www.gebco.net/data-products-gridded-bathymetry-data/gebco2026-grid">Product &amp; attribution</a> · <a href="https://www.gebco.net/data-products/gridded-bathymetry/terms-of-use">Terms of use</a>.</dd></div><div><dt>ETOPO 2022</dt><dd>NOAA global relief model · <code>ETOPO_2022_v1_15s</code>, 15 arc-second grid. <a href="https://www.ncei.noaa.gov/products/etopo-global-relief-model">Product record</a> · <a href="https://doi.org/10.25921/fd45-gt74">Dataset citation</a>.</dd></div><div><dt>SRTM30+ v11</dt><dd>Global topography and bathymetry reference model · <code>srtm30plus_LonPM180</code>, 30 arc-second grid. <a href="https://topex.ucsd.edu/WWW_html/srtm30_plus.html">Source &amp; documentation</a> · <a href="https://coastwatch.pfeg.noaa.gov/erddap/griddap/srtm30plus_LonPM180.html">Dataset license</a>.</dd></div></dl>
+              <p class="s-limitation"><strong>Read their limits.</strong> These are reference models, with inputs from different surveys and estimation methods. Grid spacing does not establish the density of actual depth measurements. Vertical datums may differ. GEBCO must not be used for navigation or safety at sea.</p>
+              <p class="s-credit">SRTM30+ has separate commercial-use terms: its distributed license directs commercial users to UC San Diego Technology Transfer. Attribution on this page does not itself grant permission to use a dataset.</p>
+              <p class="s-credit">GEBCO Bathymetric Compilation Group 2026 (2026). <cite>The GEBCO_2026 Grid — a continuous terrain model for oceans and land at 15 arc-second intervals.</cite> NERC EDS British Oceanographic Data Centre NOC. <a href="https://doi.org/10.5285/4f68d5c7-45eb-f999-e063-7086abc036fa">doi:10.5285/4f68d5c7-45eb-f999-e063-7086abc036fa</a>.</p>
+            </div>
+          </article>
+          <div class="s-reference-list">
+            <article aria-labelledby="charts-title"><p class="s-provider">NOAA Office of Coast Survey</p><h3 id="charts-title">Nautical chart context</h3><p>The NOAACharts map service supplies nautical-chart imagery. ENC Direct to GIS (general, coastal and approach layers) supplies vector depth contours and soundings where supported. Coverage, compilation scale and revisions depend on the source. A third-party display does not replace current official nautical charts.</p><div class="s-source-links"><a href="https://nauticalcharts.noaa.gov/data/gis-data-and-services.html">NOAA chart services</a><a href="https://gis.charttools.noaa.gov/arcgis/rest/services/MarineChart_Services/NOAACharts/MapServer">NOAACharts service record</a><a href="https://nauticalcharts.noaa.gov/data/data-licensing.html">NOAA data licensing</a><a href="https://encdirect.noaa.gov/">ENC Direct to GIS</a></div></article>
+            <article aria-labelledby="coast-title"><p class="s-provider">GSHHG · Natural Earth</p><h3 id="coast-title">Shoreline reference</h3><p>GSHHG 2.3.7, by Paul Wessel and Walter H. F. Smith, supplies shoreline geography under the GNU Lesser General Public License, version 3. Natural Earth’s public-domain reference mapping is also acknowledged in the app’s credits. Generalization and source age limit coastline detail; these lines do not establish safe water or legal boundaries.</p><div class="s-source-links"><a href="https://github.com/GenericMappingTools/gshhg-gmt">GSHHG source &amp; license</a><a href="https://doi.org/10.5281/zenodo.7007502">GSHHG dataset citation</a><a href="https://doi.org/10.1029/96JB00104">Wessel &amp; Smith (1996)</a><a href="https://www.naturalearthdata.com/about/terms-of-use/">Natural Earth terms</a></div></article>
+            <article aria-labelledby="map-title"><p class="s-provider">Apple</p><h3 id="map-title">Base map</h3><p>Apple Maps supplies base-map context through MapKit. Its content, regional availability and attribution are governed by Apple and its data providers. Apple’s map credits remain part of the map display.</p><div class="s-source-links"><a href="https://www.apple.com/legal/internet-services/maps/terms-en.html">Apple Maps terms</a><a href="https://gspe21-ssl.ls.apple.com/html/attribution.html">Apple Maps attributions</a><a href="https://www.apple.com/legal/privacy/data/en/apple-maps/">Maps &amp; privacy</a></div></article>
+          </div>
+        </section>
+      </div>
+
+      <section class="s-source-section s-notices" id="attribution" aria-labelledby="attribution-title">
+        <div class="s-section-heading"><span class="s-section-number">04 / Attribution &amp; use</span><h2 id="attribution-title">Credit where it belongs.<br>Limits kept in view.</h2></div>
+        <div class="s-notice-copy">
+          <h3>Independent sources</h3><p>BlueWater Marlin is published by Red Oak Media House, LLC. The organizations named here are independent data providers. Their inclusion does not imply affiliation, sponsorship, endorsement or approval of BlueWater Marlin. Provider names identify the origin of data; ownership and applicable rights remain with their respective holders.</p>
+          <h3>Source terms and derived presentation</h3><p>Each product remains subject to its provider’s terms, licenses, attribution requirements and disclaimers. Public access does not mean every product has the same license. Links above identify the relevant source records and terms. BlueWater Marlin’s selected areas, unit conversions, rendering and derived displays are its own presentation and must not be understood as original or official provider products.</p>
+          <h3>Timing, coverage and uncertainty</h3><p>Observation time, analysis time, forecast issue time, forecast valid time and download time are different. Source grids can include missing, reconstructed or revised values. Delivery, geographic coverage, continuity, accuracy and fitness for a particular purpose are not guaranteed. Provider specifications describe their products; they do not establish the accuracy of a BlueWater Marlin result. The sources listed here may vary with the layer, region and app version.</p>
+          <aside class="s-safety" aria-labelledby="safety-title"><h3 id="safety-title">Educational use and fishing planning</h3><p>BlueWater Marlin is a planning tool, not a navigation system. Do not use this page or its data for navigation, collision avoidance or safety-of-life decisions. Verify conditions against current official nautical charts, marine forecasts and appropriate onboard instruments. All diagrams on this page are conceptual illustrations, not live data.</p></aside>
+          <h3>Corrections and further information</h3><p>For a missing credit, changed source or documentation correction, contact <a href="mailto:support@bluewatermarlin.com?subject=Data%20source%20correction">support@bluewatermarlin.com</a>. Please identify the product and relevant link. Information about network requests and personal data is provided separately in our <a href="../privacy/">Privacy Policy</a>.</p>
+        </div>
+      </section>
+      <div class="s-document-end"><span>Last reviewed September 8, 2026</span><a href="#page-title">Back to top <span aria-hidden="true">↑</span></a></div>
+    </div>
+  </main>
+  <footer class="s-footer"><div class="s-shell"><a class="s-footer-brand" href="../">BlueWater Marlin <span>B.I.L.L.</span></a><nav aria-label="Footer"><a href="../">Home</a><a href="../support/">Support</a><a href="../privacy/">Privacy</a><a href="mailto:support@bluewatermarlin.com">Email support</a></nav><p>© Red Oak Media House, LLC</p></div></footer>
+</body>
+</html>
