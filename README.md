@@ -17,6 +17,7 @@ offshore satellite chart app. Publisher: Red Oak Media House.
 | `support.js` | Runtime the pages load. Required — do not edit by hand. |
 | `assets/hero.jpg` | Hero photo. Provenance still to be established. |
 | `assets/css/public.css` | Shared base styling for support and system pages. |
+| `assets/css/pricing.css` | Scoped homepage pricing, responsive plan comparison, and restrained glass controls. |
 | `assets/css/sources.css` | Scoped dark-to-light source-page layout and inline-SVG motion. |
 | `assets/js/sources-motion.js` | Source-page pause control, reduced-motion and offscreen handling. |
 | `data/readability.json` | Fallback Readability Index data the site fetches. |
@@ -134,8 +135,8 @@ chart-painting rules and copy discipline. The short version:
   chlorophyll and sargassum grids can be restored; currents, wind, tides, live
   updates and new areas may require a connection.
 - Until the App Store listing is live, calls to action say "Coming soon" and
-  planned prices remain qualified. The current plan is $32.99 monthly or $99.00
-  annually ($8.25 per month equivalent); final App Store pricing may vary.
+  planned prices remain qualified. The current plan is $34.99 monthly or $99.99
+  annually (approximately $8.33 per month equivalent); final App Store pricing may vary.
 - Charts on the page are illustrations and stay labelled as such.
 - Thresholds (0.4 °C, 70%, 25%) are one backend constant, printed under the
   graphic. Don't retune them silently.

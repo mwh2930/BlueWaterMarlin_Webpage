@@ -214,9 +214,9 @@ def validate() -> tuple[list[str], list[str]]:
 
     required_homepage_copy = (
         "48&nbsp;hours",
-        "$32.99",
-        "$99.00",
-        "$8.25",
+        "$34.99",
+        "$99.99",
+        "$8.33",
         "Free chart &amp; plans available.",
         "B.I.L.L. Pro · Monthly",
         "B.I.L.L. Pro · Annual",
@@ -233,8 +233,9 @@ def validate() -> tuple[list[str], list[str]]:
     forbidden_homepage_copy = (
         "3&nbsp;days",
         "3 days",
-        "$99.99",
-        "$8.33",
+        "$32.99",
+        "$99.00",
+        "$8.25",
         "Every other chart",
         "All six instruments, every region",
         "Every forecast engineered is graded",

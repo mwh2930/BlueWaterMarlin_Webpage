@@ -11,6 +11,7 @@
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://bluewatermarlin.com/">
 <meta property="og:image" content="https://bluewatermarlin.com/assets/hero.jpg">
+<link rel="stylesheet" href="./assets/css/pricing.css">
 <script src="./support.js" defer></script>
 </head>
 <body>
@@ -42,7 +43,7 @@
   a:hover{text-decoration:underline;}
   input[type=range]{accent-color:#2997ff;}
   .unavailable-cta{pointer-events:none;user-select:none;-webkit-user-select:none;}
-  .site-nav-cta,.primary-cta,.pricing-cta-primary,.pricing-cta-free{background:var(--glass-blue) !important;border:1px solid rgba(255,255,255,.3) !important;box-shadow:var(--glass-blue-edge) !important;color:#fff !important;text-shadow:0 1px 2px rgba(0,38,82,.45);backdrop-filter:blur(16px) saturate(180%);-webkit-backdrop-filter:blur(16px) saturate(180%);transition:background .18s ease,box-shadow .18s ease,filter .18s ease,transform .18s ease;}
+  .site-nav-cta,.primary-cta{background:var(--glass-blue) !important;border:1px solid rgba(255,255,255,.3) !important;box-shadow:var(--glass-blue-edge) !important;color:#fff !important;text-shadow:0 1px 2px rgba(0,38,82,.45);backdrop-filter:blur(16px) saturate(180%);-webkit-backdrop-filter:blur(16px) saturate(180%);transition:background .18s ease,box-shadow .18s ease,filter .18s ease,transform .18s ease;}
   .secondary-cta{background:linear-gradient(180deg,rgba(255,255,255,.16) 0%,rgba(255,255,255,.07) 100%) !important;border:1px solid rgba(255,255,255,.34) !important;box-shadow:inset 0 1px 0 rgba(255,255,255,.4),0 8px 20px -12px rgba(0,0,0,.7),0 0 18px -6px rgba(127,212,255,.3) !important;backdrop-filter:blur(16px) saturate(140%);-webkit-backdrop-filter:blur(16px) saturate(140%);transition:background .18s ease,box-shadow .18s ease,transform .18s ease;}
   .site-nav{box-shadow:inset 0 1px 0 rgba(255,255,255,.07),0 1px 8px rgba(0,0,0,.42) !important;}
   .closing-lockup{display:flex;flex-direction:column;align-items:center;gap:11px;width:100%;max-width:560px;margin-top:6px;padding-top:4px;text-align:center;}
@@ -72,9 +73,7 @@
   .section-kicker{margin:0;display:inline-flex;align-items:center;justify-content:center;gap:9px;font-size:12px;font-weight:600;line-height:1.3;letter-spacing:.14em;text-transform:uppercase;color:#64b5ff;-webkit-text-fill-color:currentColor;filter:none;}
   .section-kicker::before,.section-kicker::after{content:"";display:block;width:22px;height:1px;background:linear-gradient(90deg,transparent,rgba(100,181,255,.5));}
   .section-kicker::after{transform:scaleX(-1);}
-  .value-badge{background:rgba(41,151,255,.14) !important;border:1px solid rgba(100,181,255,.34) !important;box-shadow:none !important;color:#8dccff !important;text-shadow:none;backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);}
-  .diagram-card,.readability-card,.input-card,.price-card,.source-panel{background:var(--surface-raised) !important;border-color:var(--surface-edge) !important;box-shadow:var(--surface-shadow) !important;}
-  .price-card:last-child{border-color:rgba(41,151,255,.45) !important;box-shadow:0 16px 38px -30px rgba(41,151,255,.55) !important;}
+  .diagram-card,.readability-card,.input-card,.source-panel{background:var(--surface-raised) !important;border-color:var(--surface-edge) !important;box-shadow:var(--surface-shadow) !important;}
   .stats-grid > div{position:relative;isolation:isolate;overflow:hidden;padding:20px 14px;border:1px solid var(--surface-edge);border-radius:16px;background:var(--surface-raised);box-shadow:var(--surface-shadow);transition:border-color .22s ease,box-shadow .22s ease,transform .22s ease;animation:stat-enter .55s cubic-bezier(.22,1,.36,1) both;}
   .stats-grid > div::before{content:"";position:absolute;z-index:-1;inset:-45% -30%;pointer-events:none;background:radial-gradient(circle at 24% 32%,rgba(75,178,255,.11),transparent 38%);opacity:.55;transform:translate3d(-8%,0,0);}
   .stats-grid > div:nth-child(2){animation-delay:.07s;}
@@ -108,7 +107,7 @@
   .section-inner{gap:24px !important;}
   .section-heading{gap:10px !important;}
   .diagram-card{gap:14px !important;}
-  .stats-grid,.journey-grid,.price-grid{gap:16px !important;}
+  .stats-grid,.journey-grid{gap:16px !important;}
   .diagram-viewport{width:100%;}
   @media (max-width:600px){
     body{font-size:17px;line-height:1.47;letter-spacing:-.022em;}
@@ -132,7 +131,7 @@
     .hero-note{max-width:34ch;font-size:13px !important;line-height:1.45 !important;color:rgba(255,255,255,.62) !important;}
     .hero-actions{width:100%;flex-direction:column;align-items:center;gap:9px !important;}
     .hero-actions a{width:auto;max-width:100%;min-height:44px !important;padding:0 20px !important;font-size:15px !important;font-weight:500;}
-    .site-nav-cta,.primary-cta,.pricing-cta-primary,.pricing-cta-free{box-shadow:0 0 0 1px rgba(150,220,255,.4),0 0 24px rgba(41,151,255,.48),0 11px 30px -14px rgba(0,126,239,1),inset 0 1px 0 rgba(255,255,255,.58) !important;}
+    .site-nav-cta,.primary-cta{box-shadow:0 0 0 1px rgba(150,220,255,.4),0 0 24px rgba(41,151,255,.48),0 11px 30px -14px rgba(0,126,239,1),inset 0 1px 0 rgba(255,255,255,.58) !important;}
     .secondary-cta{box-shadow:0 0 0 1px rgba(255,255,255,.08),0 0 18px rgba(41,151,255,.18),0 10px 24px -16px rgba(41,151,255,.8),inset 0 1px 0 rgba(255,255,255,.08) !important;}
     main > section:not(.hero-primary){padding-top:52px !important;padding-bottom:52px !important;}
     main > section:nth-of-type(2){padding-top:44px !important;padding-bottom:44px !important;}
@@ -183,13 +182,6 @@
     .source-row{display:grid !important;grid-template-columns:20px minmax(0,1fr);align-items:start !important;column-gap:12px !important;row-gap:2px !important;padding:13px 16px !important;}
     .source-row > svg{grid-row:1 / span 2;}
     .source-row > span{grid-column:2;margin-left:0 !important;font-size:14px !important;line-height:1.35 !important;text-align:left !important;}
-    .price-grid{grid-template-columns:1fr !important;gap:12px !important;}
-    .price-card{padding:24px 18px 20px !important;border-radius:16px !important;}
-    .price-card > div:first-of-type{font-size:15px !important;}
-    .price-card > div:nth-of-type(3){font-size:15px !important;line-height:1.45 !important;min-height:0 !important;}
-    .price-card small{font-size:.45em !important;color:#a1a1a6 !important;}
-    .price-card > ul{font-size:15px !important;line-height:1.5 !important;gap:10px !important;}
-    .price-card .unavailable-cta{align-self:center;width:auto !important;min-width:180px;min-height:44px !important;padding:0 18px !important;font-size:14px !important;}
     main > section:last-of-type .primary-cta{min-height:44px !important;padding:0 20px !important;font-size:15px !important;font-weight:500;}
     main > section:last-of-type{padding-bottom:44px !important;}
     main > section:last-of-type .section-inner{gap:16px !important;}
@@ -255,7 +247,7 @@
         <a class="primary-cta" href="#pricing" style="display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:0 24px;border-radius:980px;background:linear-gradient(180deg,#3ba3ff 0%,#0071e3 52%,#0060c4 100%);box-shadow:inset 0 1px 0 rgba(255,255,255,.34),0 2px 10px -2px rgba(0,113,227,.55);color:#fff;font-size:17px;" style-hover="filter:brightness(1.08);text-decoration:none;">Coming to the App Store</a>
         <a class="secondary-cta" href="#forward" style="display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:0 24px;border-radius:980px;background:transparent;color:#fff;border:1px solid rgba(255,255,255,.7);font-size:17px;" style-hover="background:rgba(255,255,255,.12);text-decoration:none;">See how it works</a>
       </div>
-      <p class="hero-note" style="margin:4px 0 0;font-size:12px;color:rgba(255,255,255,.66);letter-spacing:-.01em;">At launch, SST and tap-to-read are free. Pro pricing is $32.99 a month or $99.00 a year. Final App Store price may vary.</p>
+      <p class="hero-note" style="margin:4px 0 0;font-size:12px;color:rgba(255,255,255,.66);letter-spacing:-.01em;">At launch, SST and tap-to-read are free. Pro pricing is $34.99 a month or $99.99 a year. Final App Store price may vary.</p>
     </div>
   </section>
 
@@ -618,56 +610,74 @@
     </div>
   </section>
 
-  <section id="pricing" style="padding:88px 0;background:linear-gradient(180deg,#0d0d0f 0%,#07070a 100%);">
-    <div class="section-inner" style="max-width:940px;margin:0 auto;padding:0 22px;display:flex;flex-direction:column;align-items:center;gap:28px;">
-      <div class="section-heading" style="max-width:560px;display:flex;flex-direction:column;gap:12px;align-items:center;">
-        <p class="section-kicker">Pricing</p>
-        <h2 style="background:linear-gradient(178deg,#ffffff 12%,#d6d6db 62%,#a8a8ae 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:#f5f5f7;margin:0;font-size:clamp(30px,4.6vw,42px);line-height:1.08;letter-spacing:-.024em;font-weight:600;text-wrap:balance;">Free chart &amp; plans available.</h2>
-        <p style="margin:0;font-size:clamp(17px,2.1vw,20px);line-height:1.4;color:#a1a1a6;max-width:40ch;">Pricing may vary when App Store availability opens.</p>
+  <section id="pricing" aria-labelledby="pricing-title">
+    <div class="pricing-wrap">
+      <header class="pricing-heading">
+        <p class="pricing-eyebrow">Pricing</p>
+        <h2 id="pricing-title">Free chart &amp; plans available.</h2>
+        <p class="pricing-intro">Pricing may vary when App Store availability opens.</p>
+      </header>
+
+      <div class="pricing-plans">
+        <article class="pricing-plan" aria-labelledby="plan-free-title">
+          <header class="plan-heading">
+            <h3 id="plan-free-title">B.I.L.L.</h3>
+          </header>
+          <div class="plan-price">
+            <div class="plan-amount"><p class="plan-number">Free</p></div>
+            <p class="plan-billing">No subscription required</p>
+          </div>
+          <p class="plan-description">Look at your water before you decide anything.</p>
+          <ul class="plan-features" role="list">
+            <li><span>SST chart and tap readout</span></li>
+            <li><span>Explore available water before upgrading</span></li>
+            <li><span>No account, no email, no trackers</span></li>
+          </ul>
+          <button class="plan-cta plan-cta-free" type="button" disabled aria-disabled="true">Coming to the App Store</button>
+        </article>
+
+        <article class="pricing-plan" aria-labelledby="plan-monthly-title" aria-describedby="pro-offline-note pro-time-note">
+          <header class="plan-heading">
+            <h3 id="plan-monthly-title">B.I.L.L. Pro · Monthly</h3>
+          </header>
+          <div class="plan-price">
+            <div class="plan-amount"><p class="plan-number">$34.99</p><span class="plan-period">/ month</span></div>
+            <p class="plan-billing">Billed monthly</p>
+          </div>
+          <p class="plan-description">On for the season, off when you're not going.</p>
+          <ul class="plan-features" role="list">
+            <li><span>Projection up to 48 hours</span></li>
+            <li><span>Available Pro tools across supported regions</span></li>
+            <li><span>Cancel any time in your Apple Account</span></li>
+          </ul>
+          <button class="plan-cta" type="button" disabled aria-disabled="true">Coming soon</button>
+        </article>
+
+        <article class="pricing-plan pricing-plan-annual" aria-labelledby="plan-annual-title" aria-describedby="pro-offline-note pro-time-note">
+          <header class="plan-heading">
+            <h3 id="plan-annual-title">B.I.L.L. Pro · Annual</h3>
+            <span class="plan-badge">Best value</span>
+          </header>
+          <div class="plan-price">
+            <div class="plan-amount"><p class="plan-number">$99.99</p><span class="plan-period">/ year</span></div>
+            <p class="plan-billing">Equivalent to about $8.33 a month</p>
+          </div>
+          <p class="plan-description">About the price of three monthly periods.</p>
+          <ul class="plan-features" role="list">
+            <li><span>Everything in Pro, billed once</span></li>
+            <li><span>Use supported regions across seasons</span></li>
+            <li><span>One annual billing period</span></li>
+          </ul>
+          <button class="plan-cta" type="button" disabled aria-disabled="true">Coming soon</button>
+        </article>
       </div>
-      <div class="price-grid" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:16px;align-items:stretch;max-width:880px;margin:0 auto;width:100%;">
-        <div class="price-card" style="box-shadow:inset 0 1px 0 rgba(255,255,255,.13),inset 0 -1px 0 rgba(0,0,0,.55),0 8px 24px -8px rgba(0,0,0,.7);position:relative;background:linear-gradient(180deg,#27272b 0%,#1a1a1c 52%,#131315 100%);border:1px solid #2c2c2e;border-radius:18px;padding:26px 22px 22px;display:flex;flex-direction:column;text-align:center;">
-          <div style="font-size:14px;font-weight:600;">B.I.L.L.</div>
-          <div style="font-size:clamp(28px,3.6vw,38px);font-weight:600;letter-spacing:-.028em;line-height:1;margin-top:10px;white-space:nowrap;">Free</div>
-          <div style="font-size:13px;color:#a1a1a6;margin-top:8px;min-height:2.6em;">Look at your water before you decide anything.</div>
-          <hr style="border:none;border-top:1px solid #2c2c2e;margin:16px 0 14px;width:100%;">
-          <ul style="list-style:none;padding:0;margin:0 0 18px;display:flex;flex-direction:column;gap:9px;text-align:left;flex:1;font-size:13.5px;line-height:1.4;color:#a1a1a6;">
-            <li style="display:grid;grid-template-columns:14px 1fr;gap:9px;align-items:start;"><span style="color:#2997ff;font-weight:600;">✓</span>SST chart and tap readout</li>
-            <li style="display:grid;grid-template-columns:14px 1fr;gap:9px;align-items:start;"><span style="color:#2997ff;font-weight:600;">✓</span>Explore available water before upgrading</li>
-            <li style="display:grid;grid-template-columns:14px 1fr;gap:9px;align-items:start;"><span style="color:#2997ff;font-weight:600;">✓</span>No account, no email, no trackers</li>
-          </ul>
-          <button class="unavailable-cta pricing-cta-free" type="button" disabled aria-disabled="true" tabindex="-1" style="display:inline-flex;align-items:center;justify-content:center;width:100%;box-sizing:border-box;min-height:40px;border-radius:980px;background:transparent;color:#2997ff;border:1px solid #2997ff;font:inherit;font-size:15px;cursor:not-allowed;opacity:.86;">Coming to the App Store</button>
-        </div>
-        <div class="price-card" style="box-shadow:inset 0 1px 0 rgba(255,255,255,.13),inset 0 -1px 0 rgba(0,0,0,.55),0 8px 24px -8px rgba(0,0,0,.7);position:relative;background:linear-gradient(180deg,#27272b 0%,#1a1a1c 52%,#131315 100%);border:1px solid #2c2c2e;border-radius:18px;padding:26px 22px 22px;display:flex;flex-direction:column;text-align:center;">
-          <div style="font-size:14px;font-weight:600;">B.I.L.L. Pro · Monthly</div>
-          <div style="font-size:clamp(28px,3.6vw,38px);font-weight:600;letter-spacing:-.028em;line-height:1;margin-top:10px;white-space:nowrap;font-variant-numeric:tabular-nums;">$32.99<small style="font-size: 0.42em; font-weight: 400; color: rgb(110, 110, 115);">/mo.</small></div>
-          <div style="font-size:13px;color:#a1a1a6;margin-top:8px;min-height:2.6em;">On for the season, off when you're not going.</div>
-          <hr style="border:none;border-top:1px solid #2c2c2e;margin:16px 0 14px;width:100%;">
-          <ul style="list-style:none;padding:0;margin:0 0 18px;display:flex;flex-direction:column;gap:9px;text-align:left;flex:1;font-size:13.5px;line-height:1.4;color:#a1a1a6;">
-            <li style="display:grid;grid-template-columns:14px 1fr;gap:9px;align-items:start;"><span style="color:#2997ff;font-weight:600;">✓</span>Projection up to 48 hours</li>
-            <li style="display:grid;grid-template-columns:14px 1fr;gap:9px;align-items:start;"><span style="color:#2997ff;font-weight:600;">✓</span>Available Pro tools across supported regions</li>
-            <li style="display:grid;grid-template-columns:14px 1fr;gap:9px;align-items:start;"><span style="color:#2997ff;font-weight:600;">✓</span>Previously loaded scalar layers in reduced offline mode</li>
-            <li style="display:grid;grid-template-columns:14px 1fr;gap:9px;align-items:start;"><span style="color:#2997ff;font-weight:600;">✓</span>Changing ocean layers show source or analysis time</li>
-            <li style="display:grid;grid-template-columns:14px 1fr;gap:9px;align-items:start;"><span style="color:#2997ff;font-weight:600;">✓</span>Cancel any time in your Apple Account</li>
-          </ul>
-          <button class="unavailable-cta pricing-cta-primary" type="button" disabled aria-disabled="true" tabindex="-1" style="display:inline-flex;align-items:center;justify-content:center;width:100%;box-sizing:border-box;min-height:40px;border-radius:980px;background:linear-gradient(180deg,#3ba3ff 0%,#0071e3 52%,#0060c4 100%);box-shadow:inset 0 1px 0 rgba(255,255,255,.34),0 2px 10px -2px rgba(0,113,227,.55);color:#fff;border:0;font:inherit;font-size:15px;cursor:not-allowed;opacity:.86;">Coming soon</button>
-        </div>
-        <div class="price-card" style="position:relative;background:linear-gradient(180deg,#27272b 0%,#1a1a1c 52%,#131315 100%);border:1px solid #2997ff;box-shadow:0 0 0 1px #2997ff;border-radius:18px;padding:26px 22px 22px;display:flex;flex-direction:column;text-align:center;">
-          <span class="value-badge" style="position:absolute;top:-11px;left:50%;transform:translateX(-50%);background:linear-gradient(180deg,#3ba3ff 0%,#0071e3 52%,#0060c4 100%);box-shadow:inset 0 1px 0 rgba(255,255,255,.34),0 2px 10px -2px rgba(0,113,227,.55);color:#fff;font-size:11px;font-weight:600;letter-spacing:.04em;padding:4px 12px;border-radius:980px;white-space:nowrap;">Best value</span>
-          <div style="font-size:14px;font-weight:600;">B.I.L.L. Pro · Annual</div>
-          <div style="font-size:clamp(28px,3.6vw,38px);font-weight:600;letter-spacing:-.028em;line-height:1;margin-top:10px;white-space:nowrap;font-variant-numeric:tabular-nums;">$99.00<small style="font-size:.42em;font-weight:400;color:#a1a1a6;">/yr.</small></div>
-          <div style="font-size:13px;color:#a1a1a6;margin-top:8px;min-height:2.6em;">About the price of three monthly periods.</div>
-          <hr style="border:none;border-top:1px solid #2c2c2e;margin:16px 0 14px;width:100%;">
-          <ul style="list-style:none;padding:0;margin:0 0 18px;display:flex;flex-direction:column;gap:9px;text-align:left;flex:1;font-size:13.5px;line-height:1.4;color:#a1a1a6;">
-            <li style="display:grid;grid-template-columns:14px 1fr;gap:9px;align-items:start;"><span style="color:#2997ff;font-weight:600;">✓</span>Everything in Pro, billed once</li>
-            <li style="display:grid;grid-template-columns:14px 1fr;gap:9px;align-items:start;"><span style="color:#2997ff;font-weight:600;">✓</span>Use supported regions across seasons</li>
-            <li style="display:grid;grid-template-columns:14px 1fr;gap:9px;align-items:start;"><span style="color:#2997ff;font-weight:600;">✓</span>One annual billing period</li>
-            <li style="display:grid;grid-template-columns:14px 1fr;gap:9px;align-items:start;"><span style="color:#2997ff;font-weight:600;">✓</span>Equivalent to $8.25 a month</li>
-          </ul>
-          <button class="unavailable-cta pricing-cta-primary" type="button" disabled aria-disabled="true" tabindex="-1" style="display:inline-flex;align-items:center;justify-content:center;width:100%;box-sizing:border-box;min-height:40px;border-radius:980px;background:linear-gradient(180deg,#3ba3ff 0%,#0071e3 52%,#0060c4 100%);box-shadow:inset 0 1px 0 rgba(255,255,255,.34),0 2px 10px -2px rgba(0,113,227,.55);color:#fff;border:0;font:inherit;font-size:15px;cursor:not-allowed;opacity:.86;">Coming soon</button>
-        </div>
+
+      <div class="pricing-shared" role="group" aria-labelledby="pro-shared-title">
+        <h3 id="pro-shared-title">With both Pro plans</h3>
+        <p id="pro-offline-note">Previously loaded scalar layers in reduced offline mode</p>
+        <p id="pro-time-note">Changing ocean layers show source or analysis time</p>
       </div>
-      <p style="margin:0;font-size:13px;line-height:1.42;color:#a1a1a6;max-width:56ch;">B.I.L.L. Pro pricing is monthly or annual. Final App Store price, availability, billing period, and terms will be shown before purchase. When available, subscriptions will be managed through your Apple Account. <a href="https://www.apple.com/legal/internet-services/itunes/dev/stdeula/">Terms</a> · <a href="./privacy/">Privacy</a></p>
+      <p class="pricing-terms">B.I.L.L. Pro pricing is monthly or annual. Final App Store price, availability, billing period, and terms will be shown before purchase. When available, subscriptions will be managed through your Apple Account. <a href="https://www.apple.com/legal/internet-services/itunes/dev/stdeula/">Terms</a> · <a href="./privacy/">Privacy</a></p>
     </div>
   </section>
 

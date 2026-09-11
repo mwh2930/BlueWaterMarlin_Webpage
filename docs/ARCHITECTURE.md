@@ -41,6 +41,10 @@ to that preview remain unchanged.
 ## Shared assets
 
 - `assets/hero.jpg` is the homepage hero and social-preview image.
+- `assets/css/pricing.css` is scoped to the homepage `#pricing` section. Plan cards
+  use semantic headings and CSS subgrid with a flex fallback; mobile stacks the
+  same content. Shared Pro limitations remain visible, and prelaunch buttons stay
+  disabled. The stylesheet is included through the existing `assets/` allow-list.
 - `assets/css/public.css` provides base styles for support, redirect, error, and sources pages.
 - `assets/css/sources.css` isolates the illustrated dark-to-light source page; it does
   not alter homepage, support, or privacy styling.

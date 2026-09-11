@@ -34,6 +34,7 @@ test -s "$destination/index.html"
 test -s "$destination/privacy/index.html"
 test -s "$destination/support/index.html"
 test -s "$destination/sources/index.html"
+test -s "$destination/assets/css/pricing.css"
 test -s "$destination/assets/css/sources.css"
 test -s "$destination/assets/js/sources-motion.js"
 if find "$destination" -type l | grep -q .; then
