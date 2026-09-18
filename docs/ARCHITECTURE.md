@@ -3,8 +3,8 @@
 This repository is the source of truth for the public BlueWater Marlin website.
 It is intentionally separate from the iOS application repository so website
 deployments cannot accidentally include application source or uncommitted app
-work. Azure receives only the allow-listed static artifact, never this complete
-repository.
+work. Azure Static Web Apps receives only the allow-listed static artifact, never
+this complete repository. The report Function uses a separate explicit source ZIP.
 
 ## Repository boundary
 
@@ -30,6 +30,9 @@ routes, so the app and App Store do not depend on a redirect.
 | `/privacy/` | `privacy/index.html` | Canonical privacy policy |
 | `/sources/` | `sources/index.html` | Educational source register, limitations, and attribution |
 | `/sources` | Azure route configuration | Permanent redirect to `/sources/` |
+| `/report/` | `report/index.html` | Website-only offshore report reader and searchable destinations |
+| `/report/privacy/` | `report/privacy/index.html` | Report data and hosting privacy supplement |
+| `/report`, `/report/privacy` | Azure route configuration | Permanent redirects to directory routes |
 | `/support.html` | `support.html` | Compatibility redirect to `/support/` |
 | Any missing route | `404.html` | Recovery page |
 
@@ -79,7 +82,65 @@ footer integration and permanent redirect. The Azure build explicitly allows
 `sources/` and asserts that its page, stylesheet and motion script are nonempty.
 Support and privacy keep their existing styling and routes.
 
-## Structural debt
+## Read-only report boundary
+
+The report page and its scoped CSS/JS are public static assets. `?destination=`
+selects a public catalog ID. Browser requests use only the website's branded
+`/api/reports/` interface, never internal storage URLs or shared-access tokens.
+The source catalog retains public destination names and time zones only; internal
+render-region keys, container names and coordinates from the reference catalog
+are not distributed. A candidate listing is not proof of available report coverage.
+
+`backend/reports/` is an independently deployed HTTP-only Function App, not the
+existing readability API and not part of the iOS data/learning relay. It reads
+prepared reports from private Blob storage and returns approved public fields.
+It does not generate reports or write to the source. Its report-reader identity has
+read-only access scoped to the report container. A separate host identity has only
+three dedicated container-scoped assignments for host metadata, host secrets and
+deployment packages, with no account-wide role. The public static artifact must
+never include backend source, tests, settings or credentials. Static deployment
+does not deploy or enable this backend.
+
+The reader has no contact database, signup, email sender, timer, operator approval
+route or visitor account. A separately deployed upstream timer handles destination
+export and report publication at Eastern noon and midnight. A destination's lookup
+approval is not proof of available data: the private publisher must supply the
+bounded, dated report JSON contract before a report can be returned. Legacy
+marketing text files are reference material, not live inputs.
+Public responses are reconstructed from approved fields; upstream URLs, errors and
+headers are not passed through. Report text retains source age and uses approximate
+area language, without fishing conclusions or confirmed weed-line claims.
+
+Only GET catalog and report routes are supported. The static catalog is a list of
+candidate destinations, all unavailable by default. Missing, stale or invalid data
+must never become a substitute sample or a claim of no signal. Dates reflect the
+source, not an upload timestamp. Descriptions are factual, without an education
+pitch, invented grades or fishing advice. The historical example stays labeled.
+
+Bounded in-memory caching, coalesced reads and per-instance request/read budgets
+reduce repeated Blob reads. They are not a distributed firewall or a guarantee
+against traffic-related charges. The service does not trust a caller-supplied IP
+header. The owner approved the Static Web Apps Standard upgrade, isolated Function
+deployment and Git push. Native same-origin routing is verified: the catalog returns
+200 through the website and direct backend access returns 401 with platform
+authentication required. Storage remains private and keyless. Review ordinary
+hosting-log access and retention separately from the application's bounded reads.
+
+The September 17 pilot permits lookup for Oregon Inlet only. Its missing current
+report returns a generic 404; first scheduled publication and real source-content
+verification remain pending. An indexed publisher timer is not proof of fresh data.
+The visible browser page rechecks the selected approved destination at each Eastern
+noon/midnight boundary, with five-minute retries through the first twenty minutes
+when a report is missing. Hidden tabs recheck on return. This does not generate or
+re-date a report, and a prior-slot report cannot remain current.
+
+The marketing page footer link and adjacent hero CTA open the same `/report/` route.
+The existing homepage content, source education, app-privacy statements, pricing and
+App Store availability copy remain unchanged. See `REPORT_IMPLEMENTATION.md` for QA
+and current release gates. The separate staged cloud-fill wording draft remains
+unpublished and is excluded from this report release.
+
+## Existing homepage structural debt
 
 The homepage is still a generated document with inline styles and a client-side
 runtime. A later refactor should compile the interactive charts ahead of time,

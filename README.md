@@ -12,6 +12,8 @@ offshore satellite chart app. Publisher: Red Oak Media House.
 | `support.html` | Compatibility redirect to the canonical `/support/` route. |
 | `privacy/index.html` | Stable `/privacy` route used by the iOS app and App Store Connect. |
 | `sources/index.html` | Canonical `/sources/` educational data register, limitations, and attribution page. |
+| `report/index.html` | `/report/` read-only destination report reader and clearly dated historical example. |
+| `report/privacy/index.html` | Website report data and privacy notice, separate from app records. |
 | `404.html` | Recovery page for missing public routes. |
 | `staticwebapp.config.json` | Azure routes, MIME overrides, and production security headers. |
 | `support.js` | Runtime the pages load. Required — do not edit by hand. |
@@ -23,6 +25,7 @@ offshore satellite chart app. Publisher: Red Oak Media House.
 | `data/readability.json` | Fallback Readability Index data the site fetches. |
 | `backend/build-readability.mjs` | Local job: NOAA ERDDAP → `data/readability.json`. |
 | `backend/azure/` | Deployed backend: ingest timer + readability HTTP API. |
+| `backend/reports/` | Independently deployed private Blob report reader; Oregon Inlet pilot awaits first current report verification. |
 | `backend/azure-endpoint.md` | Data contract for the readability endpoint. |
 | `docs/ARCHITECTURE.md` | Repository boundaries, canonical routes, deployment, and structural debt. |
 | `CLAUDE.md` | Historical design and copy notes from the original site build. |
@@ -92,6 +95,66 @@ after validation. See `docs/SOURCES_REVIEW.md` for verification notes and the
 commercial-use licensing item that remains for the publisher to resolve.
 
 ## Backend
+
+### Website-only reports and local preview
+
+The homepage **Free Report** button beside the main App Store call to action and
+the footer **Report** link both open `/report/`. The App Store availability and
+pricing wording are unchanged. The report page uses its own stylesheet and script,
+with no external fonts, framework, tracking or direct storage requests.
+
+Start the local, read-only preview:
+
+```
+node backend/reports/dev-server.mjs
+```
+
+Open `http://127.0.0.1:8878/report/`. The report reader has no accounts, signup,
+contact collection or email delivery. The preview makes no Azure requests.
+The 76 catalog entries are candidate destinations, not a promise of current coverage.
+Only the configured service can enable report lookup for a destination. Choosing a destination
+without a report never substitutes another port's historical example. The 2 September
+Oregon Inlet example is explicitly historical; it is not a current weather bulletin.
+
+The browser makes GET requests only, using the same-origin catalog and report API.
+There are no subscriber records, contact forms, confirmation tokens, delivery jobs,
+marina applications, email SDKs or retention workers. Reports are displayed on the
+website, not sent to visitors. The report source keeps its original dates and units;
+the reader must not add unsupported interpretations or present examples as current.
+
+For an approved destination, a visible report page checks again at Eastern noon and
+midnight. If publication is not ready, it retries at five-minute checkpoints through
+the first twenty minutes of the slot. Hidden tabs recheck on return, and manual
+refresh remains available. The browser reads published data; it does not generate
+reports or re-date an earlier issue.
+
+The dedicated service is **not deployed by the website workflow**. The owner has
+approved deployment and Git push; the isolated reader and upstream publisher are
+now deployed separately. The approved Standard upgrade and native same-origin API
+connection are verified. Direct backend access is denied, and the reader identity
+has read-only report-container access. Oregon Inlet is the only approved lookup;
+its current missing-report 404 is honest unavailability, not a live-data success.
+The first scheduled report and its actual source dates still require verification.
+See `backend/reports/README.md` and `docs/REPORT_IMPLEMENTATION.md` for boundaries
+and remaining checks. The static build creates no Azure resources. The separate
+staged cloud-fill wording draft remains unpublished and outside this release.
+
+Run local service tests without Azure credentials:
+
+```
+node --test backend/reports/test/*.test.mjs
+```
+
+With Playwright installed and the preview running, run the browser checks:
+
+```
+BROWSER_CHANNEL=chrome node scripts/test_report_page.cjs
+```
+
+These use loopback only and mock published reports. They cover mobile layout,
+200% text sizing, keyboard selection, no-script reading, unavailable reports,
+selection races and the absence of mutations, contact forms or third-party traffic.
+The tests do not require a cloud connection.
 
 See `backend/azure/deploy.md` for provisioning and
 `backend/README.md` for the ingest job. Before adding an automated Azure

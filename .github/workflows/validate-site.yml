@@ -52,4 +52,6 @@ jobs:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
           action: upload
           app_location: .azure-dist
+          # The separately deployed read-only Function is linked in Azure.
+          api_location: ""
           skip_app_build: true

@@ -1,6 +1,31 @@
 {
   "routes": [
     {
+      "route": "/report",
+      "redirect": "/report/",
+      "statusCode": 301
+    },
+    {
+      "route": "/report/privacy",
+      "redirect": "/report/privacy/",
+      "statusCode": 301
+    },
+    {
+      "route": "/report/*",
+      "headers": {
+        "referrer-policy": "no-referrer",
+        "cache-control": "no-store",
+        "content-security-policy": "default-src 'self'; base-uri 'self'; connect-src 'self'; font-src 'self'; frame-ancestors 'none'; img-src 'self'; object-src 'none'; script-src 'self'; style-src 'self'; form-action 'none'; upgrade-insecure-requests"
+      }
+    },
+    {
+      "route": "/api/reports/*",
+      "headers": {
+        "cache-control": "no-store",
+        "referrer-policy": "no-referrer"
+      }
+    },
+    {
       "route": "/privacy",
       "redirect": "/privacy/",
       "statusCode": 301

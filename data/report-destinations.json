@@ -1,0 +1,613 @@
+{
+  "schemaVersion": 1,
+  "destinations": [
+    {
+      "id": "islamorada-fl",
+      "name": "Islamorada / Upper Keys",
+      "admin": "FL",
+      "coast": "atlantic",
+      "timeZone": "America/New_York",
+      "available": false
+    },
+    {
+      "id": "miami-fl",
+      "name": "Miami / Haulover",
+      "admin": "FL",
+      "coast": "atlantic",
+      "timeZone": "America/New_York",
+      "available": false
+    },
+    {
+      "id": "fort-lauderdale-fl",
+      "name": "Fort Lauderdale",
+      "admin": "FL",
+      "coast": "atlantic",
+      "timeZone": "America/New_York",
+      "available": false
+    },
+    {
+      "id": "palm-beach-fl",
+      "name": "Palm Beach",
+      "admin": "FL",
+      "coast": "atlantic",
+      "timeZone": "America/New_York",
+      "available": false
+    },
+    {
+      "id": "stuart-fl",
+      "name": "Stuart / St. Lucie Inlet",
+      "admin": "FL",
+      "coast": "atlantic",
+      "timeZone": "America/New_York",
+      "available": false
+    },
+    {
+      "id": "fort-pierce-fl",
+      "name": "Fort Pierce",
+      "admin": "FL",
+      "coast": "atlantic",
+      "timeZone": "America/New_York",
+      "available": false
+    },
+    {
+      "id": "port-canaveral-fl",
+      "name": "Port Canaveral",
+      "admin": "FL",
+      "coast": "atlantic",
+      "timeZone": "America/New_York",
+      "available": false
+    },
+    {
+      "id": "mayport-fl",
+      "name": "Jacksonville / Mayport",
+      "admin": "FL",
+      "coast": "atlantic",
+      "timeZone": "America/New_York",
+      "available": false
+    },
+    {
+      "id": "bimini-bs",
+      "name": "Bimini",
+      "admin": "BS",
+      "coast": "atlantic",
+      "timeZone": "America/Nassau",
+      "available": false
+    },
+    {
+      "id": "savannah-ga",
+      "name": "Savannah / Tybee",
+      "admin": "GA",
+      "coast": "atlantic",
+      "timeZone": "America/New_York",
+      "available": false
+    },
+    {
+      "id": "charleston-sc",
+      "name": "Charleston",
+      "admin": "SC",
+      "coast": "atlantic",
+      "timeZone": "America/New_York",
+      "available": false
+    },
+    {
+      "id": "murrells-inlet-sc",
+      "name": "Murrells Inlet / Georgetown",
+      "admin": "SC",
+      "coast": "atlantic",
+      "timeZone": "America/New_York",
+      "available": false
+    },
+    {
+      "id": "wrightsville-nc",
+      "name": "Wrightsville Beach",
+      "admin": "NC",
+      "coast": "atlantic",
+      "timeZone": "America/New_York",
+      "available": false
+    },
+    {
+      "id": "morehead-city-nc",
+      "name": "Morehead City / Beaufort",
+      "admin": "NC",
+      "coast": "atlantic",
+      "timeZone": "America/New_York",
+      "available": false
+    },
+    {
+      "id": "hatteras-nc",
+      "name": "Hatteras",
+      "admin": "NC",
+      "coast": "atlantic",
+      "timeZone": "America/New_York",
+      "available": false
+    },
+    {
+      "id": "oregon-inlet-nc",
+      "name": "Oregon Inlet",
+      "admin": "NC",
+      "coast": "atlantic",
+      "timeZone": "America/New_York",
+      "available": false
+    },
+    {
+      "id": "virginia-beach-va",
+      "name": "Virginia Beach / Rudee Inlet",
+      "admin": "VA",
+      "coast": "atlantic",
+      "timeZone": "America/New_York",
+      "available": false
+    },
+    {
+      "id": "wachapreague-va",
+      "name": "Wachapreague",
+      "admin": "VA",
+      "coast": "atlantic",
+      "timeZone": "America/New_York",
+      "available": false
+    },
+    {
+      "id": "ocean-city-md",
+      "name": "Ocean City",
+      "admin": "MD",
+      "coast": "atlantic",
+      "timeZone": "America/New_York",
+      "available": false
+    },
+    {
+      "id": "indian-river-de",
+      "name": "Indian River Inlet",
+      "admin": "DE",
+      "coast": "atlantic",
+      "timeZone": "America/New_York",
+      "available": false
+    },
+    {
+      "id": "cape-may-nj",
+      "name": "Cape May",
+      "admin": "NJ",
+      "coast": "atlantic",
+      "timeZone": "America/New_York",
+      "available": false
+    },
+    {
+      "id": "atlantic-city-nj",
+      "name": "Atlantic City",
+      "admin": "NJ",
+      "coast": "atlantic",
+      "timeZone": "America/New_York",
+      "available": false
+    },
+    {
+      "id": "manasquan-nj",
+      "name": "Manasquan / Point Pleasant",
+      "admin": "NJ",
+      "coast": "atlantic",
+      "timeZone": "America/New_York",
+      "available": false
+    },
+    {
+      "id": "montauk-ny",
+      "name": "Montauk",
+      "admin": "NY",
+      "coast": "atlantic",
+      "timeZone": "America/New_York",
+      "available": false
+    },
+    {
+      "id": "point-judith-ri",
+      "name": "Point Judith",
+      "admin": "RI",
+      "coast": "atlantic",
+      "timeZone": "America/New_York",
+      "available": false
+    },
+    {
+      "id": "marthas-vineyard-ma",
+      "name": "Martha's Vineyard / Nantucket",
+      "admin": "MA",
+      "coast": "atlantic",
+      "timeZone": "America/New_York",
+      "available": false
+    },
+    {
+      "id": "gloucester-ma",
+      "name": "Gloucester",
+      "admin": "MA",
+      "coast": "atlantic",
+      "timeZone": "America/New_York",
+      "available": false
+    },
+    {
+      "id": "portland-me",
+      "name": "Portland",
+      "admin": "ME",
+      "coast": "atlantic",
+      "timeZone": "America/New_York",
+      "available": false
+    },
+    {
+      "id": "key-west-fl",
+      "name": "Key West",
+      "admin": "FL",
+      "coast": "gulf",
+      "timeZone": "America/New_York",
+      "available": false
+    },
+    {
+      "id": "marco-naples-fl",
+      "name": "Naples / Marco Island",
+      "admin": "FL",
+      "coast": "gulf",
+      "timeZone": "America/New_York",
+      "available": false
+    },
+    {
+      "id": "fort-myers-beach-fl",
+      "name": "Fort Myers Beach",
+      "admin": "FL",
+      "coast": "gulf",
+      "timeZone": "America/New_York",
+      "available": false
+    },
+    {
+      "id": "clearwater-fl",
+      "name": "Clearwater / St. Petersburg",
+      "admin": "FL",
+      "coast": "gulf",
+      "timeZone": "America/New_York",
+      "available": false
+    },
+    {
+      "id": "panama-city-fl",
+      "name": "Panama City",
+      "admin": "FL",
+      "coast": "gulf",
+      "timeZone": "America/Chicago",
+      "available": false
+    },
+    {
+      "id": "destin-fl",
+      "name": "Destin",
+      "admin": "FL",
+      "coast": "gulf",
+      "timeZone": "America/Chicago",
+      "available": false
+    },
+    {
+      "id": "pensacola-fl",
+      "name": "Pensacola",
+      "admin": "FL",
+      "coast": "gulf",
+      "timeZone": "America/Chicago",
+      "available": false
+    },
+    {
+      "id": "orange-beach-al",
+      "name": "Orange Beach",
+      "admin": "AL",
+      "coast": "gulf",
+      "timeZone": "America/Chicago",
+      "available": false
+    },
+    {
+      "id": "biloxi-ms",
+      "name": "Biloxi",
+      "admin": "MS",
+      "coast": "gulf",
+      "timeZone": "America/Chicago",
+      "available": false
+    },
+    {
+      "id": "venice-la",
+      "name": "Venice",
+      "admin": "LA",
+      "coast": "gulf",
+      "timeZone": "America/Chicago",
+      "available": false
+    },
+    {
+      "id": "grand-isle-la",
+      "name": "Grand Isle",
+      "admin": "LA",
+      "coast": "gulf",
+      "timeZone": "America/Chicago",
+      "available": false
+    },
+    {
+      "id": "galveston-tx",
+      "name": "Galveston",
+      "admin": "TX",
+      "coast": "gulf",
+      "timeZone": "America/Chicago",
+      "available": false
+    },
+    {
+      "id": "freeport-tx",
+      "name": "Freeport",
+      "admin": "TX",
+      "coast": "gulf",
+      "timeZone": "America/Chicago",
+      "available": false
+    },
+    {
+      "id": "port-oconnor-tx",
+      "name": "Port O'Connor",
+      "admin": "TX",
+      "coast": "gulf",
+      "timeZone": "America/Chicago",
+      "available": false
+    },
+    {
+      "id": "port-aransas-tx",
+      "name": "Port Aransas",
+      "admin": "TX",
+      "coast": "gulf",
+      "timeZone": "America/Chicago",
+      "available": false
+    },
+    {
+      "id": "south-padre-tx",
+      "name": "South Padre Island",
+      "admin": "TX",
+      "coast": "gulf",
+      "timeZone": "America/Chicago",
+      "available": false
+    },
+    {
+      "id": "isla-mujeres-mx",
+      "name": "Isla Mujeres / Cancún",
+      "admin": "MX",
+      "coast": "gulf",
+      "timeZone": "America/Cancun",
+      "available": false
+    },
+    {
+      "id": "cozumel-mx",
+      "name": "Cozumel",
+      "admin": "MX",
+      "coast": "gulf",
+      "timeZone": "America/Cancun",
+      "available": false
+    },
+    {
+      "id": "san-diego-ca",
+      "name": "San Diego / Point Loma",
+      "admin": "CA",
+      "coast": "west-coast",
+      "timeZone": "America/Los_Angeles",
+      "available": false
+    },
+    {
+      "id": "oceanside-ca",
+      "name": "Oceanside",
+      "admin": "CA",
+      "coast": "west-coast",
+      "timeZone": "America/Los_Angeles",
+      "available": false
+    },
+    {
+      "id": "dana-point-ca",
+      "name": "Dana Point",
+      "admin": "CA",
+      "coast": "west-coast",
+      "timeZone": "America/Los_Angeles",
+      "available": false
+    },
+    {
+      "id": "long-beach-ca",
+      "name": "Long Beach / San Pedro",
+      "admin": "CA",
+      "coast": "west-coast",
+      "timeZone": "America/Los_Angeles",
+      "available": false
+    },
+    {
+      "id": "channel-islands-ca",
+      "name": "Channel Islands / Oxnard",
+      "admin": "CA",
+      "coast": "west-coast",
+      "timeZone": "America/Los_Angeles",
+      "available": false
+    },
+    {
+      "id": "santa-barbara-ca",
+      "name": "Santa Barbara",
+      "admin": "CA",
+      "coast": "west-coast",
+      "timeZone": "America/Los_Angeles",
+      "available": false
+    },
+    {
+      "id": "morro-bay-ca",
+      "name": "Morro Bay",
+      "admin": "CA",
+      "coast": "west-coast",
+      "timeZone": "America/Los_Angeles",
+      "available": false
+    },
+    {
+      "id": "monterey-ca",
+      "name": "Monterey",
+      "admin": "CA",
+      "coast": "west-coast",
+      "timeZone": "America/Los_Angeles",
+      "available": false
+    },
+    {
+      "id": "half-moon-bay-ca",
+      "name": "Half Moon Bay / San Francisco",
+      "admin": "CA",
+      "coast": "west-coast",
+      "timeZone": "America/Los_Angeles",
+      "available": false
+    },
+    {
+      "id": "bodega-bay-ca",
+      "name": "Bodega Bay",
+      "admin": "CA",
+      "coast": "west-coast",
+      "timeZone": "America/Los_Angeles",
+      "available": false
+    },
+    {
+      "id": "fort-bragg-ca",
+      "name": "Fort Bragg",
+      "admin": "CA",
+      "coast": "west-coast",
+      "timeZone": "America/Los_Angeles",
+      "available": false
+    },
+    {
+      "id": "eureka-ca",
+      "name": "Eureka",
+      "admin": "CA",
+      "coast": "west-coast",
+      "timeZone": "America/Los_Angeles",
+      "available": false
+    },
+    {
+      "id": "brookings-or",
+      "name": "Brookings",
+      "admin": "OR",
+      "coast": "west-coast",
+      "timeZone": "America/Los_Angeles",
+      "available": false
+    },
+    {
+      "id": "newport-or",
+      "name": "Newport",
+      "admin": "OR",
+      "coast": "west-coast",
+      "timeZone": "America/Los_Angeles",
+      "available": false
+    },
+    {
+      "id": "ilwaco-wa",
+      "name": "Ilwaco / Astoria",
+      "admin": "WA",
+      "coast": "west-coast",
+      "timeZone": "America/Los_Angeles",
+      "available": false
+    },
+    {
+      "id": "westport-wa",
+      "name": "Westport",
+      "admin": "WA",
+      "coast": "west-coast",
+      "timeZone": "America/Los_Angeles",
+      "available": false
+    },
+    {
+      "id": "neah-bay-wa",
+      "name": "Neah Bay",
+      "admin": "WA",
+      "coast": "west-coast",
+      "timeZone": "America/Los_Angeles",
+      "available": false
+    },
+    {
+      "id": "ensenada-mx",
+      "name": "Ensenada",
+      "admin": "MX",
+      "coast": "west-coast",
+      "timeZone": "America/Tijuana",
+      "available": false
+    },
+    {
+      "id": "magdalena-bay-mx",
+      "name": "Magdalena Bay",
+      "admin": "MX",
+      "coast": "west-coast",
+      "timeZone": "America/Mazatlan",
+      "available": false
+    },
+    {
+      "id": "cabo-san-lucas-mx",
+      "name": "Cabo San Lucas",
+      "admin": "MX",
+      "coast": "cortez",
+      "timeZone": "America/Mazatlan",
+      "available": false
+    },
+    {
+      "id": "san-jose-del-cabo-mx",
+      "name": "San José del Cabo",
+      "admin": "MX",
+      "coast": "cortez",
+      "timeZone": "America/Mazatlan",
+      "available": false
+    },
+    {
+      "id": "east-cape-mx",
+      "name": "Los Barriles / East Cape",
+      "admin": "MX",
+      "coast": "cortez",
+      "timeZone": "America/Mazatlan",
+      "available": false
+    },
+    {
+      "id": "la-paz-mx",
+      "name": "La Paz",
+      "admin": "MX",
+      "coast": "cortez",
+      "timeZone": "America/Mazatlan",
+      "available": false
+    },
+    {
+      "id": "loreto-mx",
+      "name": "Loreto",
+      "admin": "MX",
+      "coast": "cortez",
+      "timeZone": "America/Mazatlan",
+      "available": false
+    },
+    {
+      "id": "san-carlos-mx",
+      "name": "San Carlos / Guaymas",
+      "admin": "MX",
+      "coast": "cortez",
+      "timeZone": "America/Hermosillo",
+      "available": false
+    },
+    {
+      "id": "bahia-de-los-angeles-mx",
+      "name": "Bahía de los Ángeles",
+      "admin": "MX",
+      "coast": "cortez",
+      "timeZone": "America/Tijuana",
+      "available": false
+    },
+    {
+      "id": "mazatlan-mx",
+      "name": "Mazatlán",
+      "admin": "MX",
+      "coast": "cortez",
+      "timeZone": "America/Mazatlan",
+      "available": false
+    },
+    {
+      "id": "cairns-qld",
+      "name": "Cairns / Great Barrier Reef",
+      "admin": "QLD",
+      "coast": "australia",
+      "timeZone": "Australia/Brisbane",
+      "available": false
+    },
+    {
+      "id": "port-stephens-nsw",
+      "name": "Port Stephens / Nelson Bay",
+      "admin": "NSW",
+      "coast": "australia",
+      "timeZone": "Australia/Sydney",
+      "available": false
+    },
+    {
+      "id": "exmouth-wa",
+      "name": "Exmouth",
+      "admin": "WA",
+      "coast": "australia",
+      "timeZone": "Australia/Perth",
+      "available": false
+    }
+  ]
+}

@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="Read an offshore report for your destination. Temperature, water colour, possible sargassum and eddy context, with approximate areas and source dates.">
+  <meta name="referrer" content="no-referrer">
+  <meta property="og:title" content="Free Report — BlueWater Marlin">
+  <meta property="og:description" content="Offshore conditions for your selected destination. Approximate areas, measurements and source dates.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://www.bluewatermarlin.com/report/">
+  <title>Free Report — BlueWater Marlin</title>
+  <link rel="canonical" href="https://www.bluewatermarlin.com/report/">
+  <link rel="stylesheet" href="../assets/css/report.css">
+  <script src="../assets/js/report.js" defer></script>
+</head>
+<body class="report-page">
+  <a class="skip-link" href="#main">Skip to report</a>
+  <header class="report-nav">
+    <nav class="shell nav-inner" aria-label="Main navigation">
+      <a class="brand" href="../">BlueWater Marlin<span>OFFSHORE REPORT</span></a>
+      <div class="nav-links"><a href="#destination">Find a report</a><a href="../sources/">Data sources</a></div>
+    </nav>
+  </header>
+  <main id="main">
+    <section class="report-hero" aria-labelledby="page-title">
+      <div class="shell">
+        <p class="eyebrow">Free report</p>
+        <h1 id="page-title">Your offshore report.</h1>
+        <p class="intro">Temperature, water colour, possible sargassum and eddy context for your destination. Approximate areas, measurements and source dates.</p>
+        <p class="hero-footnote">A planning tool, not a navigation system.</p>
+      </div>
+    </section>
+
+    <div class="shell report-content">
+      <section class="destination-panel" id="destination" aria-labelledby="destination-title">
+        <p class="eyebrow">Choose your area</p>
+        <h2 id="destination-title" class="sr-only">Find a destination</h2>
+        <label for="destination-search">Search a port, inlet or destination</label>
+        <div class="destination-picker">
+          <input id="destination-search" type="search" placeholder="Try Oregon Inlet, Montauk or Miami" autocomplete="off" spellcheck="false" role="combobox" aria-autocomplete="list" aria-expanded="false" aria-controls="destination-options" aria-describedby="destination-help" maxlength="100" disabled>
+          <ul id="destination-options" class="destination-options" role="listbox" aria-label="Matching destinations" hidden></ul>
+        </div>
+        <p id="destination-help" class="small">Loading the destination list. The example below remains available.</p>
+        <div class="destination-meta"><p id="selection-status" role="status">No destination selected.</p><div class="destination-actions"><button class="text-button" id="refresh-report" type="button" hidden>Refresh report</button><button class="text-button" id="sample-button" type="button" hidden>View the example</button></div></div>
+      </section>
+
+      <article class="report-sheet" aria-labelledby="report-title" aria-busy="false" id="report-sheet">
+        <header class="sheet-header">
+          <div><p class="eyebrow" id="report-kind">Historical example</p><h2 id="report-title">Oregon Inlet, NC</h2></div>
+          <p class="report-meta" id="report-meta"><time datetime="2026-09-02">2 September 2026</time><span>Water within 100 nm</span></p>
+        </header>
+        <p class="report-notice" id="report-notice" role="status">Example wording using the supplied sample values. Not current conditions.</p>
+        <div id="report-body">
+          <section class="report-section"><h3>Temperature breaks</h3><p>Temperature break approximately 18 nm SE of your inlet, extending to approximately 50 nm in the same direction. Cool side: 74.1°F. Warm side: 76.8°F. Warmer water lies SSE of the break.</p><p>Area average: 74.9°F. Reported range: 73.3–77.7°F. Temperatures on either side of the break differ from the area average.</p></section>
+          <section class="report-section"><h3>Water colour</h3><p>Chlorophyll change approximately 42 nm SSW of your inlet. Concentrations: 0.55 mg/m³ and 0.07 mg/m³. Lower chlorophyll lies SE of the change.</p><p>Lowest reported chlorophyll concentration: 0.04 mg/m³, approximately 47 nm SSE of your inlet.</p></section>
+          <section class="report-section"><h3>Sargassum <span>(weed)</span></h3><p>Satellite data suggests possible sargassum in the general area approximately 14 nm ENE of your inlet. This is not a confirmed weed line.</p><p class="source-note">The supplied example does not include a sargassum source date.</p></section>
+          <section class="report-section"><h3>Source age</h3><p>Sea surface temperature: 3 days old. Water colour: 3 days old.</p><p class="source-note">These ages belong to the historical report date above. They do not describe today's data.</p></section>
+        </div>
+        <footer class="sheet-footer"><p>Satellite products are daily, not live. A planning tool, not a navigation system.</p><a href="../sources/">Data sources &amp; limitations</a></footer>
+      </article>
+
+      <details class="report-details">
+        <summary>Sources and limitations</summary>
+        <div>
+          <p>Report dates and source dates are different. Read each source date alongside its values.</p>
+          <p>An unavailable layer does not mean the feature is absent. A possible sargassum indication describes a general area, not a confirmed weed line.</p>
+          <a href="../sources/">Source products, dates and limitations</a>
+        </div>
+      </details>
+      <p class="service-status" id="service-status" role="status">Read reports here on the website. No account or email address is required.</p>
+      <noscript><p class="report-notice">JavaScript is required for destination search. You can read the dated historical example above without it. The example does not describe current conditions.</p></noscript>
+    </div>
+  </main>
+  <footer class="page-footer shell"><a class="brand" href="../">BlueWater Marlin</a><nav aria-label="Footer"><a href="./" aria-current="page">Report</a><a href="./privacy/">Report data &amp; privacy</a><a href="../sources/">Data sources</a><a href="../support/">Support</a><a href="../privacy/">Privacy</a></nav><p>© Red Oak Media House, LLC. A planning tool, not a navigation system.</p></footer>
+</body>
+</html>
