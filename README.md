@@ -153,11 +153,14 @@ With Playwright installed and the preview running, run the browser checks:
 
 ```
 BROWSER_CHANNEL=chrome node scripts/test_report_page.cjs
+BROWSER_CHANNEL=chrome node scripts/test_report_selection.cjs
 ```
 
 These use loopback only and mock published reports. They cover mobile layout,
 200% text sizing, keyboard selection, no-script reading, unavailable reports,
 selection races and the absence of mutations, contact forms or third-party traffic.
+The selection regression checks cover mouse and touch, direct Enter selection,
+ambiguous searches, input composition and destination-specific unavailable states.
 The tests do not require a cloud connection.
 
 See `backend/azure/deploy.md` for provisioning and

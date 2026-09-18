@@ -171,6 +171,11 @@ the public artifact, not either Function backend.
   forms, static availability defaults and the report page's no-form CSP.
 - Run `scripts/test_report_page.cjs` against the loopback preview with Playwright;
   published responses are mocked, never fetched from production during tests.
+- Run `scripts/test_report_selection.cjs` against that preview for mouse/touch
+  switching, direct Enter selection, ambiguous and composed input, and distinct
+  destination-named missing-report and request-failure states. An exact unique
+  destination or sole search result can be selected with Enter without first
+  pressing an arrow key. Similar names still require an explicit choice.
 - Build the explicit `.azure-dist` allow-list. Backend source, dependencies, settings,
   operator data and historical marketing archives must stay outside the artifact.
 

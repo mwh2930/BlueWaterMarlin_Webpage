@@ -115,7 +115,12 @@
     const timeout = setTimeout(cancel, 30000);
     try {
       const response = await fetch(path, { method: 'GET', credentials: 'omit', cache: 'no-store', redirect: 'error', referrerPolicy: 'no-referrer', signal: controller.signal });
-      if (!response.ok || !/^application\/json(?:\s*;|$)/i.test(response.headers.get('content-type') || '')) throw new Error('Unavailable');
+      if (!response.ok) {
+        const error = new Error('Unavailable');
+        error.status = response.status;
+        throw error;
+      }
+      if (!/^application\/json(?:\s*;|$)/i.test(response.headers.get('content-type') || '')) throw new Error('Unavailable');
       if (Number(response.headers.get('content-length')) > 160000) throw new Error('Unavailable');
       const reader = response.body.getReader();
       const decoder = new TextDecoder('utf-8', { fatal: true });
@@ -205,6 +210,17 @@
     $('refresh-report').disabled = false;
   }
 
+  function enteredDestination() {
+    if (active >= 0) return matches[active] || null;
+    const query = clean(input.value);
+    if (!query) return null;
+    // A highlighted choice wins. Otherwise accept an exact, unambiguous name
+    // or the sole search result; never guess between similarly named ports.
+    const exact = destinations.filter((place) => clean(label(place)) === query || clean(place.name) === query);
+    if (exact.length === 1) return exact[0];
+    return matches.length === 1 ? matches[0] : null;
+  }
+
   function reportState(title, message) {
     const state = element('div', undefined, 'empty-report');
     state.append(element('h3', title), element('p', message));
@@ -258,17 +274,17 @@
   async function loadReport(place) {
     cancelReport();
     const sequence = reportSequence;
-    lastAttemptAt = Date.now();
-    attemptedSlot = publicationWindow(lastAttemptAt).current;
     reportController = new AbortController();
     sheet.setAttribute('aria-busy', 'true');
     $('refresh-report').disabled = true;
     $('report-kind').textContent = 'Selected destination';
     $('report-title').textContent = label(place);
     $('report-meta').replaceChildren();
-    $('report-notice').textContent = 'Checking for a published report.';
-    reportState('Loading report', 'The historical example is not used for your selected destination.');
+    $('report-notice').textContent = 'Checking for a published report for ' + label(place) + '.';
+    reportState('Loading report — ' + label(place), 'The previous report and historical example are not used for this destination.');
     try {
+      lastAttemptAt = Date.now();
+      attemptedSlot = publicationWindow(lastAttemptAt).current;
       if (!place.available) throw new Error('Not published');
       const report = await jsonRequest('/api/reports/report?destination=' + encodeURIComponent(place.id), reportController.signal);
       if (sequence !== reportSequence) return;
@@ -284,16 +300,21 @@
       dates.append(element('h3', 'Source dates'));
       report.sourceDates.forEach((source) => dates.append(element('p', source.label + ': ' + source.date, 'source-note')));
       body.prepend(dates);
-    } catch {
+    } catch (error) {
       if (sequence !== reportSequence) return;
-      $('report-notice').textContent = place.available ? 'A report could not be loaded. No sample has been substituted.' : 'No published report is available for this destination yet.';
-      reportState('Report unavailable', 'Choose another destination or view the clearly dated Oregon Inlet example. No current conditions are inferred from missing data.');
+      const missing = !place.available || error.status === 404;
+      $('report-notice').textContent = missing
+        ? 'No current report has been published for ' + label(place) + '.'
+        : 'The report for ' + label(place) + ' could not be loaded. Try Refresh report.';
+      reportState('Report unavailable — ' + label(place), missing
+        ? 'Reports are scheduled for noon and midnight Eastern. Missing source data can leave a report unavailable. No other destination or historical example has been substituted.'
+        : 'No other destination or historical example has been substituted. No current conditions are inferred from missing data.');
     } finally {
       if (sequence === reportSequence) {
         sheet.setAttribute('aria-busy', 'false');
         $('refresh-report').disabled = false;
         reportController = null;
-        scheduleFreshness();
+        if (attemptedSlot !== null) scheduleFreshness();
       }
     }
   }
@@ -308,15 +329,21 @@
   input.addEventListener('focus', showOptions);
   input.addEventListener('blur', closeOptions);
   input.addEventListener('keydown', (event) => {
+    if (event.isComposing) return;
     if (event.key === 'Escape') { event.preventDefault(); closeOptions(); return; }
     if (event.key === 'Tab') { closeOptions(); return; }
     if (event.key === 'ArrowDown' || event.key === 'ArrowUp') {
       event.preventDefault();
       if (list.hidden) showOptions();
       if (matches.length) highlight(active < 0 ? (event.key === 'ArrowDown' ? 0 : matches.length - 1) : (active + (event.key === 'ArrowDown' ? 1 : -1) + matches.length) % matches.length);
-    } else if (event.key === 'Enter' && !list.hidden && active >= 0) {
+    } else if (event.key === 'Enter') {
       event.preventDefault();
-      selectDestination(matches[active]);
+      if (list.hidden) showOptions();
+      const place = enteredDestination();
+      if (place) selectDestination(place);
+      else $('selection-status').textContent = matches.length
+        ? 'Choose a destination from the matching results.'
+        : 'No matching destination. Try another place name.';
     }
   });
   $('sample-button').addEventListener('click', showSample);
@@ -338,7 +365,7 @@
     }).map((place) => ({ id: place.id, name: place.name.trim(), admin: place.admin.trim(), available: isLive && place.available === true }));
     if (isLive) liveCatalogueApplied = true;
     input.disabled = destinations.length === 0;
-    $('destination-help').textContent = destinations.length ? 'Type a place name. Use the arrow keys and Enter to select. A listing does not guarantee a published report.' : 'No destinations are listed. The historical example remains readable.';
+    $('destination-help').textContent = destinations.length ? 'Type a place name. Select a result, or press Enter when there is one match. A listing does not guarantee a published report.' : 'No destinations are listed. The historical example remains readable.';
     if (isLive) $('service-status').textContent = destinations.some((place) => place.available) ? 'Reports are read here on the website. No account or email address is required.' : 'No published reports are available yet. The dated historical example remains readable.';
     if (selected) {
       const updated = destinations.find((place) => place.id === selected.id);
