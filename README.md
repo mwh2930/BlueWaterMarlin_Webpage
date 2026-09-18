@@ -105,6 +105,10 @@ with no external fonts, framework, tracking or direct storage requests.
 Its **B.I.L.L. Offshore Report** hero includes a centered destination selector and
 a static, labeled contour illustration. The illustration is not a live chart or a
 claim about current conditions.
+Confirming a destination brings its report heading into view and moves keyboard
+focus there. **View report** returns to the selected readout without another
+request. Loading, ready and failure states also appear beside the selector;
+background updates and delayed responses never move the visitor's focus.
 
 Start the local, read-only preview:
 
@@ -180,6 +184,7 @@ With Playwright installed and the preview running, run the browser checks:
 ```
 BROWSER_CHANNEL=chrome node scripts/test_report_page.cjs
 BROWSER_CHANNEL=chrome node scripts/test_report_selection.cjs
+BROWSER_CHANNEL=chrome node scripts/test_report_visibility.cjs
 ```
 
 These use loopback only and mock published reports. They cover mobile layout,

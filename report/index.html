@@ -11,8 +11,8 @@
   <meta property="og:url" content="https://www.bluewatermarlin.com/report/">
   <title>B.I.L.L. Offshore Report — BlueWater Marlin</title>
   <link rel="canonical" href="https://www.bluewatermarlin.com/report/">
-  <link rel="stylesheet" href="../assets/css/report.css?v=20260918-hero">
-  <script src="../assets/js/report.js?v=20260918-connection" defer></script>
+  <link rel="stylesheet" href="../assets/css/report.css?v=20260918-result">
+  <script src="../assets/js/report.js?v=20260918-result" defer></script>
 </head>
 <body class="report-page">
   <a class="skip-link" href="#main">Skip to report</a>
@@ -59,7 +59,7 @@
             <ul id="destination-options" class="destination-options" role="listbox" aria-label="Matching destinations" hidden></ul>
           </div>
           <p id="destination-help" class="small">Loading the destination list. The example below remains available.</p>
-          <div class="destination-meta"><p id="selection-status" role="status">No destination selected.</p><div class="destination-actions"><button class="text-button" id="refresh-report" type="button" hidden>Refresh report</button><button class="text-button" id="sample-button" type="button" hidden>View the example</button></div></div>
+          <div class="destination-meta"><p id="selection-status" role="status">No destination selected.</p><div class="destination-actions"><a class="text-button" id="view-report" href="#report-title" hidden>View report</a><button class="text-button" id="refresh-report" type="button" hidden>Refresh report</button><button class="text-button" id="sample-button" type="button" hidden>View the example</button></div></div>
         </section>
         <p class="hero-footnote">A planning tool, not a navigation system.</p>
       </div>
@@ -68,7 +68,7 @@
     <div class="shell report-content">
       <article class="report-sheet" aria-labelledby="report-title" aria-busy="false" id="report-sheet">
         <header class="sheet-header">
-          <div><p class="eyebrow" id="report-kind">Historical example</p><h2 id="report-title">Oregon Inlet, NC</h2></div>
+          <div><p class="eyebrow" id="report-kind">Historical example</p><h2 id="report-title" tabindex="-1">Oregon Inlet, NC</h2></div>
           <p class="report-meta" id="report-meta"><time datetime="2026-09-02">2 September 2026</time><span>Water within 100 nm</span></p>
         </header>
         <p class="report-notice" id="report-notice" role="status">Example wording using the supplied sample values. Not current conditions.</p>

@@ -21,6 +21,11 @@ availability.
 - The homepage **Free Report** button and footer **Report** link open `/report/`.
 - The **B.I.L.L. Offshore Report** hero has a centered destination selector and a
   static, labeled contour illustration. The illustration is not live data.
+- Explicit destination confirmation reveals and focuses the selected report
+  heading; **View report** returns there without a new request. Loading, ready and
+  failure states appear beside the selector. Automatic URL/catalog application,
+  delayed responses and scheduled refreshes do not move focus or scroll. This
+  corrects a verified below-fold readout problem, not the separate delivery delays.
 - A searchable, keyboard-accessible destination picker requests report data only
   through the website's `/api/reports/` routes. Static candidates are not coverage
   claims and do not establish report availability. Before the live catalog arrives,
@@ -260,6 +265,9 @@ public artifact, not either Function backend.
   pressing an arrow key. Similar names still require an explicit choice.
 - Build the explicit `.azure-dist` allow-list. Backend source, dependencies, settings,
   operator data and historical marketing archives must stay outside the artifact.
+- Run `scripts/test_report_visibility.cjs` against the same loopback preview for
+  desktop, touch, keyboard and reduced-motion result visibility, unchanged data,
+  and focus preservation during delayed, bookmarked and scheduled updates.
 
 Local verification: 41 offline backend tests pass, including all 76 destination
 approvals, destination isolation, unchanged read limits, daylight-saving boundaries

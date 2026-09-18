@@ -232,6 +232,14 @@
     body.replaceChildren(state);
   }
 
+  function revealReport() {
+    const heading = $('report-title');
+    heading.focus({ preventScroll: true });
+    // Reveal only in direct response to a confirmed choice or View report.
+    // Instant positioning also respects reduced-motion preferences.
+    heading.scrollIntoView({ behavior: 'instant', block: 'start' });
+  }
+
   function clearSelection(message = 'Choose a destination from the results.') {
     cancelReport();
     selected = null;
@@ -243,6 +251,7 @@
     $('report-notice').textContent = 'No report is selected.';
     $('sample-button').hidden = false;
     $('refresh-report').hidden = true;
+    $('view-report').hidden = true;
     reportState('Choose a destination', 'Select a listed destination to check for a published report, or view the dated historical example.');
   }
 
@@ -254,8 +263,10 @@
     $('selection-status').textContent = 'Selected: ' + label(place) + '.';
     $('sample-button').hidden = false;
     $('refresh-report').hidden = liveCatalogueApplied && !place.available;
+    $('view-report').hidden = false;
     setQuery(place.id);
     loadReport(place);
+    if (!automatic) revealReport();
   }
 
   function showSample() {
@@ -273,6 +284,7 @@
     $('selection-status').textContent = 'No destination selected.';
     $('sample-button').hidden = true;
     $('refresh-report').hidden = true;
+    $('view-report').hidden = true;
     setQuery(null);
   }
 
@@ -287,6 +299,9 @@
       $('refresh-report').hidden = false;
       $('refresh-report').disabled = connecting;
       $('refresh-report').textContent = connecting ? 'Connecting…' : 'Retry connection';
+      $('selection-status').textContent = connecting
+        ? 'Connecting for ' + label(place) + '.'
+        : 'Connection unavailable for ' + label(place) + '. Retry connection.';
       $('report-notice').textContent = connecting
         ? 'Connecting to the report service for ' + label(place) + '. Availability has not been checked.'
         : 'The report service could not be reached for ' + label(place) + '. Select Retry connection to check again.';
@@ -299,6 +314,7 @@
     reportController = new AbortController();
     sheet.setAttribute('aria-busy', 'true');
     $('refresh-report').disabled = true;
+    $('selection-status').textContent = 'Loading report for ' + label(place) + '.';
     $('report-notice').textContent = 'Checking for a published report for ' + label(place) + '.';
     reportState('Loading report — ' + label(place), 'The previous report and historical example are not used for this destination.');
     try {
@@ -311,6 +327,7 @@
       const date = new Date(report.reportDate);
       displayedReportAt = date.getTime();
       $('report-kind').textContent = 'Published report';
+      $('selection-status').textContent = 'Report ready for ' + label(place) + '.';
       $('report-meta').replaceChildren(element('time', date.toLocaleString('en-US', { day: 'numeric', month: 'long', year: 'numeric', hour: 'numeric', minute: '2-digit', timeZone: 'America/New_York', timeZoneName: 'short' })), element('span', 'Water within ' + report.radiusNm + ' nm'));
       $('report-meta').firstChild.dateTime = report.reportDate;
       $('report-notice').textContent = 'Use the report date and source dates below. Approximate areas are not confirmed current positions.';
@@ -322,6 +339,9 @@
     } catch (error) {
       if (sequence !== reportSequence) return;
       const missing = !place.available || error.status === 404;
+      $('selection-status').textContent = missing
+        ? 'Report unavailable for ' + label(place) + '.'
+        : 'Could not load the report for ' + label(place) + '. Try Refresh report.';
       $('report-notice').textContent = missing
         ? 'No current report has been published for ' + label(place) + '.'
         : 'The report for ' + label(place) + ' could not be loaded. Try Refresh report.';
@@ -366,6 +386,10 @@
     }
   });
   $('sample-button').addEventListener('click', showSample);
+  $('view-report').addEventListener('click', (event) => {
+    event.preventDefault();
+    if (selected) revealReport();
+  });
   $('refresh-report').addEventListener('click', () => {
     if (!selected) return;
     if (!liveCatalogueApplied) loadLiveCatalogue();
