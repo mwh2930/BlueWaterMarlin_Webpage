@@ -29,6 +29,8 @@
   let reportSequence = 0;
   let reportController = null;
   let liveCatalogueApplied = false;
+  let catalogState = 'loading';
+  let catalogRequest = null;
   let freshnessTimer = null;
   let attemptedSlot = null;
   let lastAttemptAt = null;
@@ -183,7 +185,10 @@
       option.id = 'destination-option-' + i;
       option.setAttribute('role', 'option');
       option.setAttribute('aria-selected', 'false');
-      option.append(element('span', label(place)), element('span', place.available ? 'Check report' : 'No published report yet', 'destination-detail'));
+      const detail = !liveCatalogueApplied
+        ? (catalogState === 'loading' ? 'Checking report connection' : 'Report connection unavailable')
+        : (place.available ? 'Check report' : 'No published report yet');
+      option.append(element('span', label(place)), element('span', detail, 'destination-detail'));
       option.addEventListener('pointerdown', (event) => event.preventDefault());
       option.addEventListener('click', () => selectDestination(place));
       list.append(option);
@@ -248,7 +253,7 @@
     closeOptions();
     $('selection-status').textContent = 'Selected: ' + label(place) + '.';
     $('sample-button').hidden = false;
-    $('refresh-report').hidden = !place.available;
+    $('refresh-report').hidden = liveCatalogueApplied && !place.available;
     setQuery(place.id);
     loadReport(place);
   }
@@ -273,13 +278,27 @@
 
   async function loadReport(place) {
     cancelReport();
+    $('report-kind').textContent = 'Selected destination';
+    $('report-title').textContent = label(place);
+    $('report-meta').replaceChildren();
+    if (!liveCatalogueApplied) {
+      const connecting = catalogState === 'loading';
+      sheet.setAttribute('aria-busy', String(connecting));
+      $('refresh-report').hidden = false;
+      $('refresh-report').disabled = connecting;
+      $('refresh-report').textContent = connecting ? 'Connecting…' : 'Retry connection';
+      $('report-notice').textContent = connecting
+        ? 'Connecting to the report service for ' + label(place) + '. Availability has not been checked.'
+        : 'The report service could not be reached for ' + label(place) + '. Select Retry connection to check again.';
+      reportState((connecting ? 'Checking connection — ' : 'Connection unavailable — ') + label(place),
+        'The destination list is available, but its report has not been checked. No other destination or historical example has been substituted.');
+      return;
+    }
+    $('refresh-report').textContent = 'Refresh report';
     const sequence = reportSequence;
     reportController = new AbortController();
     sheet.setAttribute('aria-busy', 'true');
     $('refresh-report').disabled = true;
-    $('report-kind').textContent = 'Selected destination';
-    $('report-title').textContent = label(place);
-    $('report-meta').replaceChildren();
     $('report-notice').textContent = 'Checking for a published report for ' + label(place) + '.';
     reportState('Loading report — ' + label(place), 'The previous report and historical example are not used for this destination.');
     try {
@@ -347,7 +366,11 @@
     }
   });
   $('sample-button').addEventListener('click', showSample);
-  $('refresh-report').addEventListener('click', () => { if (selected?.available) loadReport(selected); });
+  $('refresh-report').addEventListener('click', () => {
+    if (!selected) return;
+    if (!liveCatalogueApplied) loadLiveCatalogue();
+    else if (selected.available) loadReport(selected);
+  });
   document.addEventListener('visibilitychange', () => {
     if (document.hidden) stopFreshnessTimer();
     else checkPublication();
@@ -363,7 +386,7 @@
       if (!place || !validId(place.id) || !safeText(place.name, 120) || !safeText(place.admin, 100, 0) || ids.has(place.id)) return false;
       ids.add(place.id); return true;
     }).map((place) => ({ id: place.id, name: place.name.trim(), admin: place.admin.trim(), available: isLive && place.available === true }));
-    if (isLive) liveCatalogueApplied = true;
+    if (isLive) { liveCatalogueApplied = true; catalogState = 'ready'; }
     input.disabled = destinations.length === 0;
     $('destination-help').textContent = destinations.length ? 'Type a place name. Select a result, or press Enter when there is one match. A listing does not guarantee a published report.' : 'No destinations are listed. The historical example remains readable.';
     if (isLive) $('service-status').textContent = destinations.some((place) => place.available) ? 'Reports are read here on the website. No account or email address is required.' : 'No published reports are available yet. The dated historical example remains readable.';
@@ -380,11 +403,30 @@
     return true;
   }
 
+  function loadLiveCatalogue() {
+    // Only an explicit retry starts another catalog request. Concurrent clicks
+    // share the existing request and its thirty-second network deadline.
+    if (catalogRequest) return catalogRequest;
+    catalogState = 'loading';
+    $('service-status').textContent = 'Connecting to the report service. The dated historical example remains readable.';
+    if (selected && !liveCatalogueApplied) loadReport(selected);
+    if (!list.hidden) showOptions();
+    catalogRequest = jsonRequest('/api/reports/catalog').then((data) => {
+      if (!applyCatalogue(data, true)) throw new Error('Unavailable');
+      return true;
+    }).catch(() => {
+      catalogState = 'failed';
+      $('service-status').textContent = 'The report connection is unavailable. The dated historical example remains readable.';
+      if (selected && !liveCatalogueApplied) loadReport(selected);
+      if (!list.hidden) showOptions();
+      return false;
+    }).finally(() => { catalogRequest = null; });
+    return catalogRequest;
+  }
+
   async function loadCatalogue() {
     const fallback = jsonRequest('/data/report-destinations.json').then((data) => applyCatalogue(data, false)).catch(() => false);
-    const live = jsonRequest('/api/reports/catalog').then((data) => applyCatalogue(data, true)).catch(() => false);
-    const [, connected] = await Promise.all([fallback, live]);
-    if (!connected) $('service-status').textContent = 'The report connection is unavailable. The dated historical example remains readable.';
+    await Promise.all([fallback, loadLiveCatalogue()]);
     if (!destinations.length) $('destination-help').textContent = 'The destination list is unavailable. The historical example remains readable.';
     if (requested && !selected && !userChangedSelection) clearSelection('That destination is not listed. Choose another destination.');
   }

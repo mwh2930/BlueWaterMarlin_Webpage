@@ -85,7 +85,7 @@ async function noContactControls(page) {
     await choose(page, 'montauk');
     await settled(page);
     assert.equal(await page.locator('#report-title').innerText(), 'Montauk, NY');
-    assert.match(await page.locator('#report-body').innerText(), /Report unavailable/);
+    assert.match(await page.locator('#report-body').innerText(), /Connection unavailable/);
     assert.doesNotMatch(await page.locator('#report-body').innerText(), /14 nm ENE/);
     assert.match(page.url(), /destination=montauk-ny/);
     await page.locator('#sample-button').click();
@@ -200,15 +200,22 @@ async function noContactControls(page) {
     });
     await delayed.goto(origin + '/report/');
     await ready(delayed);
+    await delayed.locator('#destination-search').fill('montauk');
+    assert.match(await delayed.locator('#destination-options').innerText(), /Checking report connection/);
+    assert.doesNotMatch(await delayed.locator('#destination-options').innerText(), /No published report/);
     await choose(delayed, 'montauk');
-    await settled(delayed);
-    assert.match(await delayed.locator('#report-body').innerText(), /Report unavailable/);
+    assert.equal(await delayed.locator('#report-sheet').getAttribute('aria-busy'), 'true');
+    assert.match(await delayed.locator('#report-notice').innerText(), /Connecting.*Montauk.*Availability has not been checked/);
+    assert.match(await delayed.locator('#report-body').innerText(), /Checking connection/);
+    assert.doesNotMatch(await delayed.locator('#report-body').innerText(), /14 nm ENE/);
+    assert.equal(await delayed.locator('#refresh-report').isDisabled(), true);
     // A measured Azure cold start exceeded eight seconds. Keep the safe
     // fallback usable while allowing that healthy catalog request to finish.
     await delayed.clock.fastForward(11000);
     assert.doesNotMatch(await delayed.locator('#service-status').innerText(), /connection is unavailable/);
     catalogGate.resolve();
     await published(delayed);
+    assert.equal(await delayed.locator('#refresh-report').innerText(), 'Refresh report');
     await delayed.close();
 
     // The longer cold-start allowance remains bounded at thirty seconds.
@@ -221,11 +228,17 @@ async function noContactControls(page) {
     });
     await hungCatalog.goto(origin + '/report/');
     await ready(hungCatalog);
+    await choose(hungCatalog, 'montauk');
     await hungCatalog.clock.fastForward(29000);
     assert.doesNotMatch(await hungCatalog.locator('#service-status').innerText(), /connection is unavailable/);
     await hungCatalog.clock.fastForward(1100);
     await hungCatalog.waitForFunction(() => document.getElementById('service-status').textContent.includes('connection is unavailable'));
     assert.equal(await hungCatalog.locator('#destination-search').isEnabled(), true, 'The local fallback survives a cold-start timeout');
+    assert.equal(await hungCatalog.locator('#report-sheet').getAttribute('aria-busy'), 'false');
+    assert.match(await hungCatalog.locator('#report-notice').innerText(), /report service could not be reached for Montauk, NY/);
+    assert.match(await hungCatalog.locator('#report-body').innerText(), /Connection unavailable/);
+    assert.doesNotMatch(await hungCatalog.locator('#report-notice').innerText(), /No current report has been published/);
+    assert.equal(await hungCatalog.locator('#refresh-report').innerText(), 'Retry connection');
     hungCatalogGate.resolve();
     await hungCatalog.waitForTimeout(100);
     assert.match(await hungCatalog.locator('#service-status').innerText(), /connection is unavailable/);
@@ -255,9 +268,60 @@ async function noContactControls(page) {
     await offline.goto(origin + '/report/?destination=montauk-ny');
     await ready(offline);
     await settled(offline);
-    assert.match(await offline.locator('#report-body').innerText(), /Report unavailable/);
+    assert.match(await offline.locator('#report-body').innerText(), /Connection unavailable/);
+    assert.match(await offline.locator('#report-notice').innerText(), /report service could not be reached for Montauk, NY/);
+    assert.equal(await offline.locator('#refresh-report').innerText(), 'Retry connection');
     assert.doesNotMatch(await offline.locator('#report-body').innerText(), /14 nm ENE/);
     await offline.close();
+
+    // Failed catalog requests never become "unpublished" claims. Recovery is
+    // explicit, bounded and coalesced; it loads only the current selection.
+    const recovery = await context.newPage();
+    await recovery.clock.install({ time: new Date(coldStartTime) });
+    const recoveryGate = deferred();
+    let catalogRequests = 0;
+    const recoveryReports = [];
+    await recovery.route('**/api/reports/**', async route => {
+      const url = new URL(route.request().url());
+      if (url.pathname.endsWith('/catalog')) {
+        catalogRequests += 1;
+        if (catalogRequests === 1) return route.fulfill({ status: 503, json: { error: 'Unavailable' } });
+        await recoveryGate.promise;
+        return route.fulfill({ json: { destinations: catalog.destinations.map(place => ({ ...place, available: true })) } });
+      }
+      const id = url.searchParams.get('destination');
+      recoveryReports.push(id);
+      return route.fulfill({ json: { ...report, destinationId: id, title: 'Venice, LA', reportDate: coldStartTime, text: 'Recovered Venice report. A planning tool, not a navigation system.' } });
+    });
+    await recovery.goto(origin + '/report/?destination=montauk-ny');
+    await recovery.waitForFunction(() => document.getElementById('refresh-report').textContent === 'Retry connection');
+    await recovery.locator('#destination-search').fill('montauk');
+    assert.match(await recovery.locator('#destination-options').innerText(), /Report connection unavailable/);
+    assert.doesNotMatch(await recovery.locator('#destination-options').innerText(), /No published report/);
+    await choose(recovery, 'montauk');
+    await recovery.clock.fastForward(60000);
+    assert.equal(catalogRequests, 1, 'No automatic catalog polling after failure');
+    assert.deepEqual(recoveryReports, []);
+    await recovery.locator('#refresh-report').click();
+    await recovery.waitForFunction(() => document.getElementById('refresh-report').textContent === 'Connecting…');
+    await recovery.locator('#refresh-report').evaluate(button => {
+      button.dispatchEvent(new Event('click'));
+      button.dispatchEvent(new Event('click'));
+    });
+    await choose(recovery, 'venice');
+    assert.match(await recovery.locator('#report-notice').innerText(), /Connecting.*Venice/);
+    assert.equal(await recovery.locator('#refresh-report').isDisabled(), true);
+    assert.deepEqual(recoveryReports, []);
+    recoveryGate.resolve();
+    await published(recovery);
+    assert.equal(catalogRequests, 2, 'Repeated retry events share one catalog request');
+    assert.deepEqual(recoveryReports, ['venice-la'], 'Recovery fetches only the selected destination');
+    assert.equal(await recovery.locator('#report-title').innerText(), 'Venice, LA');
+    assert.match(await recovery.locator('#report-body').innerText(), /Recovered Venice report/);
+    assert.equal(await recovery.locator('#report-meta time').getAttribute('datetime'), coldStartTime);
+    assert.equal(await recovery.locator('#refresh-report').innerText(), 'Refresh report');
+    await recovery.close();
+    await page.clock.setSystemTime(new Date());
 
     // Noon/midnight are resolved in Eastern time, not by adding twelve UTC
     // hours to the previous update. Old text is removed before a new fetch.
