@@ -1,4 +1,4 @@
-# Website-only reports — September 17, 2026
+# Website-only reports — September 18, 2026
 
 ## Scope
 
@@ -6,8 +6,10 @@ The report service is a read-only relay between private Azure Blob storage and t
 website. It does not generate reports, collect contacts or send email. The September
 13 signup, delivery and marina-application design has been superseded. No visitor
 account or subscriber database is needed. The owner has approved deployment and
-Git push. The backend connection is deployed and verified; the Oregon Inlet pilot
-still awaits its first current scheduled report and end-to-end content verification.
+Git push. The backend connection and first Oregon Inlet forecast report are verified.
+The report website is pushed and deployed. All 76 listed locations now use the
+same reader and deployed publisher, with no per-location resources. New locations
+await their first valid scheduled issue; approval does not establish current data.
 
 ## Website
 
@@ -77,11 +79,13 @@ subsets; the approved point's weather forecast is normalized through the existin
 MET cache. Nothing is inferred from rendered colours or distant stations.
 
 The owner approved Oregon Inlet as the first verification destination. The upstream
-exporter and publisher are deployed, the publisher timer is indexed, and the reader
-allows lookup for Oregon Inlet only. The live catalog contains 76 candidates with
-one approved destination. The current Oregon Inlet lookup returns a generic 404
-because a current report has not yet been published. Do not present twice-daily
-publication as verified until a real end-to-end run is checked. The schedule resolves
+exporter and publisher are deployed and the publisher timer is indexed. The reader
+initially approved Oregon Inlet only; the owner subsequently approved the reviewed
+76-location catalog through the same relay. Oregon's first scheduled report returned HTTP 200, with
+publication time `2026-09-18T04:00:02.000Z` and separate MET forecast update time
+`2026-09-18T01:17:53.000Z`. Wind and sea-level pressure forecasts were present;
+SST, chlorophyll, currents, sargassum and waves were explicitly unavailable.
+This verifies one scheduled issue, not ongoing success or ocean coverage. The schedule resolves
 IANA Eastern civil time rather than a fixed UTC offset. A short retry window and atomic writes protect against
 duplicate/late publication; an outage can still leave a report unavailable.
 
@@ -92,19 +96,27 @@ numeric inputs exist. A report's new publication time does not make its source d
 new: separate provider times are retained. The historical example is not the
 composer's specification for generating fronts, weed detections or area averages.
 
-1. Verify the first scheduled Oregon Inlet numeric export and finished report,
+1. Verify subsequent Oregon Inlet numeric exports and finished reports,
    including source timestamps and destination coverage. The existing upstream relay
    health check still reports a stale heartbeat; the independently indexed report
    publisher is not evidence that current ocean inputs are available. Do not expose
    storage identifiers or request storage account keys.
-2. Verify the upstream composer's seven-field JSON contract against that real report. The legacy marketing folder
+2. The first real report conforms to the upstream composer's seven-field JSON contract. The legacy marketing folder
    contains older text/HTML examples and must not be treated as a verified current
    JSON publisher. Unverified sargassum sources remain disabled.
 3. Test one approved destination: correct source dates, report content, unavailable
    and stale states, cache freshness, rejection of writes, bounded reads, sanitized
    failures and mobile rendering. Check the publisher's data provenance separately
    from the relay's technical validation.
-4. Keep other destinations unapproved pending input and report review. Local tests,
+4. The owner approved adding all 76 listed locations. Their supplied coordinates
+   match the public catalog; four legacy region assignments fit the existing
+   Cabo–Cortez region instead. No coordinate was invented or region widened.
+   The bounded publisher and all 76 lookup approvals are deployed. The expansion
+   completed after the midnight window; new destinations first become eligible
+   at noon Eastern on September 18. A shared private progress ledger admits at
+   most 24 claims per five-minute phase, prioritizes untouched locations, and
+   preserves original source dates. Provider or storage failures can leave
+   locations unavailable. Local tests,
    deployed code, a working private-storage connection and timer registration do
    not establish successful scheduled publication.
 
@@ -120,8 +132,8 @@ included in the public artifact or these integration notes.
 The assignments and container access settings were read back from Azure. Existing
 app containers, their access settings, storage credentials and shared permissions
 were not changed. The reader identity is now attached to the isolated deployed
-report backend and its private missing-object read has been verified through the
-same-origin route. This verifies the connection, not an available current report.
+report backend. Both a private missing-object read and the first scheduled forecast
+report were verified through the same-origin route. No data was supplied from a test fixture.
 
 A separate host-storage identity has only three container-scoped assignments:
 Storage Blob Data Owner on dedicated host-metadata and host-secrets containers,
@@ -138,12 +150,18 @@ read back as Standard. The separate reader and upstream publisher deployments
 have since succeeded. The reader indexes exactly two GET routes. Native
 same-origin integration returns the catalog with HTTP 200; direct backend access
 returns 401 with platform authentication required. Unapproved or arbitrary report
-IDs return a generic 404 without exposing private identifiers. Oregon Inlet is the
-only approved lookup, and it also returns 404 until a valid current report exists.
+IDs return a generic 404 without exposing private identifiers. All 76 reviewed
+locations are now approved. Missing or stale reports return 404 rather
+than substitute a historical example.
 
-The next scheduled publication is the first live-report verification gate. Deployment
-and Git push have owner approval; this status does not claim a completed Git push
-or a successfully generated report. The static website workflow still deploys only
+The first midnight publication and report-only Git push are complete. Website
+commit `6941e96` passed its validation and Azure deployment workflow; upstream
+commit `3761060` established the pilot. The all-location publisher is deployed from
+clean-gated `2dcbde8`, pushed on `release/all-destination-reports-20260917` to preserve
+other app work. Its 95 focused report tests, complete relay suite, app compatibility
+tests and release build passed. Azure reports that exact release identity. The
+existing ocean pipeline heartbeat remains stale; this deployment does not claim
+to repair it. The static website workflow still deploys only
 the public artifact, not either Function backend.
 
 ## Validation
@@ -156,8 +174,9 @@ the public artifact, not either Function backend.
 - Build the explicit `.azure-dist` allow-list. Backend source, dependencies, settings,
   operator data and historical marketing archives must stay outside the artifact.
 
-Local verification: 34 offline backend tests pass, including daylight-saving
-boundaries, read limits and cached-report freshness. Browser checks pass at 320,
+Local verification: 41 offline backend tests pass, including all 76 destination
+approvals, destination isolation, unchanged read limits, daylight-saving boundaries
+and cached-report freshness. Browser checks pass at 320,
 390, 768 and 1280 pixels, at 200% text, without JavaScript, and for Eastern issue
 times, invalid data and selection races. Static validation passes eight pages with
 zero warnings; the public artifact contains 19 files. These local checks do not

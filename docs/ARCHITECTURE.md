@@ -126,9 +126,13 @@ deployment and Git push. Native same-origin routing is verified: the catalog ret
 authentication required. Storage remains private and keyless. Review ordinary
 hosting-log access and retention separately from the application's bounded reads.
 
-The September 17 pilot permits lookup for Oregon Inlet only. Its missing current
-report returns a generic 404; first scheduled publication and real source-content
-verification remain pending. An indexed publisher timer is not proof of fresh data.
+The first Oregon Inlet forecast report was verified through the same-origin API
+at midnight Eastern on September 18. Ocean fields without inputs are unavailable,
+not reconstructed from samples. All 76 audited destinations now use the same
+reader and deployed publisher. New locations await their first valid scheduled
+issue; lookup approval is not evidence of current data. No per-location resource
+or public generation endpoint was added. The existing read limits remain intact.
+One successful issue is not proof of continuing source availability.
 The visible browser page rechecks the selected approved destination at each Eastern
 noon/midnight boundary, with five-minute retries through the first twenty minutes
 when a report is missing. Hidden tabs recheck on return. This does not generate or

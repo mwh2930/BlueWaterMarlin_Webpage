@@ -25,7 +25,7 @@ offshore satellite chart app. Publisher: Red Oak Media House.
 | `data/readability.json` | Fallback Readability Index data the site fetches. |
 | `backend/build-readability.mjs` | Local job: NOAA ERDDAP → `data/readability.json`. |
 | `backend/azure/` | Deployed backend: ingest timer + readability HTTP API. |
-| `backend/reports/` | Independently deployed private Blob report reader; Oregon Inlet pilot awaits first current report verification. |
+| `backend/reports/` | Independently deployed private Blob report reader; first Oregon Inlet forecast report verified. |
 | `backend/azure-endpoint.md` | Data contract for the readability endpoint. |
 | `docs/ARCHITECTURE.md` | Repository boundaries, canonical routes, deployment, and structural debt. |
 | `CLAUDE.md` | Historical design and copy notes from the original site build. |
@@ -132,9 +132,13 @@ The dedicated service is **not deployed by the website workflow**. The owner has
 approved deployment and Git push; the isolated reader and upstream publisher are
 now deployed separately. The approved Standard upgrade and native same-origin API
 connection are verified. Direct backend access is denied, and the reader identity
-has read-only report-container access. Oregon Inlet is the only approved lookup;
-its current missing-report 404 is honest unavailability, not a live-data success.
-The first scheduled report and its actual source dates still require verification.
+has read-only report-container access. Oregon Inlet's first scheduled forecast report
+was verified at midnight Eastern on September 18. Its source timestamp remains
+separate from publication time; missing ocean fields are explicitly unavailable.
+All 76 listed destinations are now approved through this same relay. Their audited
+coordinates are configured in the deployed publisher; no per-location resources
+were created. New destinations await their first valid scheduled issue. The
+midnight/noon Eastern schedule does not guarantee current ocean-source coverage.
 See `backend/reports/README.md` and `docs/REPORT_IMPLEMENTATION.md` for boundaries
 and remaining checks. The static build creates no Azure resources. The separate
 staged cloud-fill wording draft remains unpublished and outside this release.
