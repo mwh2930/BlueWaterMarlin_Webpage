@@ -31,8 +31,7 @@
 .report-page p{margin:0 0 16px}
 .report-page .report-content{padding-top:36px}
 .report-page .destination-panel{position:relative;max-width:680px;padding:24px 28px;background:linear-gradient(150deg,#ffffff09,#ffffff03);border:1px solid #9bc9e52e;border-radius:20px;margin:0 auto;box-shadow:inset 0 1px 0 #ffffff0a,0 16px 44px -28px #0008;scroll-margin-top:24px}
-.report-page .destination-panel .eyebrow{margin-bottom:12px;font-size:10px}
-.report-page label{display:block;font-size:14px;font-weight:550;line-height:1.5;margin-bottom:8px}
+.report-page label{display:block;font-size:16px;font-weight:550;line-height:1.5;margin-bottom:12px}
 .report-page input[type=search]{display:block;width:100%;min-width:0;min-height:52px;border:1px solid #64899e;border-radius:12px;background:#071b2a;color:#eff6fb;padding:13px 16px 13px 44px;font:inherit;font-size:16px;line-height:1.4;box-shadow:inset 0 1px 2px #0002,0 0 20px #66b7ea08}
 .report-page input::placeholder{color:#a6bdcc;opacity:1}
 .report-page input:disabled{color:#99aebb;background:#102736;-webkit-text-fill-color:#99aebb;opacity:1}
@@ -46,11 +45,10 @@
 .report-page .destination-options .destination-detail{display:block;font-size:12px;color:var(--muted);margin-top:3px}
 .report-page .destination-options .no-options{cursor:default;color:var(--muted)}
 .report-page .small{font-size:13px;line-height:1.6;color:var(--muted);margin-top:12px}
-.report-page .destination-panel .small{font-size:12px;line-height:1.6;color:#acc1cf;margin:12px auto;max-width:64ch}
+.report-page .destination-panel .small{font-size:12px;line-height:1.6;color:#acc1cf;margin:12px auto 0;max-width:64ch}
 .report-page .destination-meta{display:flex;align-items:center;gap:10px;justify-content:center;flex-wrap:wrap;font-size:12px;color:#acc1cf}
 .report-page .destination-meta p{margin:0}
-.report-page .destination-actions{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
-.report-page .destination-actions:has(> :not([hidden])){width:100%;margin-top:4px}
+.report-page .destination-meta:has(> button:not([hidden])){margin-top:14px}
 .report-page .text-button{border:1px solid #81b6d452;border-radius:999px;padding:9px 17px;min-height:44px;background:linear-gradient(180deg,#35607b66,#20405a55);color:#e1f2fc;font:inherit;font-weight:550;line-height:1.5;box-shadow:inset 0 1px 0 #cbeeff20,0 0 18px #5ab8f318;cursor:pointer}
 .report-page .text-button:hover{background:linear-gradient(180deg,#426e8966,#2c516b66);border-color:#a1d2ef80}
 .report-page .text-button:disabled{opacity:.55;cursor:wait}

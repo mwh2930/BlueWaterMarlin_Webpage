@@ -45,6 +45,12 @@ async function choose(page, id, mode = 'keyboard') {
 async function noSample(page) {
   assert.doesNotMatch(await page.locator('#report-body').innerText(), samplePattern, 'The historical sample cannot substitute for a destination response');
 }
+async function singleSelectionPath(page, pickerReady = true) {
+  assert.equal(await page.locator('#destination-search').count(), 1, 'There is one primary destination picker');
+  assert.equal(await page.locator('#sample-button,#view-report,a[href*="example=historical"]').count(), 0, 'The report UI offers no historical or redundant View report path');
+  assert.equal(await page.locator('#destinations a').count(), 60, 'All crawlable U.S. links remain in the document');
+  assert.equal(await page.locator('#destinations').isVisible(), !pickerReady, 'The directory is visible until the approved picker is usable');
+}
 async function noOverflow(page, label) {
   const box = await page.evaluate(() => ({ width: innerWidth, scroll: document.documentElement.scrollWidth }));
   assert.ok(box.scroll <= box.width + 1, `${label}: horizontal overflow ${JSON.stringify(box)}`);
@@ -89,11 +95,28 @@ async function advanceTo(page, timestamp) {
       await ready(page);
       assert.equal(await page.locator('#report-title').innerText(), 'Choose your destination');
       assert.notEqual(await page.locator('#report-kind').textContent(), 'Historical example');
-      assert.equal(await page.locator('#sample-button').isVisible(), true);
+      await singleSelectionPath(page);
+      assert.equal(await page.locator('#report-sheet').isVisible(), false, 'The empty report must not repeat the primary picker prompt');
       assert.equal(await page.locator('#report-meta time').count(), 0);
       assert.equal(requests.length, 0, 'Opening the report page must not auto-select a port');
       await noSample(page);
       await noOverflow(page, `${width}px initial state`);
+
+      // The primary picker must expose every approved location even with an
+      // empty query, now that the duplicate directory is hidden in this state.
+      const picker = page.locator('#destination-search');
+      await picker.focus();
+      assert.equal(await page.getByRole('option').count(), 60, 'An empty picker lists the complete U.S. catalog');
+      const optionText = await page.getByRole('option').allTextContents();
+      for (const id of ['san-diego-ca', 'westport-wa', 'neah-bay-wa']) {
+        assert.ok(optionText.some(text => text.includes(placeLabel(scope.find(place => place.id === id)))), `${id} is reachable without a typed query`);
+      }
+      await picker.press('ArrowUp');
+      assert.equal(await picker.getAttribute('aria-activedescendant'), 'destination-option-59', 'Keyboard traversal reaches the last approved destination');
+      await picker.press('ArrowDown');
+      assert.equal(await picker.getAttribute('aria-activedescendant'), 'destination-option-0', 'Keyboard traversal wraps back to the first destination');
+      await picker.press('Escape');
+      assert.equal(requests.length, 0, 'Browsing the full catalog must not request a report before selection');
 
       // The API intentionally includes out-of-scope records. Static U.S. IDs
       // are authoritative, not country guesses based on an admin abbreviation.
@@ -111,13 +134,19 @@ async function advanceTo(page, timestamp) {
       await noSample(page);
       await noOverflow(page, `${width}px Washington report`);
 
-      await page.locator('#sample-button').click();
-      assert.equal(await page.locator('#report-kind').textContent(), 'Historical example');
+      // Existing explicit historical URLs still work, but no visible control
+      // offers that secondary path and it never requests current report data.
+      const beforeExample = requests.length;
+      await page.goto(origin + '/report/?example=historical');
+      await ready(page);
       assert.equal(await page.locator('#report-title').innerText(), 'Oregon Inlet, NC');
+      assert.equal(await page.locator('#report-kind').textContent(), 'Historical example');
+      assert.equal(await page.locator('#report-sheet').isVisible(), true);
       assert.match(await page.locator('#report-notice').innerText(), /Not current conditions/);
       assert.match(await page.locator('#report-body').innerText(), samplePattern);
       assert.equal(new URL(page.url()).search, '');
-      await noOverflow(page, `${width}px explicit historical example`);
+      assert.equal(requests.length, beforeExample, 'A legacy example link makes no report request');
+      await singleSelectionPath(page);
       await choose(page, 'miami-fl', mode);
       await published(page);
       assert.match(await page.locator('#report-body').innerText(), /miami-fl/);
@@ -138,7 +167,7 @@ async function advanceTo(page, timestamp) {
         await noSample(page);
       }
       assert.equal(await page.evaluate(() => localStorage.length + sessionStorage.length), 0);
-      console.log(`${width}px: destination-first, explicit sample, keyboard/pointer selection, Washington and rejected international bookmarks passed`);
+      console.log(`${width}px: single-picker path, explicit legacy-link compatibility, keyboard/pointer selection, Washington and rejected international bookmarks passed`);
       await context.close();
     }
 
@@ -148,6 +177,7 @@ async function advanceTo(page, timestamp) {
     const fallback = await harness({ catalogGate });
     await fallback.page.goto(origin + '/report/');
     await fallback.page.waitForFunction(() => !document.getElementById('destination-search').disabled);
+    await singleSelectionPath(fallback.page);
     await fallback.page.locator('#destination-search').fill('Exmouth');
     assert.equal(await fallback.page.getByRole('option').count(), 0);
     await choose(fallback.page, 'westport-wa');
@@ -165,6 +195,9 @@ async function advanceTo(page, timestamp) {
     assert.equal(await broken.page.locator('#destination-search').isDisabled(), true);
     assert.equal(broken.requests.length, 0);
     assert.equal(await broken.page.locator('#report-title').innerText(), 'Choose your destination');
+    await singleSelectionPath(broken.page, false);
+    await broken.page.locator('#destinations-atlantic summary').click();
+    assert.equal(await broken.page.locator('#destinations a[href="/report/miami-fl/"]').isVisible(), true, 'Static navigation survives a failed scope request');
     await noSample(broken.page);
     await broken.context.close();
     console.log('Static-scope fallback and scope failure fail-closed checks passed');
@@ -205,6 +238,8 @@ async function advanceTo(page, timestamp) {
       assert.equal(new URL(leaves.page.url()).search, '');
       assert.equal(await leaves.page.locator('link[rel="canonical"]').getAttribute('href'), `https://www.bluewatermarlin.com/report/${place.id}/`);
       assert.deepEqual(leaves.requests.slice(count), [place.id], 'Only the page-bound destination may be requested');
+      await singleSelectionPath(leaves.page);
+      assert.equal(await leaves.page.locator('#report-sheet').isVisible(), true);
       await noSample(leaves.page);
       await noOverflow(leaves.page, `${place.id} destination page`);
     }
@@ -215,12 +250,8 @@ async function advanceTo(page, timestamp) {
     await published(leaves.page);
     assert.equal(await leaves.page.locator('body').getAttribute('data-report-destination'), 'montauk-ny');
     assert.match(await leaves.page.locator('#report-body').innerText(), /montauk-ny/);
-    await leaves.page.locator('#sample-button').click();
-    await leaves.page.waitForURL(url => url.pathname === '/report/');
-    await leaves.page.waitForFunction(() => document.getElementById('report-kind').textContent === 'Historical example');
-    assert.equal(await leaves.page.locator('#report-title').innerText(), 'Oregon Inlet, NC');
-    assert.match(await leaves.page.locator('#report-notice').innerText(), /Not current conditions/);
-    assert.match(await leaves.page.locator('#report-body').innerText(), samplePattern);
+    await singleSelectionPath(leaves.page);
+    await noSample(leaves.page);
     await leaves.context.close();
     console.log('All 60 permanent destination pages bind the correct report, reject conflicting queries, fit mobile, and navigate safely');
 
@@ -276,6 +307,14 @@ async function advanceTo(page, timestamp) {
     await staticPage.route('**/*', route => new URL(route.request().url()).origin === origin ? route.continue() : route.abort());
     await staticPage.goto(origin + '/report/');
     assert.equal(await staticPage.locator('#report-title').innerText(), 'Choose your destination');
+    assert.equal(await staticPage.locator('#report-sheet').isVisible(), false);
+    await singleSelectionPath(staticPage, false);
+    await staticPage.locator('#destinations-atlantic summary').click();
+    await staticPage.locator('#destinations a[href="/report/miami-fl/"]').click();
+    await staticPage.waitForURL(origin + '/report/miami-fl/');
+    assert.equal(await staticPage.locator('body').getAttribute('data-report-destination'), 'miami-fl');
+    assert.equal(await staticPage.locator('#report-sheet').isVisible(), true, 'A no-script leaf retains its destination-specific report placeholder');
+    await singleSelectionPath(staticPage, false);
     await noSample(staticPage);
     await noScript.close();
     assert.deepEqual(errors, []);

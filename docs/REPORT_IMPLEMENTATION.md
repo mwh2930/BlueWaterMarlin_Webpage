@@ -1,5 +1,32 @@
 # Website-only reports — September 18, 2026
 
+## Single selection path — approved release scope
+
+The owner approved Git publication of this cleanup and the source-page update on
+September 18. The release includes the source page's pending cloud-fill wording
+correction, but excludes the unrelated staged homepage and design-note drafts.
+The website workflow deploys the static release; no report backend is redeployed.
+
+The primary flow is one searchable destination picker followed by its report.
+Duplicate Find/All-destination header links, View report, and the historical-example
+button are removed. The existing historical URL is a compatibility path only and
+remains explicitly dated; it is never a fallback for a missing live report.
+
+The hub's empty readout stays hidden until a location is chosen. Every generated
+location page retains a readable static identity and no-script notice. The full
+60-link directory remains in HTML, visible without JavaScript or if the approved
+scope cannot load. It is hidden only after a usable approved picker is available.
+An empty search offers all approved destinations in the scrollable list.
+
+Selection still reveals the readout without another button. Retry controls remain
+available for connection/report failures. Scheduled refreshes, dates, U.S. scope,
+read-only requests and source limitations are unchanged. This cleanup does not
+fix the separate intermittent backend response delays or alter publication jobs.
+
+The preceding release's no-slash destination rules are configured as 301s, but
+production checks returned 200 for those aliases. The canonical links and slash
+routes are correct; no global Azure routing change is part of this UI cleanup.
+
 ## U.S. destination-navigation update
 
 The owner approved expansion to all 60 reviewed U.S. destinations in the current
@@ -53,8 +80,8 @@ availability.
 - The **B.I.L.L. Offshore Report** hero has a centered destination selector and a
   static, labeled contour illustration. The illustration is not live data.
 - Explicit destination confirmation reveals and focuses the selected report
-  heading; **View report** returns there without a new request. Loading, ready and
-  failure states appear beside the selector. Automatic URL/catalog application,
+  heading without another button. Loading and failure information remains in the
+  report; selection status is also announced accessibly. Automatic URL/catalog application,
   delayed responses and scheduled refreshes do not move focus or scroll. This
   corrects a verified below-fold readout problem, not the separate delivery delays.
 - A searchable, keyboard-accessible destination picker requests report data only
@@ -64,7 +91,7 @@ availability.
   from a verified missing report and offers **Retry connection** for the selected
   destination. Retries are explicit, coalesced and bounded by a 30-second browser
   deadline, with no automatic catalog polling. Recovery respects the current
-  destination or the user's choice to return to the historical example.
+  destination; the historical example is available only through its legacy URL.
 - Location, area, report date and source dates remain visible. Measurements and
   approximate locations are preserved. Sargassum indications are described as a
   possible general area, not a confirmed weed line. Missing data is not a negative

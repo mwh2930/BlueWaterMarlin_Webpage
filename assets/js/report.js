@@ -182,7 +182,9 @@
 
   function showOptions() {
     const query = clean(input.value);
-    matches = destinations.filter((place) => clean(label(place)).includes(query)).slice(0, 30);
+    // The approved scope bounds this list. Keep every approved destination
+    // browseable when the search is empty, including the Pacific coast.
+    matches = destinations.filter((place) => clean(label(place)).includes(query));
     list.replaceChildren();
     matches.forEach((place, i) => {
       const option = element('li');
@@ -239,7 +241,7 @@
   function revealReport() {
     const heading = $('report-title');
     heading.focus({ preventScroll: true });
-    // Reveal only in direct response to a confirmed choice or View report.
+    // Reveal only in direct response to a confirmed destination choice.
     // Instant positioning also respects reduced-motion preferences.
     heading.scrollIntoView({ behavior: 'instant', block: 'start' });
   }
@@ -247,16 +249,15 @@
   function clearSelection(message = 'Choose a destination from the results.') {
     cancelReport();
     selected = null;
+    sheet.hidden = true;
     setQuery(null);
     $('selection-status').textContent = message;
     $('report-kind').textContent = 'Destination search';
     $('report-title').textContent = 'Choose your destination';
     $('report-meta').replaceChildren();
     $('report-notice').textContent = 'No report is selected.';
-    $('sample-button').hidden = false;
     $('refresh-report').hidden = true;
-    $('view-report').hidden = true;
-    reportState('Choose a destination', 'Select a listed destination to check for a published report, or view the dated historical example.');
+    reportState('Destination report', 'Publication dates, source dates and unavailable layers will be shown with the report.');
   }
 
   function selectDestination(place, automatic = false) {
@@ -270,24 +271,19 @@
     input.value = label(place);
     closeOptions();
     $('selection-status').textContent = 'Selected: ' + label(place) + '.';
-    $('sample-button').hidden = false;
     $('refresh-report').hidden = liveCatalogueApplied && !place.available;
-    $('view-report').hidden = false;
     setQuery(place.id);
     loadReport(place);
     if (!automatic) revealReport();
   }
 
   function showSample() {
-    // A destination page cannot show Oregon's example under another location's
-    // heading and canonical URL. The hub is the explicit example destination.
-    if (pageDestination) {
-      location.assign('/report/?example=historical');
-      return;
-    }
+    // Compatibility for an explicit legacy URL only. The normal destination
+    // path offers no historical-example control or replacement report.
     userChangedSelection = true;
     cancelReport();
     selected = null;
+    sheet.hidden = false;
     input.value = '';
     closeOptions();
     $('report-kind').textContent = 'Historical example';
@@ -297,14 +293,13 @@
     $('report-notice').textContent = 'Example wording using the supplied sample values. Not current conditions.';
     body.replaceChildren(...[...originalSample.childNodes].map((node) => node.cloneNode(true)));
     $('selection-status').textContent = 'No destination selected.';
-    $('sample-button').hidden = true;
     $('refresh-report').hidden = true;
-    $('view-report').hidden = true;
     setQuery(null);
   }
 
   async function loadReport(place) {
     cancelReport();
+    sheet.hidden = false;
     $('report-kind').textContent = 'Selected destination';
     $('report-title').textContent = label(place);
     $('report-meta').replaceChildren();
@@ -411,11 +406,6 @@
         : 'No matching destination. Try another place name.';
     }
   });
-  $('sample-button').addEventListener('click', showSample);
-  $('view-report').addEventListener('click', (event) => {
-    event.preventDefault();
-    if (selected) revealReport();
-  });
   $('refresh-report').addEventListener('click', () => {
     if (!selected) { if (!liveCatalogueApplied) loadLiveCatalogue(); return; }
     if (!liveCatalogueApplied) loadLiveCatalogue();
@@ -438,8 +428,11 @@
     }).map((place) => ({ id: place.id, name: place.name.trim(), admin: place.admin.trim(), available: isLive && place.available === true }));
     if (isLive) { liveCatalogueApplied = true; catalogState = 'ready'; }
     input.disabled = destinations.length === 0;
-    $('destination-help').textContent = destinations.length ? 'Search U.S. destinations. Select a result, or press Enter when there is one match. A listing does not guarantee a published report.' : 'No destinations are listed. Browse the directory or retry the connection.';
-    if (isLive) $('service-status').textContent = destinations.some((place) => place.available) ? 'Reports are read here on the website. No account or email address is required.' : 'No published reports are available yet. The destination directory remains available.';
+    // Progressive enhancement: never hide the real links just because script
+    // execution started. Hide them only when the approved picker is usable.
+    $('destinations').hidden = !input.disabled;
+    $('destination-help').textContent = destinations.length ? 'Search or choose a U.S. destination.' : 'Search is unavailable. Use the destination links below.';
+    if (isLive) $('service-status').textContent = destinations.some((place) => place.available) ? 'Reports are read here on the website. No account or email address is required.' : 'No published reports are available yet. Availability varies by source and publication.';
     if (selected) {
       const updated = destinations.find((place) => place.id === selected.id);
       if (updated) { selected = updated; if (isLive) selectDestination(updated, true); }
@@ -455,8 +448,9 @@
 
   function rejectRequestedDestination() {
     clearSelection('That destination is not listed in our U.S. reports.');
+    sheet.hidden = false;
     $('report-notice').textContent = 'Choose a listed U.S. destination. No other location has been substituted.';
-    reportState('Destination outside this directory', 'This directory contains approved U.S. destinations only. Choose a location from the search results or directory.');
+    reportState('Destination outside this directory', 'Only approved U.S. destinations are listed. Use the destination search to choose another location.');
   }
 
   function loadScope() {
@@ -484,7 +478,7 @@
     // share the existing request and its thirty-second network deadline.
     if (catalogRequest) return catalogRequest;
     catalogState = 'loading';
-    $('service-status').textContent = 'Connecting to the report service. The destination directory remains available.';
+    $('service-status').textContent = 'Connecting to the report service.';
     if (selected && !liveCatalogueApplied) loadReport(selected);
     if (!list.hidden) showOptions();
     catalogRequest = Promise.all([loadScope(), jsonRequest('/api/reports/catalog')]).then(([, data]) => {
@@ -492,7 +486,7 @@
       return true;
     }).catch(() => {
       catalogState = 'failed';
-      $('service-status').textContent = 'The report connection is unavailable. The destination directory remains available.';
+      $('service-status').textContent = 'The report connection is unavailable. Current conditions have not been checked.';
       if (!approvedIds) {
         $('destination-help').textContent = 'The approved destination list could not be loaded. Retry connection to check again.';
         $('refresh-report').hidden = false;

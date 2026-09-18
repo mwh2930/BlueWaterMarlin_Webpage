@@ -65,7 +65,9 @@ async function revealed(page, name) {
       await page.goto(origin + '/report/');
       await page.waitForFunction(() => document.getElementById('service-status').textContent.startsWith('Reports are read'));
       assert.equal((await position(page)).scroll, 0, 'Catalog arrival does not move the page');
-      assert.equal(await page.locator('#view-report').isVisible(), false);
+      assert.equal(await page.locator('#view-report,#sample-button').count(), 0);
+      assert.equal(await page.locator('#destinations').isVisible(), false);
+      assert.equal(await page.locator('#report-sheet').isVisible(), false);
       const search = page.locator('#destination-search');
       const choose = async name => {
         await search.fill(name);
@@ -76,9 +78,10 @@ async function revealed(page, name) {
 
       await choose('Miami');
       await revealed(page, 'Miami');
+      assert.equal(await page.locator('#report-sheet').isVisible(), true);
       assert.equal(await page.locator('#report-sheet').getAttribute('aria-busy'), 'true');
       assert.match(await page.locator('#selection-status').innerText(), /Loading report for Miami/);
-      assert.equal(await page.locator('#view-report').isVisible(), true);
+      assert.equal(await page.locator('#view-report').count(), 0, 'Selecting a destination reveals the report without another button');
 
       // A delayed response cannot drag the visitor back after they return to search.
       await search.click();
@@ -100,11 +103,6 @@ async function revealed(page, name) {
       assert.doesNotMatch(await page.locator('#report-body').innerText(), /miami-fl|14 nm ENE/);
       assert.deepEqual(requests, ['miami-fl', 'montauk-ny']);
 
-      // The explicit return link reveals existing data without another request.
-      await page.locator('#view-report').click();
-      await revealed(page, 'Montauk');
-      assert.equal(requests.length, 2);
-
       status = 503;
       await choose('Miami');
       await page.waitForFunction(() => document.getElementById('report-sheet').getAttribute('aria-busy') === 'false');
@@ -114,7 +112,10 @@ async function revealed(page, name) {
       assert.doesNotMatch(await page.locator('#report-body').innerText(), /Synthetic weather for montauk/);
 
       await search.fill('Montauk');
-      assert.equal(await page.locator('#view-report').isVisible(), false, 'Typing invalidates the previous report link');
+      assert.equal(await page.locator('#view-report').count(), 0);
+      assert.equal(await page.locator('#report-title').innerText(), 'Choose your destination');
+      assert.equal(await page.locator('#report-sheet').isVisible(), false, 'Typing returns to the one picker path');
+      assert.doesNotMatch(await page.locator('#report-body').innerText(), /Synthetic weather for/);
       assert.equal((await position(page)).active, 'destination-search');
 
       // A bookmarked destination is automatic, not permission to move focus.
@@ -126,7 +127,7 @@ async function revealed(page, name) {
       await page.locator('#refresh-report').click();
       await page.waitForFunction(() => document.getElementById('report-sheet').getAttribute('aria-busy') === 'false');
       assert.notEqual((await position(page)).active, 'report-title', 'Refresh never moves focus to the report');
-      assert.equal(await page.locator('#view-report').isVisible(), true);
+      assert.equal(await page.locator('#view-report').count(), 0);
 
       // A scheduled issue check is not a new user request to move the viewport.
       await search.click();
@@ -139,9 +140,8 @@ async function revealed(page, name) {
       assert.equal(afterScheduled.active, 'destination-search');
       assert.ok(Math.abs(beforeScheduled.scroll - afterScheduled.scroll) <= 1, 'Scheduled refresh preserves the viewport');
 
-      await page.locator('#sample-button').click();
-      assert.equal(await page.locator('#view-report').isVisible(), false);
-      assert.equal(await page.locator('#report-kind').textContent(), 'Historical example');
+      assert.equal(await page.locator('#sample-button,#view-report').count(), 0);
+      assert.equal(await page.locator('#destinations').isVisible(), false);
       assert.deepEqual(errors, []);
       assert.deepEqual(forbidden, []);
       console.log(`${config.width}px ${config.mode}: explicit selection reveals the correct data; automatic completion, URL loading and refresh preserve focus; errors stay visible`);

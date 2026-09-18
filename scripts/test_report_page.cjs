@@ -39,6 +39,7 @@ async function noOverflow(page, label) {
 async function noContactControls(page) {
   assert.equal(await page.locator('form,input[type=email],textarea,[name=email],#account-panel').count(), 0);
   assert.equal(await page.locator('input').count(), 1, 'Only the destination search accepts input');
+  assert.equal(await page.locator('#sample-button,#view-report,a[href*="example=historical"]').count(), 0, 'Only the primary destination path is offered');
 }
 
 (async () => {
@@ -70,6 +71,8 @@ async function noContactControls(page) {
       assert.equal(await page.locator('#report-title').innerText(), 'Choose your destination');
       assert.equal(await page.locator('#report-meta time').count(), 0);
       assert.doesNotMatch(await page.locator('#report-body').innerText(), /14 nm ENE|3 days old/);
+      assert.equal(await page.locator('#destinations').isVisible(), false, 'Approved fallback search hides the duplicate directory even when the API is unavailable');
+      assert.equal(await page.locator('#destinations a').count(), 60);
       await page.locator('.report-details summary').click();
       await noOverflow(page, `${width}px expanded source limitations`);
     }
@@ -90,8 +93,6 @@ async function noContactControls(page) {
     assert.match(await page.locator('#report-body').innerText(), /Connection unavailable/);
     assert.doesNotMatch(await page.locator('#report-body').innerText(), /14 nm ENE/);
     assert.match(page.url(), /destination=montauk-ny/);
-    await page.locator('#sample-button').click();
-    assert.equal(await page.locator('#report-title').innerText(), 'Oregon Inlet, NC');
     await page.locator('#destination-search').fill('unlisted port example');
     assert.match(await page.locator('#destination-options').innerText(), /No matching destination/);
     assert.doesNotMatch(await page.locator('#destination-options').innerText(), /request|submit/i);
@@ -259,9 +260,11 @@ async function noContactControls(page) {
     await lateFallback.route('**/api/reports/**', route => route.fulfill({ json: new URL(route.request().url()).pathname.endsWith('/catalog') ? catalog : report }));
     await lateFallback.goto(origin + '/report/?destination=montauk-ny');
     assert.equal(await lateFallback.locator('#destination-search').isDisabled(), true);
+    assert.equal(await lateFallback.locator('#destinations').isVisible(), true, 'Do not hide the static path before scope validation completes');
     fallbackGate.resolve();
     await published(lateFallback);
     assert.equal(await lateFallback.locator('#report-kind').textContent(), 'Published report');
+    assert.equal(await lateFallback.locator('#destinations').isVisible(), false);
     await lateFallback.close();
 
     // Error/HTML responses use the safe local candidate list, never a sample substitution.
@@ -434,6 +437,8 @@ async function noContactControls(page) {
     await staticPage.goto(origin + '/report/');
     assert.doesNotMatch(await staticPage.locator('#report-body').innerText(), /approximately 14 nm ENE/);
     assert.equal(await staticPage.locator('#report-title').innerText(), 'Choose your destination');
+    assert.equal(await staticPage.locator('#destinations').isVisible(), true);
+    assert.equal(await staticPage.locator('#destinations a').count(), 60);
     assert.match(await staticPage.locator('noscript').innerText(), /JavaScript is required to load changing report data/);
     await noContactControls(staticPage);
     await staticPage.locator('.report-details summary').click();
@@ -441,6 +446,6 @@ async function noContactControls(page) {
     await staticPage.goto(origin + '/report/privacy/');
     await noOverflow(staticPage, '320px report data and privacy');
     await noScript.close();
-    console.log('Report browser checks passed: read-only requests, no contact controls, responsive and 200% text layout, keyboard search, historical labeling, source dates, DST-aware boundary refresh, bounded visible-only retries, resume freshness, invalid data rejection, obsolete links inert, race-safe selection, fallback, no-script and no third-party requests.');
+    console.log('Report browser checks passed: one primary selection path, read-only requests, no contact controls, responsive and 200% text layout, keyboard search, no sample substitution, source dates, DST-aware boundary refresh, bounded visible-only retries, resume freshness, invalid data rejection, obsolete links inert, race-safe selection, fallback, no-script directory and no third-party requests.');
   } finally { await browser.close(); }
 })().catch(error => { console.error(error); process.exitCode = 1; });

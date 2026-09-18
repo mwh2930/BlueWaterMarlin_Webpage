@@ -51,8 +51,8 @@ def directory(rows, current=None):
     lines = [
         '        <section class="report-directory" aria-labelledby="report-directory-title" id="destinations">',
         '          <div class="directory-heading"><div><p class="eyebrow">United States</p>',
-        '          <h2 id="report-directory-title">Browse every destination</h2></div>',
-        '          <p>60 destinations. Open a coast and choose your report. Availability varies by source and publication.</p></div>',
+        '          <h2 id="report-directory-title">Choose a destination</h2></div>',
+        '          <p>When search is unavailable, open a coast and select a report.</p></div>',
         '          <div class="directory-coasts">',
     ]
     for coast, name in COASTS.items():
@@ -164,6 +164,15 @@ def destination_page(template, row, rows):
                         f'<link rel="canonical" href="{canonical}">')
     page = replace_once(page, r'<body class="report-page">',
                         f'<body class="report-page" data-report-destination="{ident}">')
+    # Unlike the unselected hub, a permanent leaf has useful static identity.
+    # Keep it readable while data loads and without JavaScript.
+    sheet = Elements(page).by_id.get("report-sheet")
+    if sheet is None:
+        raise ValueError("missing template element: report-sheet")
+    opening, opening_end, _, _ = sheet
+    visible_sheet = re.sub(r'''\s+hidden(?:\s*=\s*(?:"[^"]*"|'[^']*'|[^\s>]+))?(?=\s|>)''',
+                           "", page[opening:opening_end], flags=re.I)
+    page = page[:opening] + visible_sheet + page[opening_end:]
     page = replace_inner(page, "page-title", '<span class="report-name">B.I.L.L.</span> ' + name + ' Report')
     breadcrumb = ('<nav class="report-breadcrumb" aria-label="Breadcrumb"><ol>'
                   '<li><a href="/">Home</a></li><li><a href="/report/">Report</a></li>'
@@ -174,8 +183,8 @@ def destination_page(template, row, rows):
         ("report-kind", "Selected destination"), ("report-title", name), ("report-meta", ""),
         ("selection-status", "Selected destination: " + name + "."),
         ("report-notice", "Checking for a published report for " + name + ". No current conditions are shown until it is available."),
-        ("report-body", '<div class="empty-report"><h3>Report for ' + name + '</h3>'
-         '<p>The report loads from the published destination data. If it is unavailable, no current conditions will be inferred.</p></div>'),
+        ("report-body", '<div class="empty-report">'
+         '<p>The report loads from published destination data. If it is unavailable, no current conditions will be inferred.</p></div>'),
     ):
         page = replace_inner(page, target, content)
     page = replace_once(page, r'<input id="destination-search"[^>]*>',

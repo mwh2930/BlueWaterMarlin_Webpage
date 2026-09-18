@@ -78,6 +78,11 @@ It does not document proprietary B.I.L.L. calculations. Dataset revisions and
 credits must be reviewed against the iOS/relay source registry and provider records.
 Update the visible review date when that review is performed.
 
+The September 18 targeted update separates website report inputs from app-only
+reference layers and source candidates. EMODnet contour attribution is app context;
+Copernicus floating-sargassum products remain explicitly under review. No new
+provider integration or acquisition is implied by adding documentation links.
+
 The static validator checks this page's canonical URL, local links, fragment targets,
 footer integration and permanent redirect. The Azure build explicitly allows
 `sources/` and asserts that its page, stylesheet and motion script are nonempty.
@@ -141,8 +146,10 @@ noon/midnight boundary, with five-minute retries through the first twenty minute
 when a report is missing. Hidden tabs recheck on return. This does not generate or
 re-date a report, and a prior-slot report cannot remain current.
 
-The hub's initial state is destination selection. Its historical example is inert
-until explicitly requested. An offline builder derives all 60 destination pages
+The hub's initial state is one searchable destination picker, with no empty report
+card or competing example/view controls. Its historical example is inert except
+at the legacy explicit URL. The static directory is a no-JS/scope-failure fallback,
+hidden only after the approved picker becomes usable. An offline builder derives all 60 destination pages
 and the coast-grouped link directory from the reviewed catalog and shared hub
 template. Each leaf binds the reader to its approved ID and canonical route;
 conflicting query parameters are ignored. The static catalog gates live selector

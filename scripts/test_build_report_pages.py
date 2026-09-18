@@ -18,9 +18,11 @@ TEMPLATE = '''<!doctype html><html lang="en"><head>
 </head><body class="report-page"><main>
 <h1 id="page-title">Report</h1><p class="intro">Report</p>
 <input id="destination-search" type="search" disabled><p id="selection-status">Choose a destination.</p>
+<section id="report-sheet" class="report-sheet" hidden>
 <p id="report-kind">Choose a destination</p><h2 id="report-title">Choose a destination</h2>
 <p id="report-meta"></p><p id="report-notice">No report selected.</p>
 <div id="report-body"><div class="empty-report"><h3>Select a destination</h3><p>No current conditions.</p></div></div>
+</section>
 <!-- REPORT_DESTINATION_DIRECTORY_START -->
 <!-- REPORT_DESTINATION_DIRECTORY_END -->
 <template id="historical-report"><section><h3>Oregon Inlet historical example</h3><p>Not current conditions.</p></section></template>
@@ -59,6 +61,8 @@ class ReportPagesTests(unittest.TestCase):
                                  for row in self.rows if row["coast"] == coast])
         self.assertEqual(content.count('<details '), 3)
         self.assertNotIn(' onclick=', content)
+        opening = content.split('>', 1)[0]
+        self.assertNotIn(' hidden', opening, 'Static navigation must survive no JavaScript or a failed scope request')
 
     def test_every_leaf_has_identity_and_root_relative_navigation(self):
         for row in self.rows:
@@ -71,6 +75,10 @@ class ReportPagesTests(unittest.TestCase):
                 self.assertEqual(page[title[1]:title[2]], builder.escape(builder.label(row)))
                 body = spans["report-body"]
                 self.assertNotIn('historical', page[body[1]:body[2]])
+                sheet = spans["report-sheet"]
+                self.assertNotIn(' hidden', page[sheet[0]:sheet[1]], 'Destination placeholders remain visible without JavaScript')
+                self.assertNotIn('id="sample-button"', page)
+                self.assertNotIn('id="view-report"', page)
                 for link in Links(page).links:
                     self.assertTrue(link.startswith(("/", "#", "https://")), link)
                 self.assertIn('href="/report/privacy/"', page)

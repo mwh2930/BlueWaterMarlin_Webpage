@@ -12,7 +12,7 @@ offshore satellite chart app. Publisher: Red Oak Media House.
 | `support.html` | Compatibility redirect to the canonical `/support/` route. |
 | `privacy/index.html` | Stable `/privacy` route used by the iOS app and App Store Connect. |
 | `sources/index.html` | Canonical `/sources/` educational data register, limitations, and attribution page. |
-| `report/index.html` | `/report/` read-only destination report reader and clearly dated historical example. |
+| `report/index.html` | `/report/` read-only report reader with one searchable destination picker. |
 | `report/<approved-us-id>/index.html` | 60 generated destination pages; rebuild with `scripts/build_report_pages.py`. |
 | `report/privacy/index.html` | Website report data and privacy notice, separate from app records. |
 | `404.html` | Recovery page for missing public routes. |
@@ -88,6 +88,13 @@ modification acknowledgements, source limitations, review date and correction co
 current. Do not copy internal projection parameters or claim provider endorsement.
 This transparency page does not replace professional legal review.
 
+The September 18 service update distinguishes website report inputs, app reference
+layers, and evaluated providers. It adds EMODnet contour attribution and labels
+Copernicus floating-sargassum products as under review, not verified report inputs.
+The source page's report-service update date is separate from the full register
+review date. See `docs/SOURCES_REVIEW.md`; test with `scripts/test_sources_page.cjs`
+against a loopback preview before publication.
+
 Before release, test 320px, 390px and desktop widths, 200% text sizing, keyboard
 navigation, pause/resume, reduced motion, and no-JavaScript reading. Then run the
 validator and Azure artifact build; the new page and both scoped assets are
@@ -122,10 +129,13 @@ contact collection or email delivery. The preview makes no Azure requests.
 The public directory contains 60 reviewed U.S. destinations, not a promise of current coverage.
 Only the configured service can enable report lookup for a destination. Choosing a destination
 without a report never substitutes another port's historical example. The 2 September
-Oregon Inlet example is explicitly historical and opens only on request; it is not a current weather bulletin.
+Oregon Inlet example is explicitly historical and retained only at its legacy URL;
+it is not offered in the destination-selection flow or treated as current weather.
 
-The hub starts with **Choose your destination**. Its coast-grouped directory links
-to all 60 `/report/<destination-id>/` pages. These pages preserve the existing report
+The hub starts with one **Choose your destination** picker. An empty search offers
+all 60 approved locations. The coast-grouped directory remains a fallback when
+JavaScript or the approved picker is unavailable; its static links reach all 60
+`/report/<destination-id>/` pages. These pages preserve the existing report
 format and bind their metadata and reader to one approved ID; conflicting query
 parameters cannot substitute another place. Changing destination on a location
 page navigates to that location's page. Existing U.S. hub query links still work.

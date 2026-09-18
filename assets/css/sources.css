@@ -68,6 +68,13 @@
 .s-toc { display: flex; flex-wrap: wrap; gap: .3rem 1.5rem; border-block: 1px solid var(--s-line); padding: .85rem 0; align-items: center; font-size: .875rem; }
 .s-toc > span { color: #596f7c; margin-right: auto; }
 .s-toc a { min-height: 44px; display: inline-flex; align-items: center; }
+.s-service-note { margin-top: 2rem; padding: clamp(1.25rem, 3vw, 2rem); border: 1px solid var(--s-line); border-radius: .75rem; background: #f7fafb; }
+.s-service-note :where(h2, h3) { margin-block: .65rem 1rem; font-size: 1.375rem; line-height: 1.3; letter-spacing: -.025em; }
+.s-service-note > p:not(.s-eyebrow) { max-width: 70ch; color: var(--s-muted); font-size: 1rem; }
+.s-service-note code, .s-reference-list code { font: .9em/1.6 ui-monospace, SFMono-Regular, Menlo, monospace; overflow-wrap: anywhere; }
+.s-service-link { display: inline-flex; align-items: center; gap: .5rem; min-height: 44px; margin-top: .75rem; font-size: .9375rem; }
+.s-source-review { background: #fff; }
+.s-reference-list p.s-credit { margin-top: 1rem; font-size: .875rem; }
 .s-source-section { padding-top: 5rem; }
 .s-section-heading { max-width: 45rem; margin-bottom: 1rem; }
 .s-section-number { display: block; font-size: .75rem; letter-spacing: .13em; text-transform: uppercase; color: #587b8e; font-weight: 500; margin-bottom: 1rem; }

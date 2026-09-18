@@ -1,4 +1,5 @@
-/* Scoped navigation for the existing report design. No motion or external assets. */
+/* Progressive fallback when the approved destination picker is unavailable.
+   Keep native links readable without JavaScript; script owns the hidden state. */
 .report-page .report-directory{margin:30px 0;text-align:left;scroll-margin-top:24px}
 .report-page .directory-heading{display:flex;align-items:end;justify-content:space-between;gap:18px 32px;margin-bottom:20px}
 .report-page .directory-heading>div{min-width:0}

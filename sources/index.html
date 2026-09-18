@@ -4,14 +4,14 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>Data Sources &amp; Attribution — BlueWater Marlin</title>
-  <meta name="description" content="The ocean, weather, chart and terrain sources behind BlueWater Marlin. Explore their origins, data types, limitations and required attributions.">
+  <meta name="description" content="Data services behind BlueWater Marlin and its destination reports. Source products, dates, coverage, limitations and attribution, with sources under review identified separately.">
   <link rel="canonical" href="https://www.bluewatermarlin.com/sources/">
   <meta property="og:title" content="Data Sources &amp; Attribution — BlueWater Marlin">
   <meta property="og:description" content="A field guide to our ocean and weather data: where it comes from, what it represents, and how to read its limits.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://www.bluewatermarlin.com/sources/">
   <link rel="stylesheet" href="../assets/css/public.css">
-  <link rel="stylesheet" href="../assets/css/sources.css">
+  <link rel="stylesheet" href="../assets/css/sources.css?v=20260918-services">
   <script src="../assets/js/sources-motion.js" defer></script>
 </head>
 <body class="sources-page">
@@ -19,7 +19,7 @@
   <header class="s-header">
     <nav class="s-shell s-nav" aria-label="Primary">
       <a class="s-brand" href="../">BlueWater Marlin <span>B.I.L.L.</span></a>
-      <div class="s-nav-links"><a href="../support/">Support</a><a href="../privacy/">Privacy</a></div>
+      <div class="s-nav-links"><a href="../report/">Report</a><a href="../support/">Support</a><a href="../privacy/">Privacy</a></div>
     </nav>
   </header>
 
@@ -30,9 +30,9 @@
           <p class="s-eyebrow">Origins of the data</p>
           <h1 id="page-title">Data Sources<br><span>&amp; Attribution</span></h1>
           <p class="s-hero-lede">A clearer picture begins<br class="s-desktop-break"> with knowing the source.</p>
-          <p class="s-hero-note">The ocean and weather programs behind BlueWater Marlin. What they provide, how their products differ, and where their limits begin.</p>
+          <p class="s-hero-note">The ocean and weather programs behind the app and website reports. Source products, dates, coverage and limits.</p>
           <a class="s-glass-link" href="#source-register">Explore the sources <span aria-hidden="true">↓</span></a>
-          <p class="s-reviewed">Last reviewed <time datetime="2026-09-08">September 8, 2026</time></p>
+          <p class="s-reviewed">Data-service update <time datetime="2026-09-18">September 18, 2026</time></p>
         </div>
         <figure class="s-observatory s-animated" aria-labelledby="observatory-caption">
           <svg viewBox="0 0 640 490" role="img" aria-labelledby="observatory-title observatory-desc">
@@ -109,7 +109,21 @@
         <article><svg viewBox="0 0 64 48" aria-hidden="true"><path d="M3 35q14 0 24-12"/><path d="M27 23q15-19 32-15" stroke-dasharray="3 4"/><path d="m50 3 10 5-8 8"/><circle cx="27" cy="23" r="3" class="s-icon-fill"/></svg><h3>Forecast</h3><p>A model estimate for a future time. Its issue time and valid time describe different things.</p></article>
         <article><svg viewBox="0 0 64 48" aria-hidden="true"><path d="m4 18 28-13 28 13-28 13ZM4 26l28 13 28-13M4 34l28 13 28-13"/></svg><h3>Reference layer</h3><p>Chart, coastline or terrain context. Detail and revision schedules vary by source.</p></article>
       </div>
-      <nav class="s-toc" aria-label="On this page"><span>On this page</span><a href="#satellite">Ocean data</a><a href="#weather">Weather &amp; tides</a><a href="#reference">Charts &amp; terrain</a><a href="#attribution">Attribution &amp; use</a></nav>
+      <nav class="s-toc" aria-label="On this page"><span>On this page</span><a href="#report-services">Report data</a><a href="#satellite">Ocean data</a><a href="#weather">Weather &amp; tides</a><a href="#reference">Charts &amp; terrain</a><a href="#attribution">Attribution &amp; use</a></nav>
+
+      <section class="s-service-note" id="report-services" aria-labelledby="report-services-title">
+        <p class="s-eyebrow">Website reports</p>
+        <h2 id="report-services-title">Sources used by website reports</h2>
+        <p>Your report names its sources and retains their dates. The report publication time is not the time every measurement was taken. Reports are scheduled for noon and midnight Eastern, including daylight saving time. A new issue can retain an older source date.</p>
+        <dl class="s-facts">
+          <div><dt>Temperature</dt><dd><a href="#sst-title">NASA JPL MUR</a> sea-surface temperature analysis.</dd></div>
+          <div><dt>Water color</dt><dd><a href="#chl-title">OLCI and VIIRS products</a>, where usable input is available. A reconstructed analysis is identified by its source, not as a new satellite observation.</dd></div>
+          <div><dt>Currents</dt><dd><a href="#altimetry-title">NOAA AOML</a> surface-current analysis.</dd></div>
+          <div><dt>Weather</dt><dd><a href="#wind-title">MET Norway Locationforecast 2.0</a> point forecasts for wind and pressure. A point forecast does not describe every location inside your report area.</dd></div>
+        </dl>
+        <p>Check the source list in your selected report. An app layer listed below is not necessarily an available report field. Missing data does not establish that a feature is absent. Numeric samples do not establish complete coverage of your area.</p>
+        <a class="s-service-link" href="../report/">Choose a destination report <span aria-hidden="true">→</span></a>
+      </section>
 
       <div id="source-register">
         <section class="s-source-section" id="satellite" aria-labelledby="satellite-title">
@@ -133,8 +147,9 @@
           </article>
 
           <article class="s-source-entry" aria-labelledby="chl-title">
-            <figure class="s-source-figure s-animated"><svg viewBox="0 0 300 200" role="img" aria-labelledby="chl-svg-title chl-svg-desc"><title id="chl-svg-title">Observed and reconstructed chlorophyll</title><desc id="chl-svg-desc">Solid cells represent observations; striped translucent cells identify a separate reconstruction. Cloud gaps are not shown as new observations.</desc><defs><pattern id="chl-cells" width="27" height="27" patternUnits="userSpaceOnUse"><rect x="2" y="2" width="23" height="23" rx="3" fill="#307d94"/></pattern><pattern id="chl-fill" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(35)"><path d="M0 0v7" stroke="#487b88" stroke-width="2"/></pattern></defs><rect x="28" y="24" width="244" height="146" rx="8" fill="#dfeced"/><path d="M28 25h244v145H28z" fill="url(#chl-cells)"/><path d="M113 24h81v27h27v81h-54v38h-54v-65H86V51h27Z" fill="#e3eef0"/><g class="s-fill-motion"><path d="M113 24h81v27h27v81h-54v38h-54v-65H86V51h27Z" fill="url(#chl-fill)" opacity=".55"/></g><path d="M39 181h19" stroke="#307d94" stroke-width="4"/><path d="M181 181h19" stroke="#95b4be" stroke-width="4" stroke-dasharray="2 3"/></svg><figcaption>Observed cells. Reconstructed gaps.<span>Illustration · patterns identify analysis</span></figcaption></figure>
+            <figure class="s-source-figure s-animated"><svg viewBox="0 0 300 200" role="img" aria-labelledby="chl-svg-title chl-svg-desc"><title id="chl-svg-title">Chlorophyll observations and analysis</title><desc id="chl-svg-desc">A conceptual chlorophyll grid with cells and patterned gaps. This legacy illustration does not represent the app's current water-color display.</desc><defs><pattern id="chl-cells" width="27" height="27" patternUnits="userSpaceOnUse"><rect x="2" y="2" width="23" height="23" rx="3" fill="#307d94"/></pattern><pattern id="chl-fill" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(35)"><path d="M0 0v7" stroke="#487b88" stroke-width="2"/></pattern></defs><rect x="28" y="24" width="244" height="146" rx="8" fill="#dfeced"/><path d="M28 25h244v145H28z" fill="url(#chl-cells)"/><path d="M113 24h81v27h27v81h-54v38h-54v-65H86V51h27Z" fill="#e3eef0"/><g class="s-fill-motion"><path d="M113 24h81v27h27v81h-54v38h-54v-65H86V51h27Z" fill="url(#chl-fill)" opacity=".55"/></g><path d="M39 181h19" stroke="#307d94" stroke-width="4"/><path d="M181 181h19" stroke="#95b4be" stroke-width="4" stroke-dasharray="2 3"/></svg><figcaption>Chlorophyll observations and analysis.<span>Legacy illustration · not the current app display</span></figcaption></figure>
             <div class="s-source-copy"><p class="s-provider">Copernicus Sentinel-3 · NOAA CoastWatch / PolarWatch</p><h3 id="chl-title">Chlorophyll &amp; ocean color</h3><p>Ocean-color sensors measure reflected light. Processing estimates chlorophyll concentration from that signal. The source collection includes Sentinel-3A OLCI observations and a separate VIIRS DINEOF reconstruction.</p>
+              <p>Your water-color chart fills cloud gaps from the daily gap-filled analysis. Observed water and filled gaps use one solid, uniform surface. The pass date stays on screen and the header names the source.</p>
               <dl class="s-facts"><div><dt>OLCI</dt><dd><code>noaacwS3AOLCIchlaDaily</code> · Level 3 satellite product · daily, 0.0375° (about 4 km), global grid.</dd></div><div><dt>VIIRS DINEOF</dt><dd><code>noaacwNPPN20VIIRSDINEOFDaily</code> · reconstructed analysis · daily, about 0.0833° (9 km), global grid.</dd></div><div><dt>Regional VIIRS</dt><dd><code>noaacwN21VIIRSchlaSectorUSDaily</code> and <code>noaacwN20VIIRSchlaSectorUSDaily</code> · satellite products · daily, 0.0075°, US-sector grid (approximately 0–60°N, 142.38–52.39°W).</dd></div><div><dt>Coverage</dt><dd>Grid extent is not the extent of valid observations; clouds and quality flags leave gaps.</dd></div></dl>
               <p class="s-limitation"><strong>Read its limits.</strong> Clouds and retrieval quality can remove observed cells. DINEOF estimates missing values from spatial and temporal patterns; a reconstructed cell is not a new cloud-free measurement. NOAA identifies these products as experimental.</p>
               <p class="s-credit">Contains modified Copernicus Sentinel data 2026. Ocean-color products distributed by NOAA CoastWatch and PolarWatch; originating sensor and product credits remain with their providers.</p>
@@ -157,9 +172,22 @@
             <div class="s-source-copy"><p class="s-provider">University of South Florida · NOAA AOML</p><h3 id="sargassum-title">Sargassum / floating-algae index</h3><p>The Alternate Floating Algae Index (AFAI) is a reflectance-based signal sensitive to floating material such as Sargassum. This feed contains seven-day cumulative fields from USF, distributed by NOAA AOML.</p>
               <dl class="s-facts"><div><dt>Product</dt><dd><code>noaa_aoml_atlantic_oceanwatch_AFAI_7D</code></dd></div><div><dt>Type / grid</dt><dd>Satellite-derived composite · 0.015° grid.</dd></div><div><dt>Time / extent</dt><dd>Seven-day accumulation · 0–38°N, 98–38°W.</dd></div></dl>
               <p class="s-limitation"><strong>Read its limits.</strong> A cumulative field combines different observation times. Sun glint, clouds and thick aerosols can saturate the signal. AFAI alone does not establish species, biomass or a current patch boundary.</p>
-              <div class="s-source-links"><a href="https://cwcgom.aoml.noaa.gov/erddap/griddap/noaa_aoml_atlantic_oceanwatch_AFAI_7D.html">AFAI product &amp; terms</a><a href="https://doi.org/10.1016/j.rse.2015.05.022">Hu et al. (2015)</a></div>
+              <p class="s-credit">The stated domain does not cover the U.S. Pacific coast or the entire Northeast. Even inside the domain, a destination may have partial or missing samples. A possible sargassum indication concerns a general area, not a confirmed weed line. Check whether your report actually lists this source.</p>
+              <div class="s-source-links"><a href="https://cwcgom.aoml.noaa.gov/erddap/griddap/noaa_aoml_atlantic_oceanwatch_AFAI_7D.html">AFAI product &amp; terms</a><a href="https://cwcgom.aoml.noaa.gov/erddap/info/noaa_aoml_atlantic_oceanwatch_AFAI_7D/index.html">Coverage &amp; variable metadata</a><a href="https://doi.org/10.1016/j.rse.2015.05.022">Hu et al. (2015)</a></div>
             </div>
           </article>
+          <aside class="s-service-note s-source-review" id="source-review" aria-labelledby="source-review-title">
+            <p class="s-eyebrow">Under review · not a verified production report source</p>
+            <h3 id="source-review-title">Copernicus Marine floating-sargassum products</h3>
+            <p>The product <code>MULTIOBS_GLO_BGC_SURFACE_NRT_015_016</code> provides satellite-derived floating-algae indices. It is being evaluated separately from the NOAA / USF AFAI feed. This listing does not mean it supplies your report.</p>
+            <dl class="s-facts">
+              <div><dt>Sentinel-3 OLCI</dt><dd><code>cmems_obs-mob_glo_bgc_nrt_mr_olci_P1D-i</code> · daily aggregation, 275 m grid; 5°S–30°N, 100°W–13°E.</dd></div>
+              <div><dt>GOES ABI</dt><dd><code>cmems_obs-mob_glo_bgc_nrt_mr_abi_P1D-i</code> · 10-minute observation frames, 1.1 km grid; 5°S–40°N, 100°W–12°W.</dd></div>
+              <div><dt>Delivery</dt><dd>Daily processing, with a target of 18:30 UTC the following day and a later revision. Observation spacing is not delivery frequency.</dd></div>
+            </dl>
+            <p>Neither dataset covers the U.S. Pacific coast. Clouds, viewing conditions and quality flags limit usable observations. Finer grid spacing does not establish greater accuracy. Source access, file quality and applicable terms require verification before operational use.</p>
+            <div class="s-source-links"><a href="https://data.marine.copernicus.eu/product/MULTIOBS_GLO_BGC_SURFACE_NRT_015_016/description">Product record</a><a href="https://documentation.marine.copernicus.eu/PUM/CMEMS-MOB-PUM-015-016.pdf">Product manual</a><a href="https://documentation.marine.copernicus.eu/QUID/CMEMS-MOB-QUID-015-016.pdf">Quality assessment</a><a href="https://marine.copernicus.eu/services-portfolio/service-commitments-and-licence/">Service terms</a><a href="https://help.marine.copernicus.eu/en/articles/4444611-how-to-cite-copernicus-marine-products-and-services">Citation requirements</a></div>
+          </aside>
         </section>
 
         <section class="s-source-section" id="weather" aria-labelledby="weather-title">
@@ -194,6 +222,7 @@
             </div>
           </article>
           <div class="s-reference-list">
+            <article aria-labelledby="emodnet-title"><p class="s-provider">EMODnet Bathymetry Consortium</p><h3 id="emodnet-title">European depth contours</h3><p>The app’s European depth-contour configuration uses <code>emodnet:contours</code> through the EMODnet Bathymetry Web Feature Service. This is a reference layer, not a weather forecast or a source for the U.S. destination reports. Survey age and compilation detail vary; contours do not establish safe water.</p><p class="s-credit">Credit: EMODnet Bathymetry Consortium and the contributing data originators identified in the service metadata. The EMODnet data product is owned by the European Union and licensed under <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>. The app selects viewport contours and converts elevation to positive depth. Consult the source metadata for originator credits and any additional restrictions.</p><div class="s-source-links"><a href="https://emodnet.ec.europa.eu/en/bathymetry">Products &amp; originator metadata</a><a href="https://emodnet.ec.europa.eu/en/emodnet-web-service-documentation">WFS documentation</a><a href="https://ows.emodnet-bathymetry.eu/wfs?SERVICE=WFS&amp;REQUEST=GetCapabilities&amp;VERSION=2.0.0">Contour service metadata</a><a href="https://emodnet.ec.europa.eu/en/terms-use-emodnet-online-services-data-and-data-products">Attribution &amp; terms</a></div></article>
             <article aria-labelledby="charts-title"><p class="s-provider">NOAA Office of Coast Survey</p><h3 id="charts-title">Nautical chart context</h3><p>The NOAACharts map service supplies nautical-chart imagery. ENC Direct to GIS (general, coastal and approach layers) supplies vector depth contours and soundings where supported. Coverage, compilation scale and revisions depend on the source. A third-party display does not replace current official nautical charts.</p><div class="s-source-links"><a href="https://nauticalcharts.noaa.gov/data/gis-data-and-services.html">NOAA chart services</a><a href="https://gis.charttools.noaa.gov/arcgis/rest/services/MarineChart_Services/NOAACharts/MapServer">NOAACharts service record</a><a href="https://nauticalcharts.noaa.gov/data/data-licensing.html">NOAA data licensing</a><a href="https://encdirect.noaa.gov/">ENC Direct to GIS</a></div></article>
             <article aria-labelledby="coast-title"><p class="s-provider">GSHHG · Natural Earth</p><h3 id="coast-title">Shoreline reference</h3><p>GSHHG 2.3.7, by Paul Wessel and Walter H. F. Smith, supplies shoreline geography under the GNU Lesser General Public License, version 3. Natural Earth’s public-domain reference mapping is also acknowledged in the app’s credits. Generalization and source age limit coastline detail; these lines do not establish safe water or legal boundaries.</p><div class="s-source-links"><a href="https://github.com/GenericMappingTools/gshhg-gmt">GSHHG source &amp; license</a><a href="https://doi.org/10.5281/zenodo.7007502">GSHHG dataset citation</a><a href="https://doi.org/10.1029/96JB00104">Wessel &amp; Smith (1996)</a><a href="https://www.naturalearthdata.com/about/terms-of-use/">Natural Earth terms</a></div></article>
             <article aria-labelledby="map-title"><p class="s-provider">Apple</p><h3 id="map-title">Base map</h3><p>Apple Maps supplies base-map context through MapKit. Its content, regional availability and attribution are governed by Apple and its data providers. Apple’s map credits remain part of the map display.</p><div class="s-source-links"><a href="https://www.apple.com/legal/internet-services/maps/terms-en.html">Apple Maps terms</a><a href="https://gspe21-ssl.ls.apple.com/html/attribution.html">Apple Maps attributions</a><a href="https://www.apple.com/legal/privacy/data/en/apple-maps/">Maps &amp; privacy</a></div></article>
@@ -211,9 +240,9 @@
           <h3>Corrections and further information</h3><p>For a missing credit, changed source or documentation correction, contact <a href="mailto:support@bluewatermarlin.com?subject=Data%20source%20correction">support@bluewatermarlin.com</a>. Please identify the product and relevant link. Information about network requests and personal data is provided separately in our <a href="../privacy/">Privacy Policy</a>.</p>
         </div>
       </section>
-      <div class="s-document-end"><span>Last reviewed September 8, 2026</span><a href="#page-title">Back to top <span aria-hidden="true">↑</span></a></div>
+      <div class="s-document-end"><span>Data services updated September 18, 2026 · Reference register reviewed September 8, 2026</span><a href="#page-title">Back to top <span aria-hidden="true">↑</span></a></div>
     </div>
   </main>
-  <footer class="s-footer"><div class="s-shell"><a class="s-footer-brand" href="../">BlueWater Marlin <span>B.I.L.L.</span></a><nav aria-label="Footer"><a href="../">Home</a><a href="../support/">Support</a><a href="../privacy/">Privacy</a><a href="mailto:support@bluewatermarlin.com">Email support</a></nav><p>© Red Oak Media House, LLC</p></div></footer>
+  <footer class="s-footer"><div class="s-shell"><a class="s-footer-brand" href="../">BlueWater Marlin <span>B.I.L.L.</span></a><nav aria-label="Footer"><a href="../">Home</a><a href="../report/">Report</a><a href="../support/">Support</a><a href="../privacy/">Privacy</a><a href="mailto:support@bluewatermarlin.com">Email support</a></nav><p>© Red Oak Media House, LLC</p></div></footer>
 </body>
 </html>
