@@ -8,9 +8,17 @@ from html.parser import HTMLParser
 import json
 from pathlib import Path
 from urllib.parse import unquote, urlsplit
+from build_report_pages import build as check_report_pages, catalog as report_catalog
 
 
 ROOT = Path(__file__).resolve().parents[1]
+try:
+    DESTINATION_ROWS = report_catalog(ROOT)
+    DESTINATION_ERROR = None
+except (OSError, ValueError, KeyError, TypeError) as error:
+    DESTINATION_ROWS = []
+    DESTINATION_ERROR = str(error)
+DESTINATION_PAGES = tuple(Path("report") / row["id"] / "index.html" for row in DESTINATION_ROWS)
 PUBLIC_PAGES = (
     Path("index.html"),
     Path("support/index.html"),
@@ -20,7 +28,7 @@ PUBLIC_PAGES = (
     Path("report/privacy/index.html"),
     Path("support.html"),
     Path("404.html"),
-)
+) + DESTINATION_PAGES
 CANONICAL_PAGES = set(PUBLIC_PAGES) - {Path("404.html")}
 EXPECTED_CANONICALS = {
     Path("index.html"): "https://www.bluewatermarlin.com/",
@@ -31,6 +39,10 @@ EXPECTED_CANONICALS = {
     Path("report/privacy/index.html"): "https://www.bluewatermarlin.com/report/privacy/",
     Path("support.html"): "https://www.bluewatermarlin.com/support/",
 }
+EXPECTED_CANONICALS.update({
+    Path("report") / row["id"] / "index.html": f'https://www.bluewatermarlin.com/report/{row["id"]}/'
+    for row in DESTINATION_ROWS
+})
 REQUIRED_GLOBAL_HEADERS = {
     "content-security-policy",
     "cross-origin-opener-policy",
@@ -147,6 +159,13 @@ def local_target(page: Path, reference: str) -> Path | None:
 def validate() -> tuple[list[str], list[str]]:
     errors: list[str] = []
     warnings: list[str] = []
+    if DESTINATION_ERROR:
+        errors.append("U.S. destination directory: " + DESTINATION_ERROR)
+    else:
+        try:
+            check_report_pages(ROOT, check=True)
+        except (OSError, ValueError, KeyError, TypeError) as error:
+            errors.append("Generated destination pages: " + str(error))
 
     if not (ROOT / "CNAME").is_file() or (ROOT / "CNAME").read_text().strip() != "bluewatermarlin.com":
         errors.append("CNAME must contain exactly bluewatermarlin.com")
@@ -268,8 +287,11 @@ def validate() -> tuple[list[str], list[str]]:
 
     # Public report surfaces have no infrastructure settings or direct storage
     # links. The report reader never collects contacts or submits mutations.
-    report_assets = ("report/index.html", "report/privacy/index.html", "assets/js/report.js", "data/report-destinations.json")
+    report_assets = ("report/index.html", "report/privacy/index.html", "assets/js/report.js", "data/report-destinations.json", *(str(page) for page in DESTINATION_PAGES))
     for asset in report_assets:
+        if not (ROOT / asset).is_file():
+            errors.append(f"{asset}: missing public report asset")
+            continue
         content = (ROOT / asset).read_text(encoding="utf-8")
         for forbidden in (".blob.core.windows.net", ".table.core.windows.net", ".azurewebsites.net", "AccountKey=", "SharedAccessSignature="):
             if forbidden in content:
@@ -278,7 +300,7 @@ def validate() -> tuple[list[str], list[str]]:
     for phrase in ("Historical example", "Not current conditions", "approximately 14 nm ENE", "not a confirmed weed line"):
         if phrase not in report_copy:
             errors.append(f"report/index.html: missing report safety copy {phrase!r}")
-    for page in (Path("report/index.html"), Path("report/privacy/index.html")):
+    for page in (Path("report/index.html"), Path("report/privacy/index.html"), *DESTINATION_PAGES):
         parser = parsed_pages.get(page)
         if parser and (parser.form_count or any(kind in ("email", "password", "tel") for kind in parser.input_types)):
             errors.append(f"{page}: website-only report reader must not collect contacts or credentials")
@@ -330,6 +352,12 @@ def validate() -> tuple[list[str], list[str]]:
         errors.append(f"staticwebapp.config.json: invalid or unreadable: {error}")
     else:
         report_routes = [route for route in config.get("routes", []) if route.get("route") == "/report/*"]
+        routes = config.get("routes", [])
+        report_wildcard = next((index for index, route in enumerate(routes) if route.get("route") == "/report/*"), len(routes))
+        for row in DESTINATION_ROWS:
+            path = f'/report/{row["id"]}'
+            if not any(route.get("route") == path and route.get("redirect") == path + "/" and route.get("statusCode") == 301 for route in routes[:report_wildcard]):
+                errors.append(f"staticwebapp.config.json: missing canonical redirect for {path}")
         if not any("form-action 'none'" in route.get("headers", {}).get("content-security-policy", "") for route in report_routes):
             errors.append("staticwebapp.config.json: report routes must prohibit form submissions")
         for route_path in ("/report", "/report/privacy"):

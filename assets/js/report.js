@@ -7,10 +7,12 @@
   const list = $('destination-options');
   const sheet = $('report-sheet');
   const body = $('report-body');
-  const originalSample = body.cloneNode(true);
+  const originalSample = $('historical-report').content;
   const validId = (value) => typeof value === 'string' && /^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(value) && value.length <= 100;
-  const requestedId = new URLSearchParams(location.search).get('destination');
+  const pageDestination = document.body.dataset.reportDestination || null;
+  const requestedId = pageDestination || new URLSearchParams(location.search).get('destination');
   const requested = validId(requestedId) ? requestedId : null;
+  const exampleRequested = !pageDestination && new URLSearchParams(location.search).get('example') === 'historical';
   const infrastructure = /(?:https?:\/\/|www\.|(?:blob|table|dfs|queue)\.core|azurewebsites\.net|[?&]sig=|[<>]|\x00)/i;
   const safeText = (value, maximum, minimum = 1) => typeof value === 'string' && value.trim().length >= minimum && value.length <= maximum && !/[\x00-\x1f\x7f]/.test(value) && !infrastructure.test(value);
   const label = (place) => [place.name, place.admin].filter(Boolean).join(', ');
@@ -31,6 +33,8 @@
   let liveCatalogueApplied = false;
   let catalogState = 'loading';
   let catalogRequest = null;
+  let scopeRequest = null;
+  let approvedIds = null;
   let freshnessTimer = null;
   let attemptedSlot = null;
   let lastAttemptAt = null;
@@ -102,7 +106,7 @@
   function setQuery(destinationId) {
     // Retain only an approved destination identifier. Obsolete account links
     // are inert; discard their action, token and fragment before any fetch.
-    const query = destinationId ? '?destination=' + encodeURIComponent(destinationId) : '';
+    const query = !pageDestination && destinationId ? '?destination=' + encodeURIComponent(destinationId) : '';
     history.replaceState(null, '', location.pathname + query);
   }
   setQuery(requested);
@@ -256,6 +260,11 @@
   }
 
   function selectDestination(place, automatic = false) {
+    if (!approvedIds?.has(place.id)) return;
+    if (pageDestination && place.id !== pageDestination) {
+      if (!automatic) location.assign('/report/' + encodeURIComponent(place.id) + '/');
+      return;
+    }
     if (!automatic) userChangedSelection = true;
     selected = place;
     input.value = label(place);
@@ -270,6 +279,12 @@
   }
 
   function showSample() {
+    // A destination page cannot show Oregon's example under another location's
+    // heading and canonical URL. The hub is the explicit example destination.
+    if (pageDestination) {
+      location.assign('/report/?example=historical');
+      return;
+    }
     userChangedSelection = true;
     cancelReport();
     selected = null;
@@ -339,7 +354,17 @@
     } catch (error) {
       if (sequence !== reportSequence) return;
       const missing = !place.available || error.status === 404;
-      $('selection-status').textContent = missing
+      const now = Date.now();
+      const inPublicationWindow = place.available && error.status === 404
+        && now - publicationWindow(now).current < retryWindow;
+      if (inPublicationWindow) {
+        $('report-kind').textContent = 'Scheduled update window';
+        $('selection-status').textContent = 'Checking this issue for ' + label(place) + '.';
+        $('report-notice').textContent = 'This destination may still be awaiting its scheduled issue. We will check again during the update window.';
+        reportState('Scheduled update window — ' + label(place),
+          'Reports are scheduled for noon and midnight Eastern and publish in batches during the first 20 minutes. A current report is not available yet. No earlier report or historical example has been substituted.');
+      } else {
+        $('selection-status').textContent = missing
         ? 'Report unavailable for ' + label(place) + '.'
         : 'Could not load the report for ' + label(place) + '. Try Refresh report.';
       $('report-notice').textContent = missing
@@ -348,6 +373,7 @@
       reportState('Report unavailable — ' + label(place), missing
         ? 'Reports are scheduled for noon and midnight Eastern. Missing source data can leave a report unavailable. No other destination or historical example has been substituted.'
         : 'No other destination or historical example has been substituted. No current conditions are inferred from missing data.');
+      }
     } finally {
       if (sequence === reportSequence) {
         sheet.setAttribute('aria-busy', 'false');
@@ -391,7 +417,7 @@
     if (selected) revealReport();
   });
   $('refresh-report').addEventListener('click', () => {
-    if (!selected) return;
+    if (!selected) { if (!liveCatalogueApplied) loadLiveCatalogue(); return; }
     if (!liveCatalogueApplied) loadLiveCatalogue();
     else if (selected.available) loadReport(selected);
   });
@@ -403,17 +429,17 @@
   window.addEventListener('pageshow', checkPublication);
 
   function applyCatalogue(catalog, isLive) {
-    if (!Array.isArray(catalog?.destinations) || catalog.destinations.length > 1000) return false;
+    if (!approvedIds || !Array.isArray(catalog?.destinations) || catalog.destinations.length > 1000) return false;
     if (!isLive && liveCatalogueApplied) return true;
     const ids = new Set();
     destinations = catalog.destinations.filter((place) => {
-      if (!place || !validId(place.id) || !safeText(place.name, 120) || !safeText(place.admin, 100, 0) || ids.has(place.id)) return false;
+      if (!place || !validId(place.id) || !approvedIds.has(place.id) || !safeText(place.name, 120) || !safeText(place.admin, 100, 0) || ids.has(place.id)) return false;
       ids.add(place.id); return true;
     }).map((place) => ({ id: place.id, name: place.name.trim(), admin: place.admin.trim(), available: isLive && place.available === true }));
     if (isLive) { liveCatalogueApplied = true; catalogState = 'ready'; }
     input.disabled = destinations.length === 0;
-    $('destination-help').textContent = destinations.length ? 'Type a place name. Select a result, or press Enter when there is one match. A listing does not guarantee a published report.' : 'No destinations are listed. The historical example remains readable.';
-    if (isLive) $('service-status').textContent = destinations.some((place) => place.available) ? 'Reports are read here on the website. No account or email address is required.' : 'No published reports are available yet. The dated historical example remains readable.';
+    $('destination-help').textContent = destinations.length ? 'Search U.S. destinations. Select a result, or press Enter when there is one match. A listing does not guarantee a published report.' : 'No destinations are listed. Browse the directory or retry the connection.';
+    if (isLive) $('service-status').textContent = destinations.some((place) => place.available) ? 'Reports are read here on the website. No account or email address is required.' : 'No published reports are available yet. The destination directory remains available.';
     if (selected) {
       const updated = destinations.find((place) => place.id === selected.id);
       if (updated) { selected = updated; if (isLive) selectDestination(updated, true); }
@@ -421,10 +447,36 @@
     } else if (requested && !userChangedSelection) {
       const place = destinations.find((item) => item.id === requested);
       if (place) selectDestination(place, true);
-      else if (isLive) clearSelection('That destination is not listed. Choose another destination.');
+      else if (isLive || !approvedIds.has(requested)) rejectRequestedDestination();
     }
     if (!list.hidden) showOptions();
     return true;
+  }
+
+  function rejectRequestedDestination() {
+    clearSelection('That destination is not listed in our U.S. reports.');
+    $('report-notice').textContent = 'Choose a listed U.S. destination. No other location has been substituted.';
+    reportState('Destination outside this directory', 'This directory contains approved U.S. destinations only. Choose a location from the search results or directory.');
+  }
+
+  function loadScope() {
+    if (approvedIds) return Promise.resolve();
+    if (scopeRequest) return scopeRequest;
+    scopeRequest = jsonRequest('/data/report-destinations.json').then((catalog) => {
+      if (catalog?.schemaVersion !== 1 || !Array.isArray(catalog.destinations)
+        || !catalog.destinations.length || catalog.destinations.length > 256) throw new Error('Unavailable');
+      const ids = new Set();
+      for (const place of catalog.destinations) {
+        if (!place || !validId(place.id) || ids.has(place.id) || !safeText(place.name, 120)
+          || !safeText(place.admin, 100, 0)) throw new Error('Unavailable');
+        ids.add(place.id);
+      }
+      // This versioned website file is the reviewed U.S. allow-list. Live
+      // availability never expands scope or guesses a country from an abbreviation.
+      approvedIds = ids;
+      applyCatalogue(catalog, false);
+    }).finally(() => { scopeRequest = null; });
+    return scopeRequest;
   }
 
   function loadLiveCatalogue() {
@@ -432,15 +484,21 @@
     // share the existing request and its thirty-second network deadline.
     if (catalogRequest) return catalogRequest;
     catalogState = 'loading';
-    $('service-status').textContent = 'Connecting to the report service. The dated historical example remains readable.';
+    $('service-status').textContent = 'Connecting to the report service. The destination directory remains available.';
     if (selected && !liveCatalogueApplied) loadReport(selected);
     if (!list.hidden) showOptions();
-    catalogRequest = jsonRequest('/api/reports/catalog').then((data) => {
+    catalogRequest = Promise.all([loadScope(), jsonRequest('/api/reports/catalog')]).then(([, data]) => {
       if (!applyCatalogue(data, true)) throw new Error('Unavailable');
       return true;
     }).catch(() => {
       catalogState = 'failed';
-      $('service-status').textContent = 'The report connection is unavailable. The dated historical example remains readable.';
+      $('service-status').textContent = 'The report connection is unavailable. The destination directory remains available.';
+      if (!approvedIds) {
+        $('destination-help').textContent = 'The approved destination list could not be loaded. Retry connection to check again.';
+        $('refresh-report').hidden = false;
+        $('refresh-report').disabled = false;
+        $('refresh-report').textContent = 'Retry connection';
+      }
       if (selected && !liveCatalogueApplied) loadReport(selected);
       if (!list.hidden) showOptions();
       return false;
@@ -449,10 +507,9 @@
   }
 
   async function loadCatalogue() {
-    const fallback = jsonRequest('/data/report-destinations.json').then((data) => applyCatalogue(data, false)).catch(() => false);
-    await Promise.all([fallback, loadLiveCatalogue()]);
-    if (!destinations.length) $('destination-help').textContent = 'The destination list is unavailable. The historical example remains readable.';
-    if (requested && !selected && !userChangedSelection) clearSelection('That destination is not listed. Choose another destination.');
+    await loadLiveCatalogue();
+    if (requested && approvedIds && !selected && !userChangedSelection) rejectRequestedDestination();
   }
+  if (exampleRequested) showSample();
   loadCatalogue();
 })();

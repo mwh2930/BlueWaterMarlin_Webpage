@@ -13,8 +13,8 @@ const staticCatalog = document.destinations;
 const ids = staticCatalog.map(place => place.id);
 const approval = ids.join(',');
 const NOW = Date.parse('2026-09-18T16:30:00Z');
-const configuration = () => readConfig({
-  REPORTS_ENABLED: 'true', REPORTS_APPROVED_DESTINATIONS: approval,
+const configuration = (approvedIds = ids) => readConfig({
+  REPORTS_ENABLED: 'true', REPORTS_APPROVED_DESTINATIONS: approvedIds.join(','),
   REPORTS_BLOB_ENDPOINT: 'https://syntheticaccount.blob.core.windows.net',
   REPORTS_CONTAINER: 'synthetic-output'
 });
@@ -24,7 +24,7 @@ const fixture = id => ({
   radiusNm: 100, text: `Synthetic destination ${id}. A planning tool, not a navigation system.`, status: 'available'
 });
 
-function setup({ read = id => fixture(id), enabled = true } = {}) {
+function setup({ read = id => fixture(id), enabled = true, places = staticCatalog } = {}) {
   let now = NOW;
   const paths = [], downloads = [];
   // No write, delete, list, container-creation or credential capability exists.
@@ -38,9 +38,9 @@ function setup({ read = id => fixture(id), enabled = true } = {}) {
       return { readableStreamBody: Readable.from([body]), contentLength: body.length };
     } });
   } });
-  const config = { ...configuration(), enabled };
+  const config = { ...configuration(places.map(place => place.id)), enabled };
   const approved = new Set(config.approvedIds);
-  const catalog = publicCatalog(staticCatalog, config.privateIdentifiers)
+  const catalog = publicCatalog(places, config.privateIdentifiers)
     .map(place => ({ ...place, available: approved.has(place.id) }));
   const reader = blobReportReader(container, config.approvedIds);
   const service = new ReportService({ config, catalog, reports: reader, now: () => now });
@@ -49,9 +49,9 @@ function setup({ read = id => fixture(id), enabled = true } = {}) {
 }
 const get = (handle, id) => handle({ method: 'GET', action: 'report', destination: id });
 
-test('the canonical 76-ID approval fits existing bounded configuration without enabling the static catalog', () => {
-  assert.equal(staticCatalog.length, 76);
-  assert.equal(new Set(ids).size, 76);
+test('the reviewed 60-ID U.S. approval fits bounded configuration without enabling the static catalog', () => {
+  assert.equal(staticCatalog.length, 60);
+  assert.equal(new Set(ids).size, 60);
   assert.ok(staticCatalog.every(place => place.available === false));
   assert.match(approval, /^[a-z0-9]+(?:-[a-z0-9]+)*(?:,[a-z0-9]+(?:-[a-z0-9]+)*)*$/);
   const config = configuration();
@@ -64,7 +64,7 @@ test('the canonical 76-ID approval fits existing bounded configuration without e
   assert.throws(() => readConfig({ REPORTS_APPROVED_DESTINATIONS: Array.from({ length: 257 }, (_, i) => `place-${i}`).join(',') }), /invalid-report-configuration/);
 });
 
-test('all 76 approved IDs use one fixed output reader and exactly one destination-bound latest path', async () => {
+test('all 60 approved IDs use one fixed output reader and exactly one destination-bound latest path', async () => {
   const { reader, paths, downloads } = setup();
   const controller = new AbortController();
   for (const id of ids) {
@@ -72,8 +72,8 @@ test('all 76 approved IDs use one fixed output reader and exactly one destinatio
     assert.deepEqual(raw, fixture(id));
   }
   assert.deepEqual(paths, ids.map(id => `reports/${id}/latest.json`));
-  assert.equal(new Set(paths).size, 76);
-  assert.equal(downloads.length, 76);
+  assert.equal(new Set(paths).size, 60);
+  assert.equal(downloads.length, 60);
   for (const { offset, length, options } of downloads) {
     assert.equal(offset, 0);
     assert.equal(length, MAX_REPORT_BYTES + 1);
@@ -81,7 +81,7 @@ test('all 76 approved IDs use one fixed output reader and exactly one destinatio
   }
 });
 
-test('one enabled relay exposes exactly 76 safe lookup approvals without revealing storage configuration', async () => {
+test('one enabled relay exposes exactly 60 safe lookup approvals without revealing storage configuration', async () => {
   const { handle, paths } = setup();
   const response = await handle({ method: 'GET', action: 'catalog' });
   assert.equal(response.status, 200);
@@ -96,12 +96,9 @@ test('one enabled relay exposes exactly 76 safe lookup approvals without reveali
   assert.equal(disabled.paths.length, 0);
 });
 
-test('all 76 report responses and cached copies remain isolated by destination in the same relay', async () => {
-  const { handle, paths, advance, service } = setup();
+test('all 60 report responses and cached copies remain isolated by destination in the same relay', async () => {
+  const { handle, paths, service } = setup();
   for (const [index, id] of ids.entries()) {
-    // Keep production defaults intact: the 61st distinct read belongs to the
-    // next budget window, rather than increasing quotas for a larger catalog.
-    if (index === 60) advance(60_001);
     const first = await get(handle, id);
     assert.equal(first.status, 200, id);
     assert.deepEqual(first.jsonBody, fixture(id));
@@ -112,13 +109,12 @@ test('all 76 report responses and cached copies remain isolated by destination i
     assert.deepEqual(cached.jsonBody, fixture(id));
   }
   assert.deepEqual(paths, ids.map(id => `reports/${id}/latest.json`));
-  assert.equal(service.cache.size, 76);
+  assert.equal(service.cache.size, 60);
 });
 
 test('a report bearing another approved destination ID is rejected for every destination', async () => {
-  const { handle, paths, advance } = setup({ read: id => fixture(ids[(ids.indexOf(id) + 1) % ids.length]) });
-  for (const [index, id] of ids.entries()) {
-    if (index === 60) advance(60_001);
+  const { handle, paths } = setup({ read: id => fixture(ids[(ids.indexOf(id) + 1) % ids.length]) });
+  for (const id of ids) {
     const result = await get(handle, id);
     assert.equal(result.status, 404, id);
     assert.deepEqual(result.jsonBody, { error: 'No current report is available for this destination.' });
@@ -127,15 +123,18 @@ test('a report bearing another approved destination ID is rejected for every des
   assert.deepEqual(paths, ids.map(id => `reports/${id}/latest.json`));
 });
 
-test('approving 76 locations preserves the 60-read budget and recovers in the next window', async () => {
-  const { handle, paths, advance } = setup();
-  for (const id of ids.slice(0, 60)) assert.equal((await get(handle, id)).status, 200);
-  assert.equal((await get(handle, ids[60])).status, 503);
+test('a synthetic 61st approval preserves the 60-read budget and recovers in the next window', async () => {
+  // This extra place exists only inside this test, not the public catalog.
+  // A 60-place catalog must not accidentally stop exercising budget overflow.
+  const extra = { id: 'synthetic-budget-fl', name: 'Synthetic budget destination', admin: 'FL', available: false };
+  const { handle, paths, advance } = setup({ places: [...staticCatalog, extra] });
+  for (const id of ids) assert.equal((await get(handle, id)).status, 200);
+  assert.equal((await get(handle, extra.id)).status, 503);
   assert.equal(paths.length, 60);
   assert.equal((await get(handle, ids[0])).status, 200, 'An existing fresh cache hit still works');
   assert.equal(paths.length, 60);
   advance(60_001);
-  assert.equal((await get(handle, ids[60])).status, 200);
+  assert.equal((await get(handle, extra.id)).status, 200);
   assert.equal(paths.length, 61);
 });
 

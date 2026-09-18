@@ -31,6 +31,7 @@ routes, so the app and App Store do not depend on a redirect.
 | `/sources/` | `sources/index.html` | Educational source register, limitations, and attribution |
 | `/sources` | Azure route configuration | Permanent redirect to `/sources/` |
 | `/report/` | `report/index.html` | Website-only offshore report reader and searchable destinations |
+| `/report/<approved-us-id>/` | Generated `report/<id>/index.html` | 60 destination-bound report pages using the same reader |
 | `/report/privacy/` | `report/privacy/index.html` | Report data and hosting privacy supplement |
 | `/report`, `/report/privacy` | Azure route configuration | Permanent redirects to directory routes |
 | `/support.html` | `support.html` | Compatibility redirect to `/support/` |
@@ -128,15 +129,27 @@ hosting-log access and retention separately from the application's bounded reads
 
 The first Oregon Inlet forecast report was verified through the same-origin API
 at midnight Eastern on September 18. Ocean fields without inputs are unavailable,
-not reconstructed from samples. All 76 audited destinations now use the same
-reader and deployed publisher. New locations await their first valid scheduled
-issue; lookup approval is not evidence of current data. No per-location resource
+not reconstructed from samples. All 76 audited destinations use the same
+reader and deployed publisher, and their September 18 noon issues were confirmed
+published by 12:15:04 Eastern. The website directory now exposes only the 60
+reviewed U.S. destinations; it does not delete or change upstream jobs.
+Lookup approval is not evidence of current data. No per-location resource
 or public generation endpoint was added. The existing read limits remain intact.
 One successful issue is not proof of continuing source availability.
 The visible browser page rechecks the selected approved destination at each Eastern
 noon/midnight boundary, with five-minute retries through the first twenty minutes
 when a report is missing. Hidden tabs recheck on return. This does not generate or
 re-date a report, and a prior-slot report cannot remain current.
+
+The hub's initial state is destination selection. Its historical example is inert
+until explicitly requested. An offline builder derives all 60 destination pages
+and the coast-grouped link directory from the reviewed catalog and shared hub
+template. Each leaf binds the reader to its approved ID and canonical route;
+conflicting query parameters are ignored. The static catalog gates live selector
+availability so international IDs cannot be added by a live API response.
+Missing reports during the first 20 minutes show a scheduled-window notice, not a
+claim of a running job. Connection failures remain distinct. The build and site
+validator check all 68 public pages, generation drift, links and metadata.
 
 The marketing page footer link and adjacent hero CTA open the same `/report/` route.
 The existing homepage content, source education, app-privacy statements, pricing and

@@ -1,5 +1,36 @@
 # Website-only reports — September 18, 2026
 
+## U.S. destination-navigation update
+
+The owner approved expansion to all 60 reviewed U.S. destinations in the current
+format, followed by a report-only Git push and deployment. The hub starts with
+destination selection; its historical example opens only on request. A grouped
+Atlantic/Gulf/Pacific directory links to all 60 generated location pages.
+
+Each route binds its page title, canonical URL and reader to the same approved ID.
+A conflicting query cannot load another location. Switching from a location page
+navigates to the next route. Existing U.S. hub query links continue working.
+The static catalog is the reviewed scope; the live catalog supplies availability
+without adding international destinations. The 16 international upstream jobs
+and reports are not deleted or modified. No data-provider integration is included.
+
+The shared builder is offline and deterministic. Static validation checks all 68
+public pages and generation drift. Known destination paths permanently redirect
+to their trailing-slash canonical before the report wildcard header rule.
+
+During the first 20 minutes after noon or midnight Eastern, a 404 for an enabled
+destination is labeled Scheduled update window with conditional wording. It does
+not claim a running publisher or a guaranteed report. The existing bounded retries
+remain at :05/:10/:15/:20; 503 failures remain distinct. Neither state substitutes
+the historical example or re-dates old observations.
+
+The decorative illustration caption is screen-reader-only. All source dates and
+navigation limitations remain intact. Other staged homepage/source-copy drafts
+must remain excluded from this release.
+
+The preceding 76-location publication history below describes the deployed
+upstream system, not the new 60-location public navigation scope.
+
 ## Scope
 
 The report service is a read-only relay between private Azure Blob storage and the

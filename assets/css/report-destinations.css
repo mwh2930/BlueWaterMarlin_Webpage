@@ -1,0 +1,36 @@
+/* Scoped navigation for the existing report design. No motion or external assets. */
+.report-page .report-directory{margin:30px 0;text-align:left;scroll-margin-top:24px}
+.report-page .directory-heading{display:flex;align-items:end;justify-content:space-between;gap:18px 32px;margin-bottom:20px}
+.report-page .directory-heading>div{min-width:0}
+.report-page .directory-heading .eyebrow{margin-bottom:9px}
+.report-page .directory-heading h2{font-size:clamp(23px,3vw,30px);line-height:1.25;margin:0}
+.report-page .directory-heading>p{max-width:42ch;margin:0;color:var(--muted);font-size:14px;line-height:1.6}
+.report-page .directory-coasts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;align-items:start}
+.report-page .directory-coast{min-width:0;border:1px solid var(--line);border-radius:14px;background:#fff;overflow:hidden}
+.report-page .directory-coast summary{padding:18px 20px;min-height:72px;cursor:pointer;font-size:16px;font-weight:600;line-height:1.45;overflow-wrap:anywhere}
+.report-page .directory-coast summary::marker{color:var(--accent)}
+.report-page .directory-count{display:block;margin-top:4px;font-size:12px;font-weight:400;color:var(--muted)}
+.report-page .directory-coast nav{border-top:1px solid var(--line);padding:6px 12px 12px}
+.report-page .directory-coast ul{list-style:none;margin:0;padding:0}
+.report-page .directory-coast li+li{border-top:1px solid #e9eff3}
+.report-page .directory-coast a{display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:48px;padding:10px 8px;color:var(--ink);font-size:14px;line-height:1.5;text-decoration:none;border-radius:6px;overflow-wrap:anywhere}
+.report-page .directory-coast a>span:first-child{min-width:0}
+.report-page .directory-coast a:hover,.report-page .directory-coast a[aria-current=page]{background:#edf6fb;color:#075b86}
+.report-page .directory-state{flex-shrink:0;color:var(--muted);font-size:11px;font-weight:500;letter-spacing:.04em}
+.report-page .report-hero .directory-heading>p{color:#becfdb}
+.report-page .report-hero .directory-coast{background:#102c3e;border-color:#456174}
+.report-page .report-hero .directory-coast summary{color:#edf5fa}
+.report-page .report-hero .directory-coast summary::marker{color:#9ac9e5}
+.report-page .report-hero .directory-count,.report-page .report-hero .directory-state{color:#acc1cf}
+.report-page .report-hero .directory-coast nav,.report-page .report-hero .directory-coast li+li{border-color:#456174}
+.report-page .report-hero .directory-coast a{color:#e1edf5}
+.report-page .report-hero .directory-coast a:hover,.report-page .report-hero .directory-coast a[aria-current=page]{background:#1b3f55;color:#fff}
+.report-page .report-breadcrumb{margin:18px auto 0;color:#acc1cf;font-size:12px;line-height:1.6}
+.report-page .report-breadcrumb ol{display:flex;justify-content:center;align-items:center;flex-wrap:wrap;gap:6px 12px;list-style:none;padding:0;margin:0}
+.report-page .report-breadcrumb li{min-width:0;overflow-wrap:anywhere}
+.report-page .report-breadcrumb li+li::before{content:"/";padding-right:12px;color:#829cad}
+.report-page .report-breadcrumb a{display:inline-flex;min-height:44px;align-items:center;color:#d1e6f3}
+.report-page[data-report-destination] .report-hero h1{max-width:24ch;margin-inline:auto;overflow-wrap:anywhere}
+@media(max-width:760px){.report-page .directory-heading{display:block}.report-page .directory-heading>p{margin-top:12px;max-width:58ch}.report-page .directory-coasts{grid-template-columns:1fr}.report-page .directory-coast summary{padding:16px 18px;min-height:68px}.report-page .directory-coast a{font-size:15px;min-height:48px}.report-page .report-directory{margin-block:26px}}
+@media(forced-colors:active){.report-page .directory-coast,.report-page .directory-coast nav,.report-page .directory-coast li+li{border-color:CanvasText}.report-page .directory-coast a[aria-current=page]{outline:2px solid Highlight}}
+@media print{.report-page .report-directory,.report-page .report-breadcrumb{display:none}}

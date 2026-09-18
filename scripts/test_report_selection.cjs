@@ -10,8 +10,17 @@ const places = [
   { id: 'montauk-point-ny', name: 'Montauk Point', admin: 'NY', available: true },
   { id: 'newport-ri', name: 'Newport', admin: 'RI', available: true },
   { id: 'newport-or', name: 'Newport', admin: 'OR', available: true },
+  { id: 'san-jose-ca', name: 'San José', admin: 'CA', available: true },
   { id: 'san-jose-del-cabo-mx', name: 'San José del Cabo', admin: 'MX', available: true }
 ];
+// Duplicate names and the accented U.S. label are deliberate test fixtures,
+// not additions to the reviewed production destination catalog. Cabo appears
+// only in the live response, exercising the independent public-scope gate.
+const scope = places.filter(place => place.admin !== 'MX').map(place => ({
+  ...place, available: false,
+  coast: ['CA', 'OR'].includes(place.admin) ? 'west-coast' : place.admin === 'LA' ? 'gulf' : 'atlantic',
+  timeZone: ['CA', 'OR'].includes(place.admin) ? 'America/Los_Angeles' : place.admin === 'LA' ? 'America/Chicago' : 'America/New_York'
+}));
 const now = '2026-09-18T17:30:00.000Z';
 const fixture = place => ({
   destinationId: place.id, title: `${place.name}, ${place.admin}`, status: 'available',
@@ -30,6 +39,7 @@ const fixture = place => ({
       let missingStatus = 404;
       page.on('pageerror', error => errors.push(error.message));
       await page.clock.install({ time: new Date(now) });
+      await page.route('**/data/report-destinations.json', route => route.fulfill({ json: { schemaVersion: 1, destinations: scope } }));
       await page.route('**/api/reports/**', route => {
         const url = new URL(route.request().url());
         if (url.pathname.endsWith('/catalog')) return route.fulfill({ json: { destinations: places } });
@@ -124,15 +134,22 @@ const fixture = place => ({
       assert.match(await page.locator('#report-body').innerText(), /newport-ri/);
       assert.doesNotMatch(await page.locator('#report-body').innerText(), /newport-or/);
 
-      // Typing without an accent preserves the catalog's original display name.
+      // An upstream international approval cannot expand the U.S. website scope.
       await search.fill('SAN JOSE DEL CABO');
+      assert.equal(await page.getByRole('option').count(), 0);
+      await search.press('Enter');
+      assert.equal(requests.length, 10, 'Out-of-scope locations do not reach the report API');
+      assert.equal(await page.locator('#report-title').innerText(), 'Choose your destination');
+
+      // Typing without an accent preserves the catalog's original U.S. label.
+      await search.fill('SAN JOSE');
       await search.press('Enter');
       await page.waitForFunction(() => document.querySelector('#report-kind').textContent === 'Published report');
-      assert.equal(requests.at(-1), 'san-jose-del-cabo-mx');
-      assert.equal(await page.locator('#report-title').innerText(), 'San José del Cabo, MX');
-      assert.match(await page.locator('#report-body').innerText(), /Synthetic report for San José del Cabo, MX/);
+      assert.equal(requests.at(-1), 'san-jose-ca');
+      assert.equal(await page.locator('#report-title').innerText(), 'San José, CA');
+      assert.match(await page.locator('#report-body').innerText(), /Synthetic report for San José, CA/);
       assert.deepEqual(errors, []);
-      assert.deepEqual(requests, ['montauk-ny', 'venice-la', 'montauk-ny', 'montauk-ny', 'venice-la', 'montauk-ny', 'miami-fl', 'miami-fl', 'newport-or', 'newport-ri', 'san-jose-del-cabo-mx']);
+      assert.deepEqual(requests, ['montauk-ny', 'venice-la', 'montauk-ny', 'montauk-ny', 'venice-la', 'montauk-ny', 'miami-fl', 'miami-fl', 'newport-or', 'newport-ri', 'san-jose-ca']);
       const dimensions = await page.evaluate(() => ({ width: innerWidth, scroll: document.documentElement.scrollWidth }));
       assert.ok(dimensions.scroll <= dimensions.width, 'Destination messages fit the viewport');
       console.log(`${touch ? 'touch' : 'mouse'} Enter, exact-versus-partial matches, duplicate names, accents, composition, and missing/error states passed`);

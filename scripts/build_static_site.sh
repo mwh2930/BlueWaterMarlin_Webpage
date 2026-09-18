@@ -13,6 +13,10 @@ case "$requested_destination" in
 esac
 destination="$repository_root/.azure-dist"
 
+# Destination routes are checked-in, deterministic static output. Refuse a
+# release with stale identity, navigation or a missing approved page.
+python3 "$repository_root/scripts/build_report_pages.py" --check
+
 if find "$repository_root/assets" "$repository_root/data" \
   "$repository_root/privacy" "$repository_root/support" "$repository_root/sources" \
   "$repository_root/report" -type l | grep -q .; then
@@ -39,6 +43,11 @@ test -s "$destination/sources/index.html"
 test -s "$destination/report/index.html"
 test -s "$destination/report/privacy/index.html"
 test -s "$destination/assets/css/report.css"
+test -s "$destination/assets/css/report-destinations.css"
+test -s "$destination/report/miami-fl/index.html"
+test -s "$destination/report/montauk-ny/index.html"
+test -s "$destination/report/venice-la/index.html"
+test -s "$destination/report/oregon-inlet-nc/index.html"
 test -s "$destination/assets/js/report.js"
 test -s "$destination/data/report-destinations.json"
 test -s "$destination/assets/css/pricing.css"

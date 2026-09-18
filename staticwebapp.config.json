@@ -1,6 +1,306 @@
 {
   "routes": [
     {
+      "route": "/report/islamorada-fl",
+      "redirect": "/report/islamorada-fl/",
+      "statusCode": 301
+    },
+    {
+      "route": "/report/miami-fl",
+      "redirect": "/report/miami-fl/",
+      "statusCode": 301
+    },
+    {
+      "route": "/report/fort-lauderdale-fl",
+      "redirect": "/report/fort-lauderdale-fl/",
+      "statusCode": 301
+    },
+    {
+      "route": "/report/palm-beach-fl",
+      "redirect": "/report/palm-beach-fl/",
+      "statusCode": 301
+    },
+    {
+      "route": "/report/stuart-fl",
+      "redirect": "/report/stuart-fl/",
+      "statusCode": 301
+    },
+    {
+      "route": "/report/fort-pierce-fl",
+      "redirect": "/report/fort-pierce-fl/",
+      "statusCode": 301
+    },
+    {
+      "route": "/report/port-canaveral-fl",
+      "redirect": "/report/port-canaveral-fl/",
+      "statusCode": 301
+    },
+    {
+      "route": "/report/mayport-fl",
+      "redirect": "/report/mayport-fl/",
+      "statusCode": 301
+    },
+    {
+      "route": "/report/savannah-ga",
+      "redirect": "/report/savannah-ga/",
+      "statusCode": 301
+    },
+    {
+      "route": "/report/charleston-sc",
+      "redirect": "/report/charleston-sc/",
+      "statusCode": 301
+    },
+    {
+      "route": "/report/murrells-inlet-sc",
+      "redirect": "/report/murrells-inlet-sc/",
+      "statusCode": 301
+    },
+    {
+      "route": "/report/wrightsville-nc",
+      "redirect": "/report/wrightsville-nc/",
+      "statusCode": 301
+    },
+    {
+      "route": "/report/morehead-city-nc",
+      "redirect": "/report/morehead-city-nc/",
+      "statusCode": 301
+    },
+    {
+      "route": "/report/hatteras-nc",
+      "redirect": "/report/hatteras-nc/",
+      "statusCode": 301
+    },
+    {
+      "route": "/report/oregon-inlet-nc",
+      "redirect": "/report/oregon-inlet-nc/",
+      "statusCode": 301
+    },
+    {
+      "route": "/report/virginia-beach-va",
+      "redirect": "/report/virginia-beach-va/",
+      "statusCode": 301
+    },
+    {
+      "route": "/report/wachapreague-va",
+      "redirect": "/report/wachapreague-va/",
+      "statusCode": 301
+    },
+    {
+      "route": "/report/ocean-city-md",
+      "redirect": "/report/ocean-city-md/",
+      "statusCode": 301
+    },
+    {
+      "route": "/report/indian-river-de",
+      "redirect": "/report/indian-river-de/",
+      "statusCode": 301
+    },
+    {
+      "route": "/report/cape-may-nj",
+      "redirect": "/report/cape-may-nj/",
+      "statusCode": 301
+    },
+    {
+      "route": "/report/atlantic-city-nj",
+      "redirect": "/report/atlantic-city-nj/",
+      "statusCode": 301
+    },
+    {
+      "route": "/report/manasquan-nj",
+      "redirect": "/report/manasquan-nj/",
+      "statusCode": 301
+    },
+    {
+      "route": "/report/montauk-ny",
+      "redirect": "/report/montauk-ny/",
+      "statusCode": 301
+    },
+    {
+      "route": "/report/point-judith-ri",
+      "redirect": "/report/point-judith-ri/",
+      "statusCode": 301
+    },
+    {
+      "route": "/report/marthas-vineyard-ma",
+      "redirect": "/report/marthas-vineyard-ma/",
+      "statusCode": 301
+    },
+    {
+      "route": "/report/gloucester-ma",
+      "redirect": "/report/gloucester-ma/",
+      "statusCode": 301
+    },
+    {
+      "route": "/report/portland-me",
+      "redirect": "/report/portland-me/",
+      "statusCode": 301
+    },
+    {
+      "route": "/report/key-west-fl",
+      "redirect": "/report/key-west-fl/",
+      "statusCode": 301
+    },
+    {
+      "route": "/report/marco-naples-fl",
+      "redirect": "/report/marco-naples-fl/",
+      "statusCode": 301
+    },
+    {
+      "route": "/report/fort-myers-beach-fl",
+      "redirect": "/report/fort-myers-beach-fl/",
+      "statusCode": 301
+    },
+    {
+      "route": "/report/clearwater-fl",
+      "redirect": "/report/clearwater-fl/",
+      "statusCode": 301
+    },
+    {
+      "route": "/report/panama-city-fl",
+      "redirect": "/report/panama-city-fl/",
+      "statusCode": 301
+    },
+    {
+      "route": "/report/destin-fl",
+      "redirect": "/report/destin-fl/",
+      "statusCode": 301
+    },
+    {
+      "route": "/report/pensacola-fl",
+      "redirect": "/report/pensacola-fl/",
+      "statusCode": 301
+    },
+    {
+      "route": "/report/orange-beach-al",
+      "redirect": "/report/orange-beach-al/",
+      "statusCode": 301
+    },
+    {
+      "route": "/report/biloxi-ms",
+      "redirect": "/report/biloxi-ms/",
+      "statusCode": 301
+    },
+    {
+      "route": "/report/venice-la",
+      "redirect": "/report/venice-la/",
+      "statusCode": 301
+    },
+    {
+      "route": "/report/grand-isle-la",
+      "redirect": "/report/grand-isle-la/",
+      "statusCode": 301
+    },
+    {
+      "route": "/report/galveston-tx",
+      "redirect": "/report/galveston-tx/",
+      "statusCode": 301
+    },
+    {
+      "route": "/report/freeport-tx",
+      "redirect": "/report/freeport-tx/",
+      "statusCode": 301
+    },
+    {
+      "route": "/report/port-oconnor-tx",
+      "redirect": "/report/port-oconnor-tx/",
+      "statusCode": 301
+    },
+    {
+      "route": "/report/port-aransas-tx",
+      "redirect": "/report/port-aransas-tx/",
+      "statusCode": 301
+    },
+    {
+      "route": "/report/south-padre-tx",
+      "redirect": "/report/south-padre-tx/",
+      "statusCode": 301
+    },
+    {
+      "route": "/report/san-diego-ca",
+      "redirect": "/report/san-diego-ca/",
+      "statusCode": 301
+    },
+    {
+      "route": "/report/oceanside-ca",
+      "redirect": "/report/oceanside-ca/",
+      "statusCode": 301
+    },
+    {
+      "route": "/report/dana-point-ca",
+      "redirect": "/report/dana-point-ca/",
+      "statusCode": 301
+    },
+    {
+      "route": "/report/long-beach-ca",
+      "redirect": "/report/long-beach-ca/",
+      "statusCode": 301
+    },
+    {
+      "route": "/report/channel-islands-ca",
+      "redirect": "/report/channel-islands-ca/",
+      "statusCode": 301
+    },
+    {
+      "route": "/report/santa-barbara-ca",
+      "redirect": "/report/santa-barbara-ca/",
+      "statusCode": 301
+    },
+    {
+      "route": "/report/morro-bay-ca",
+      "redirect": "/report/morro-bay-ca/",
+      "statusCode": 301
+    },
+    {
+      "route": "/report/monterey-ca",
+      "redirect": "/report/monterey-ca/",
+      "statusCode": 301
+    },
+    {
+      "route": "/report/half-moon-bay-ca",
+      "redirect": "/report/half-moon-bay-ca/",
+      "statusCode": 301
+    },
+    {
+      "route": "/report/bodega-bay-ca",
+      "redirect": "/report/bodega-bay-ca/",
+      "statusCode": 301
+    },
+    {
+      "route": "/report/fort-bragg-ca",
+      "redirect": "/report/fort-bragg-ca/",
+      "statusCode": 301
+    },
+    {
+      "route": "/report/eureka-ca",
+      "redirect": "/report/eureka-ca/",
+      "statusCode": 301
+    },
+    {
+      "route": "/report/brookings-or",
+      "redirect": "/report/brookings-or/",
+      "statusCode": 301
+    },
+    {
+      "route": "/report/newport-or",
+      "redirect": "/report/newport-or/",
+      "statusCode": 301
+    },
+    {
+      "route": "/report/ilwaco-wa",
+      "redirect": "/report/ilwaco-wa/",
+      "statusCode": 301
+    },
+    {
+      "route": "/report/westport-wa",
+      "redirect": "/report/westport-wa/",
+      "statusCode": 301
+    },
+    {
+      "route": "/report/neah-bay-wa",
+      "redirect": "/report/neah-bay-wa/",
+      "statusCode": 301
+    },
+    {
       "route": "/report",
       "redirect": "/report/",
       "statusCode": 301

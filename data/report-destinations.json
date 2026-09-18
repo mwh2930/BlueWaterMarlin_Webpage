@@ -66,14 +66,6 @@
       "available": false
     },
     {
-      "id": "bimini-bs",
-      "name": "Bimini",
-      "admin": "BS",
-      "coast": "atlantic",
-      "timeZone": "America/Nassau",
-      "available": false
-    },
-    {
       "id": "savannah-ga",
       "name": "Savannah / Tybee",
       "admin": "GA",
@@ -354,22 +346,6 @@
       "available": false
     },
     {
-      "id": "isla-mujeres-mx",
-      "name": "Isla Mujeres / Cancún",
-      "admin": "MX",
-      "coast": "gulf",
-      "timeZone": "America/Cancun",
-      "available": false
-    },
-    {
-      "id": "cozumel-mx",
-      "name": "Cozumel",
-      "admin": "MX",
-      "coast": "gulf",
-      "timeZone": "America/Cancun",
-      "available": false
-    },
-    {
       "id": "san-diego-ca",
       "name": "San Diego / Point Loma",
       "admin": "CA",
@@ -503,110 +479,6 @@
       "admin": "WA",
       "coast": "west-coast",
       "timeZone": "America/Los_Angeles",
-      "available": false
-    },
-    {
-      "id": "ensenada-mx",
-      "name": "Ensenada",
-      "admin": "MX",
-      "coast": "west-coast",
-      "timeZone": "America/Tijuana",
-      "available": false
-    },
-    {
-      "id": "magdalena-bay-mx",
-      "name": "Magdalena Bay",
-      "admin": "MX",
-      "coast": "west-coast",
-      "timeZone": "America/Mazatlan",
-      "available": false
-    },
-    {
-      "id": "cabo-san-lucas-mx",
-      "name": "Cabo San Lucas",
-      "admin": "MX",
-      "coast": "cortez",
-      "timeZone": "America/Mazatlan",
-      "available": false
-    },
-    {
-      "id": "san-jose-del-cabo-mx",
-      "name": "San José del Cabo",
-      "admin": "MX",
-      "coast": "cortez",
-      "timeZone": "America/Mazatlan",
-      "available": false
-    },
-    {
-      "id": "east-cape-mx",
-      "name": "Los Barriles / East Cape",
-      "admin": "MX",
-      "coast": "cortez",
-      "timeZone": "America/Mazatlan",
-      "available": false
-    },
-    {
-      "id": "la-paz-mx",
-      "name": "La Paz",
-      "admin": "MX",
-      "coast": "cortez",
-      "timeZone": "America/Mazatlan",
-      "available": false
-    },
-    {
-      "id": "loreto-mx",
-      "name": "Loreto",
-      "admin": "MX",
-      "coast": "cortez",
-      "timeZone": "America/Mazatlan",
-      "available": false
-    },
-    {
-      "id": "san-carlos-mx",
-      "name": "San Carlos / Guaymas",
-      "admin": "MX",
-      "coast": "cortez",
-      "timeZone": "America/Hermosillo",
-      "available": false
-    },
-    {
-      "id": "bahia-de-los-angeles-mx",
-      "name": "Bahía de los Ángeles",
-      "admin": "MX",
-      "coast": "cortez",
-      "timeZone": "America/Tijuana",
-      "available": false
-    },
-    {
-      "id": "mazatlan-mx",
-      "name": "Mazatlán",
-      "admin": "MX",
-      "coast": "cortez",
-      "timeZone": "America/Mazatlan",
-      "available": false
-    },
-    {
-      "id": "cairns-qld",
-      "name": "Cairns / Great Barrier Reef",
-      "admin": "QLD",
-      "coast": "australia",
-      "timeZone": "Australia/Brisbane",
-      "available": false
-    },
-    {
-      "id": "port-stephens-nsw",
-      "name": "Port Stephens / Nelson Bay",
-      "admin": "NSW",
-      "coast": "australia",
-      "timeZone": "Australia/Sydney",
-      "available": false
-    },
-    {
-      "id": "exmouth-wa",
-      "name": "Exmouth",
-      "admin": "WA",
-      "coast": "australia",
-      "timeZone": "Australia/Perth",
       "available": false
     }
   ]

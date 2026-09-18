@@ -56,6 +56,9 @@ async function noContactControls(page) {
       if (new URL(route.request().url()).origin !== parsedOrigin.origin) { foreignRequests.push(route.request().url()); return route.abort(); }
       return route.continue();
     });
+    // Baseline exercises a failed catalog independent of preview implementation.
+    // Page-specific routes below replace it with explicit, bounded fixtures.
+    await context.route('**/api/reports/**', route => route.fulfill({ status: 503, json: { error: 'Synthetic unavailable response.' } }));
     const page = await context.newPage();
     await page.clock.install({ time: new Date() });
     for (const width of [320, 390, 768, 1280]) {
@@ -64,10 +67,9 @@ async function noContactControls(page) {
       await ready(page);
       await noContactControls(page);
       await noOverflow(page, `${width}px report`);
-      assert.match(await page.locator('#report-notice').innerText(), /Not current conditions/);
-      assert.equal(await page.locator('#report-meta time').getAttribute('datetime'), '2026-09-02');
-      assert.match(await page.locator('#report-body').innerText(), /general area approximately 14 nm ENE/);
-      assert.match(await page.locator('#report-body').innerText(), /Sea surface temperature: 3 days old\. Water colour: 3 days old\./);
+      assert.equal(await page.locator('#report-title').innerText(), 'Choose your destination');
+      assert.equal(await page.locator('#report-meta time').count(), 0);
+      assert.doesNotMatch(await page.locator('#report-body').innerText(), /14 nm ENE|3 days old/);
       await page.locator('.report-details summary').click();
       await noOverflow(page, `${width}px expanded source limitations`);
     }
@@ -247,18 +249,18 @@ async function noContactControls(page) {
     // before later pages consume the ordinary current-date report fixture.
     await page.clock.setSystemTime(new Date());
 
-    // An early live catalog must not wait for or be overwritten by fallback.
+    // Live availability cannot expand or precede the reviewed static U.S. scope.
     const lateFallback = await context.newPage();
     const fallbackGate = deferred();
     await lateFallback.route('**/data/report-destinations.json', async route => {
       await fallbackGate.promise;
-      return route.fulfill({ json: { destinations: catalog.destinations.map(place => ({ ...place, available: false })) } });
+      return route.fulfill({ json: { schemaVersion: 1, destinations: catalog.destinations.map(place => ({ ...place, available: false })) } });
     });
     await lateFallback.route('**/api/reports/**', route => route.fulfill({ json: new URL(route.request().url()).pathname.endsWith('/catalog') ? catalog : report }));
     await lateFallback.goto(origin + '/report/?destination=montauk-ny');
-    await published(lateFallback);
+    assert.equal(await lateFallback.locator('#destination-search').isDisabled(), true);
     fallbackGate.resolve();
-    await lateFallback.waitForTimeout(100);
+    await published(lateFallback);
     assert.equal(await lateFallback.locator('#report-kind').textContent(), 'Published report');
     await lateFallback.close();
 
@@ -430,8 +432,9 @@ async function noContactControls(page) {
     const noScript = await browser.newContext({ javaScriptEnabled: false, viewport: { width: 320, height: 900 } });
     const staticPage = await noScript.newPage();
     await staticPage.goto(origin + '/report/');
-    assert.match(await staticPage.locator('#report-body').innerText(), /approximately 14 nm ENE/);
-    assert.match(await staticPage.locator('noscript').innerText(), /historical example/);
+    assert.doesNotMatch(await staticPage.locator('#report-body').innerText(), /approximately 14 nm ENE/);
+    assert.equal(await staticPage.locator('#report-title').innerText(), 'Choose your destination');
+    assert.match(await staticPage.locator('noscript').innerText(), /JavaScript is required to load changing report data/);
     await noContactControls(staticPage);
     await staticPage.locator('.report-details summary').click();
     await noOverflow(staticPage, 'No-script report');

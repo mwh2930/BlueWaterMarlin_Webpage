@@ -13,6 +13,7 @@ offshore satellite chart app. Publisher: Red Oak Media House.
 | `privacy/index.html` | Stable `/privacy` route used by the iOS app and App Store Connect. |
 | `sources/index.html` | Canonical `/sources/` educational data register, limitations, and attribution page. |
 | `report/index.html` | `/report/` read-only destination report reader and clearly dated historical example. |
+| `report/<approved-us-id>/index.html` | 60 generated destination pages; rebuild with `scripts/build_report_pages.py`. |
 | `report/privacy/index.html` | Website report data and privacy notice, separate from app records. |
 | `404.html` | Recovery page for missing public routes. |
 | `staticwebapp.config.json` | Azure routes, MIME overrides, and production security headers. |
@@ -118,10 +119,23 @@ node backend/reports/dev-server.mjs
 
 Open `http://127.0.0.1:8878/report/`. The report reader has no accounts, signup,
 contact collection or email delivery. The preview makes no Azure requests.
-The 76 catalog entries are candidate destinations, not a promise of current coverage.
+The public directory contains 60 reviewed U.S. destinations, not a promise of current coverage.
 Only the configured service can enable report lookup for a destination. Choosing a destination
 without a report never substitutes another port's historical example. The 2 September
-Oregon Inlet example is explicitly historical; it is not a current weather bulletin.
+Oregon Inlet example is explicitly historical and opens only on request; it is not a current weather bulletin.
+
+The hub starts with **Choose your destination**. Its coast-grouped directory links
+to all 60 `/report/<destination-id>/` pages. These pages preserve the existing report
+format and bind their metadata and reader to one approved ID; conflicting query
+parameters cannot substitute another place. Changing destination on a location
+page navigates to that location's page. Existing U.S. hub query links still work.
+
+Build pages with `python3 scripts/build_report_pages.py`; verify them with the
+same command plus `--check`. The shared hub HTML and reviewed static catalog are
+the sources. The builder is offline and never fetches or fabricates conditions.
+The website must load its reviewed U.S. catalog before applying live availability.
+International or unlisted IDs cannot enter the selector or trigger a report read.
+The upstream publisher's existing 76-location jobs are not changed by this UI work.
 
 The browser makes GET requests only, using the same-origin catalog and report API.
 There are no subscriber records, contact forms, confirmation tokens, delivery jobs,
@@ -139,6 +153,9 @@ midnight. If publication is not ready, it retries at five-minute checkpoints thr
 the first twenty minutes of the slot. Hidden tabs recheck on return, and manual
 refresh remains available. The browser reads published data; it does not generate
 reports or re-date an earlier issue.
+Within the first 20 minutes, a missing current issue is labeled **Scheduled update
+window**, without claiming the publisher is running or guaranteeing a result.
+Connection failures remain errors; an older report is never labeled current.
 
 The dedicated service is **not deployed by the website workflow**. The owner has
 approved deployment and Git push; the isolated reader and upstream publisher are
