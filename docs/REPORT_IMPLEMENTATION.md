@@ -8,15 +8,27 @@ website. It does not generate reports, collect contacts or send email. The Septe
 account or subscriber database is needed. The owner has approved deployment and
 Git push. The backend connection and first Oregon Inlet forecast report are verified.
 The report website is pushed and deployed. All 76 listed locations now use the
-same reader and deployed publisher, with no per-location resources. New locations
-await their first valid scheduled issue; approval does not establish current data.
+same reader and deployed publisher, with no per-location resources. An
+owner-authorized, bounded initial publication window produced 75 new reports;
+Oregon Inlet's existing midnight issue was preserved. All 76 outputs have been
+verified through the public route, including bounded follow-up checks after
+timeouts. Intermittent browser delivery delays remain unresolved. Approval and
+successful publication do not establish complete source coverage or future
+availability.
 
 ## Website
 
 - The homepage **Free Report** button and footer **Report** link open `/report/`.
+- The **B.I.L.L. Offshore Report** hero has a centered destination selector and a
+  static, labeled contour illustration. The illustration is not live data.
 - A searchable, keyboard-accessible destination picker requests report data only
   through the website's `/api/reports/` routes. Static candidates are not coverage
-  claims and default to unavailable.
+  claims and do not establish report availability. Before the live catalog arrives,
+  options say **Checking report connection**. A failed connection is distinguished
+  from a verified missing report and offers **Retry connection** for the selected
+  destination. Retries are explicit, coalesced and bounded by a 30-second browser
+  deadline, with no automatic catalog polling. Recovery respects the current
+  destination or the user's choice to return to the historical example.
 - Location, area, report date and source dates remain visible. Measurements and
   approximate locations are preserved. Sargassum indications are described as a
   possible general area, not a confirmed weed line. Missing data is not a negative
@@ -89,6 +101,58 @@ This verifies one scheduled issue, not ongoing success or ocean coverage. The sc
 IANA Eastern civil time rather than a fixed UTC offset. A short retry window and atomic writes protect against
 duplicate/late publication; an outage can still leave a report unavailable.
 
+### One-time initial publication — September 18, 2026
+
+The owner authorized an initial build from **08:40 to 09:00 Eastern
+(`2026-09-18T12:40:00Z` through, but not including, `2026-09-18T13:00:00Z`)**.
+The existing publisher admits four five-minute phases within this fixed window.
+The server-only `REPORT_INITIAL_PUBLICATION_AT` setting is an exact UTC start,
+aligned to five minutes, and cannot overlap a regular publication window or cross
+the next Eastern civil slot. It adds no public write endpoint, resource or
+permission. Invalid or expired settings admit no initial work; normal noon and
+midnight Eastern publication remains unchanged.
+
+Initial work uses a separate private progress record with the same maximum of
+24 claims per phase and per invocation, four-minute cooperative invocation budget,
+weather backoff, source-age checks and conditional-write ownership checks. Output
+freshness still uses the actual Eastern civil period. Publication and source dates
+remain real, distinct clocks; a current-period report such as Oregon Inlet's is
+not overwritten or re-dated by the initial run. The regular noon run can replace
+an initial issue with a new, correctly dated report.
+
+During phases 0–2, actual sampled reports were verified for Stuart / St. Lucie
+Inlet, Magdalena Bay, Exmouth, Montauk, Ocean City, Savannah / Tybee, Wrightsville
+Beach, Los Barriles / East Cape, Miami, Venice and Morro Bay. The checked reports
+included dated SST and current analyses; Venice's chlorophyll retained its
+September 14 source date, and forecast sources retained September 18 dates. These
+are sample readbacks, not an assertion that every listed source was available at
+every destination or that all 76 outputs succeeded. They also do not establish
+complete area coverage or repair the existing stale ocean-pipeline heartbeat.
+
+The fixed initial eligibility window expired at 09:00 Eastern. The temporary
+operator setting was removed at `2026-09-18T13:00:30.983Z` after checking its exact
+value and the deployed release. Readback confirmed that the exporter and publisher
+remain enabled, the release is unchanged, and the monitored five-minute timer is
+registered with startup execution disabled. Normal noon/midnight eligibility is
+unchanged.
+
+The full-catalog audit checked all 76 IDs at a paced maximum of 24 starts per
+minute. The first pass returned 58 valid reports and 18 request timeouts at its
+15-second deadline, with no 404 responses. A single Chrome follow-up per affected
+destination returned 17 valid reports within its 30-second deadline; Portland
+timed out. One subsequent independent Portland lookup returned a valid report in
+6.1 seconds. Together these checks verified exactly the 76 approved IDs, their
+seven-field public contracts and original source dates: 75 issues published during
+the initial window and Oregon's unchanged midnight issue. No synthetic report was
+published and no historical example was substituted.
+
+This is eventual availability verification, not a clean reliability result.
+Chrome responses ranged from 123 milliseconds to 25.9 seconds and one exceeded
+30 seconds. The existing aggregate resource metrics cannot correlate those delays
+with individual requests or establish their cause. No additional telemetry,
+capacity, permission or resource was enabled. Intermittent browser delivery delays
+and the stale ocean-pipeline heartbeat remain separate open operational issues.
+
 Generated reports describe sampled ranges and explicit forecast points, not complete
 area coverage. Missing cells remain missing. Analysis is not labeled as observation.
 Sargassum, waves and pressure trends remain unavailable until appropriate verified
@@ -96,15 +160,15 @@ numeric inputs exist. A report's new publication time does not make its source d
 new: separate provider times are retained. The historical example is not the
 composer's specification for generating fronts, weed detections or area averages.
 
-1. Verify subsequent Oregon Inlet numeric exports and finished reports,
-   including source timestamps and destination coverage. The existing upstream relay
+1. Verify subsequent publication periods beyond this completed initial-output
+   audit, including source timestamps and destination coverage. The existing upstream relay
    health check still reports a stale heartbeat; the independently indexed report
    publisher is not evidence that current ocean inputs are available. Do not expose
    storage identifiers or request storage account keys.
 2. The first real report conforms to the upstream composer's seven-field JSON contract. The legacy marketing folder
    contains older text/HTML examples and must not be treated as a verified current
    JSON publisher. Unverified sargassum sources remain disabled.
-3. Test one approved destination: correct source dates, report content, unavailable
+3. Test approved destinations: correct source dates, report content, unavailable
    and stale states, cache freshness, rejection of writes, bounded reads, sanitized
    failures and mobile rendering. Check the publisher's data provenance separately
    from the relay's technical validation.
@@ -112,9 +176,10 @@ composer's specification for generating fronts, weed detections or area averages
    match the public catalog; four legacy region assignments fit the existing
    Cabo–Cortez region instead. No coordinate was invented or region widened.
    The bounded publisher and all 76 lookup approvals are deployed. The expansion
-   completed after the midnight window; new destinations first become eligible
-   at noon Eastern on September 18. A shared private progress ledger admits at
-   most 24 claims per five-minute phase, prioritizes untouched locations, and
+   originally completed after the midnight window; the owner subsequently approved
+   the bounded initial window described above instead of waiting for noon. A
+   private progress ledger for each mode admits at most 24 claims per five-minute
+   phase, prioritizes untouched locations, and
    preserves original source dates. Provider or storage failures can leave
    locations unavailable. Local tests,
    deployed code, a working private-storage connection and timer registration do
@@ -156,13 +221,27 @@ than substitute a historical example.
 
 The first midnight publication and report-only Git push are complete. Website
 commit `6941e96` passed its validation and Azure deployment workflow; upstream
-commit `3761060` established the pilot. The all-location publisher is deployed from
+commit `3761060` established the pilot. The all-location publisher was first deployed from
 clean-gated `2dcbde8`, pushed on `release/all-destination-reports-20260917` to preserve
 other app work. Its 95 focused report tests, complete relay suite, app compatibility
-tests and release build passed. Azure reports that exact release identity. The
+tests and release build passed. Azure reported that release identity at verification. The
 existing ocean pipeline heartbeat remains stale; this deployment does not claim
-to repair it. The static website workflow still deploys only
-the public artifact, not either Function backend.
+to repair it.
+
+The current publisher, including initial-window support, is deployed from
+`1f57d848be4e82b8ea73e1144679787b6846d858` on
+`release/initial-destination-reports-20260918`. Its 111 focused report tests and
+full release-clean gate passed. Xcode checks were skipped because this release
+contains no app changes. The new tests include all 76 destinations through four
+fake-storage phases, preservation of Oregon's existing report, exact expiry,
+separate progress records and replacement of an initial issue by the next regular
+noon issue. Offline test success is distinct from the live availability and
+delivery-delay findings above.
+
+Website commits `2a0d4a3` and `e9c133c` are deployed: the first adds the report-page
+hero and centered selector, and the second corrects pending/failed catalog states
+and explicit connection retry. The static website workflow still deploys only the
+public artifact, not either Function backend.
 
 ## Validation
 
@@ -171,6 +250,9 @@ the public artifact, not either Function backend.
   forms, static availability defaults and the report page's no-form CSP.
 - Run `scripts/test_report_page.cjs` against the loopback preview with Playwright;
   published responses are mocked, never fetched from production during tests.
+  It covers pending catalog labels, cold-start allowance and the 30-second deadline,
+  failure without a false unpublished claim, no automatic catalog polling,
+  coalesced manual retry, and destination changes during connection recovery.
 - Run `scripts/test_report_selection.cjs` against that preview for mouse/touch
   switching, direct Enter selection, ambiguous and composed input, and distinct
   destination-named missing-report and request-failure states. An exact unique

@@ -25,7 +25,7 @@ offshore satellite chart app. Publisher: Red Oak Media House.
 | `data/readability.json` | Fallback Readability Index data the site fetches. |
 | `backend/build-readability.mjs` | Local job: NOAA ERDDAP → `data/readability.json`. |
 | `backend/azure/` | Deployed backend: ingest timer + readability HTTP API. |
-| `backend/reports/` | Independently deployed private Blob report reader; first Oregon Inlet forecast report verified. |
+| `backend/reports/` | Independently deployed private Blob report reader for 76 approved destination lookups. |
 | `backend/azure-endpoint.md` | Data contract for the readability endpoint. |
 | `docs/ARCHITECTURE.md` | Repository boundaries, canonical routes, deployment, and structural debt. |
 | `CLAUDE.md` | Historical design and copy notes from the original site build. |
@@ -102,6 +102,9 @@ The homepage **Free Report** button beside the main App Store call to action and
 the footer **Report** link both open `/report/`. The App Store availability and
 pricing wording are unchanged. The report page uses its own stylesheet and script,
 with no external fonts, framework, tracking or direct storage requests.
+Its **B.I.L.L. Offshore Report** hero includes a centered destination selector and
+a static, labeled contour illustration. The illustration is not a live chart or a
+claim about current conditions.
 
 Start the local, read-only preview:
 
@@ -121,6 +124,11 @@ There are no subscriber records, contact forms, confirmation tokens, delivery jo
 marina applications, email SDKs or retention workers. Reports are displayed on the
 website, not sent to visitors. The report source keeps its original dates and units;
 the reader must not add unsupported interpretations or present examples as current.
+While the live catalog is pending, local destination options say **Checking report
+connection**, not that a report is unpublished. A failed catalog connection offers
+**Retry connection** for the selected destination. This explicit retry shares any
+in-flight catalog request and has a 30-second browser deadline; it does not add
+automatic catalog polling. Connection recovery loads only the current selection.
 
 For an approved destination, a visible report page checks again at Eastern noon and
 midnight. If publication is not ready, it retries at five-minute checkpoints through
@@ -137,8 +145,26 @@ was verified at midnight Eastern on September 18. Its source timestamp remains
 separate from publication time; missing ocean fields are explicitly unavailable.
 All 76 listed destinations are now approved through this same relay. Their audited
 coordinates are configured in the deployed publisher; no per-location resources
-were created. New destinations await their first valid scheduled issue. The
-midnight/noon Eastern schedule does not guarantee current ocean-source coverage.
+were created. The owner authorized a one-time initial publication window on
+September 18, **08:40–09:00 Eastern (12:40–13:00 UTC)**. The initial window has a
+separate private progress record and bounded work limits; it does not shift the
+regular noon/midnight Eastern schedule or re-date an existing current-period report.
+Real reports from multiple destinations have been checked during the initial
+window. The temporary operator setting was removed and the enabled publisher and
+timer read back at 09:00 Eastern. All 76 destinations subsequently returned valid
+reports: 75 newly published issues and Oregon Inlet's unchanged midnight issue.
+This required follow-up checks after connection timeouts; intermittent browser
+delivery delays remain unresolved. See the detailed audit in the implementation
+notes. Publication success is not a guarantee of low latency or future availability.
+The existing ocean-pipeline heartbeat remains stale. Available, dated analyses do
+not establish complete or continuously fresh destination coverage.
+
+The initial publisher is deployed from `1f57d848be4e82b8ea73e1144679787b6846d858`
+on `release/initial-destination-reports-20260918`; 111 focused tests and the full
+release-clean gate passed, with Xcode checks skipped because no app code changed.
+Website commits `2a0d4a3` and `e9c133c` deployed the report-page redesign and
+connection-state fix. The midnight/noon schedule does not guarantee successful
+publication or current ocean-source coverage.
 See `backend/reports/README.md` and `docs/REPORT_IMPLEMENTATION.md` for boundaries
 and remaining checks. The static build creates no Azure resources. The separate
 staged cloud-fill wording draft remains unpublished and outside this release.
@@ -159,6 +185,9 @@ BROWSER_CHANNEL=chrome node scripts/test_report_selection.cjs
 These use loopback only and mock published reports. They cover mobile layout,
 200% text sizing, keyboard selection, no-script reading, unavailable reports,
 selection races and the absence of mutations, contact forms or third-party traffic.
+Catalog checks cover pending and failed connections, the bounded cold-start
+deadline, explicit coalesced recovery, and keeping the current destination during
+recovery without substituting a historical example.
 The selection regression checks cover mouse and touch, direct Enter selection,
 ambiguous searches, input composition and destination-specific unavailable states.
 The tests do not require a cloud connection.
