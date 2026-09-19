@@ -42,6 +42,25 @@ are introduced.
 
 ## Release status
 
-Schedule-only changes are being tested in isolated release directories. Deployment
-and the first September 20 publication must be verified separately; passing local
-tests does not establish either event.
+The website/reader release is committed locally as `4653a7b`; the isolated
+publisher release is `d5346e911fd145686941befe9731dd4fda63b78d`, based on the
+attested deployed `1f57d848be4e82b8ea73e1144679787b6846d858`. All 119 focused
+publisher tests and the full release-clean gate passed, with Xcode skipped because
+no app code changed. Website validation, all 48 reader tests, ten backend-packaging
+tests, six page-generator tests, and the UTC/report/source browser suites passed.
+Independent cross-language clock checks agreed at 4,416 instants. The publisher
+package changes only four runtime files; the reader package changes only its
+schedule module compared with the retained deployed package.
+
+**Not deployed or pushed.** Read-only preflight found an empty renderer queue and
+two existing poison messages, which were not consumed or changed. Invocation and
+publication evidence support a quiet renderer, but the current operator cannot
+read the durable job and lease records. That evidence is not a certified drain:
+the shared relay enforces exact release identity on queued/deferred work.
+Deployment awaits approval for narrowly scoped read-only inspection, or equivalent
+snapshots from an already-authorized operator. No keys were retrieved, permissions
+changed, producers paused, queues purged, or hosting resources modified.
+
+The live schedule remains Eastern noon/midnight. Activation of the September 20
+04:00 UTC transition and its first actual publication must be verified separately.
+An existing chlorophyll-source health failure remains outside this schedule change.
