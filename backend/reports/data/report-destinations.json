@@ -1,0 +1,461 @@
+{
+  "schemaVersion": 1,
+  "destinations": [
+    {
+      "id": "islamorada-fl",
+      "name": "Islamorada / Upper Keys",
+      "admin": "FL",
+      "available": false
+    },
+    {
+      "id": "miami-fl",
+      "name": "Miami / Haulover",
+      "admin": "FL",
+      "available": false
+    },
+    {
+      "id": "fort-lauderdale-fl",
+      "name": "Fort Lauderdale",
+      "admin": "FL",
+      "available": false
+    },
+    {
+      "id": "palm-beach-fl",
+      "name": "Palm Beach",
+      "admin": "FL",
+      "available": false
+    },
+    {
+      "id": "stuart-fl",
+      "name": "Stuart / St. Lucie Inlet",
+      "admin": "FL",
+      "available": false
+    },
+    {
+      "id": "fort-pierce-fl",
+      "name": "Fort Pierce",
+      "admin": "FL",
+      "available": false
+    },
+    {
+      "id": "port-canaveral-fl",
+      "name": "Port Canaveral",
+      "admin": "FL",
+      "available": false
+    },
+    {
+      "id": "mayport-fl",
+      "name": "Jacksonville / Mayport",
+      "admin": "FL",
+      "available": false
+    },
+    {
+      "id": "bimini-bs",
+      "name": "Bimini",
+      "admin": "BS",
+      "available": false
+    },
+    {
+      "id": "savannah-ga",
+      "name": "Savannah / Tybee",
+      "admin": "GA",
+      "available": false
+    },
+    {
+      "id": "charleston-sc",
+      "name": "Charleston",
+      "admin": "SC",
+      "available": false
+    },
+    {
+      "id": "murrells-inlet-sc",
+      "name": "Murrells Inlet / Georgetown",
+      "admin": "SC",
+      "available": false
+    },
+    {
+      "id": "wrightsville-nc",
+      "name": "Wrightsville Beach",
+      "admin": "NC",
+      "available": false
+    },
+    {
+      "id": "morehead-city-nc",
+      "name": "Morehead City / Beaufort",
+      "admin": "NC",
+      "available": false
+    },
+    {
+      "id": "hatteras-nc",
+      "name": "Hatteras",
+      "admin": "NC",
+      "available": false
+    },
+    {
+      "id": "oregon-inlet-nc",
+      "name": "Oregon Inlet",
+      "admin": "NC",
+      "available": false
+    },
+    {
+      "id": "virginia-beach-va",
+      "name": "Virginia Beach / Rudee Inlet",
+      "admin": "VA",
+      "available": false
+    },
+    {
+      "id": "wachapreague-va",
+      "name": "Wachapreague",
+      "admin": "VA",
+      "available": false
+    },
+    {
+      "id": "ocean-city-md",
+      "name": "Ocean City",
+      "admin": "MD",
+      "available": false
+    },
+    {
+      "id": "indian-river-de",
+      "name": "Indian River Inlet",
+      "admin": "DE",
+      "available": false
+    },
+    {
+      "id": "cape-may-nj",
+      "name": "Cape May",
+      "admin": "NJ",
+      "available": false
+    },
+    {
+      "id": "atlantic-city-nj",
+      "name": "Atlantic City",
+      "admin": "NJ",
+      "available": false
+    },
+    {
+      "id": "manasquan-nj",
+      "name": "Manasquan / Point Pleasant",
+      "admin": "NJ",
+      "available": false
+    },
+    {
+      "id": "montauk-ny",
+      "name": "Montauk",
+      "admin": "NY",
+      "available": false
+    },
+    {
+      "id": "point-judith-ri",
+      "name": "Point Judith",
+      "admin": "RI",
+      "available": false
+    },
+    {
+      "id": "marthas-vineyard-ma",
+      "name": "Martha's Vineyard / Nantucket",
+      "admin": "MA",
+      "available": false
+    },
+    {
+      "id": "gloucester-ma",
+      "name": "Gloucester",
+      "admin": "MA",
+      "available": false
+    },
+    {
+      "id": "portland-me",
+      "name": "Portland",
+      "admin": "ME",
+      "available": false
+    },
+    {
+      "id": "key-west-fl",
+      "name": "Key West",
+      "admin": "FL",
+      "available": false
+    },
+    {
+      "id": "marco-naples-fl",
+      "name": "Naples / Marco Island",
+      "admin": "FL",
+      "available": false
+    },
+    {
+      "id": "fort-myers-beach-fl",
+      "name": "Fort Myers Beach",
+      "admin": "FL",
+      "available": false
+    },
+    {
+      "id": "clearwater-fl",
+      "name": "Clearwater / St. Petersburg",
+      "admin": "FL",
+      "available": false
+    },
+    {
+      "id": "panama-city-fl",
+      "name": "Panama City",
+      "admin": "FL",
+      "available": false
+    },
+    {
+      "id": "destin-fl",
+      "name": "Destin",
+      "admin": "FL",
+      "available": false
+    },
+    {
+      "id": "pensacola-fl",
+      "name": "Pensacola",
+      "admin": "FL",
+      "available": false
+    },
+    {
+      "id": "orange-beach-al",
+      "name": "Orange Beach",
+      "admin": "AL",
+      "available": false
+    },
+    {
+      "id": "biloxi-ms",
+      "name": "Biloxi",
+      "admin": "MS",
+      "available": false
+    },
+    {
+      "id": "venice-la",
+      "name": "Venice",
+      "admin": "LA",
+      "available": false
+    },
+    {
+      "id": "grand-isle-la",
+      "name": "Grand Isle",
+      "admin": "LA",
+      "available": false
+    },
+    {
+      "id": "galveston-tx",
+      "name": "Galveston",
+      "admin": "TX",
+      "available": false
+    },
+    {
+      "id": "freeport-tx",
+      "name": "Freeport",
+      "admin": "TX",
+      "available": false
+    },
+    {
+      "id": "port-oconnor-tx",
+      "name": "Port O'Connor",
+      "admin": "TX",
+      "available": false
+    },
+    {
+      "id": "port-aransas-tx",
+      "name": "Port Aransas",
+      "admin": "TX",
+      "available": false
+    },
+    {
+      "id": "south-padre-tx",
+      "name": "South Padre Island",
+      "admin": "TX",
+      "available": false
+    },
+    {
+      "id": "isla-mujeres-mx",
+      "name": "Isla Mujeres / Cancún",
+      "admin": "MX",
+      "available": false
+    },
+    {
+      "id": "cozumel-mx",
+      "name": "Cozumel",
+      "admin": "MX",
+      "available": false
+    },
+    {
+      "id": "san-diego-ca",
+      "name": "San Diego / Point Loma",
+      "admin": "CA",
+      "available": false
+    },
+    {
+      "id": "oceanside-ca",
+      "name": "Oceanside",
+      "admin": "CA",
+      "available": false
+    },
+    {
+      "id": "dana-point-ca",
+      "name": "Dana Point",
+      "admin": "CA",
+      "available": false
+    },
+    {
+      "id": "long-beach-ca",
+      "name": "Long Beach / San Pedro",
+      "admin": "CA",
+      "available": false
+    },
+    {
+      "id": "channel-islands-ca",
+      "name": "Channel Islands / Oxnard",
+      "admin": "CA",
+      "available": false
+    },
+    {
+      "id": "santa-barbara-ca",
+      "name": "Santa Barbara",
+      "admin": "CA",
+      "available": false
+    },
+    {
+      "id": "morro-bay-ca",
+      "name": "Morro Bay",
+      "admin": "CA",
+      "available": false
+    },
+    {
+      "id": "monterey-ca",
+      "name": "Monterey",
+      "admin": "CA",
+      "available": false
+    },
+    {
+      "id": "half-moon-bay-ca",
+      "name": "Half Moon Bay / San Francisco",
+      "admin": "CA",
+      "available": false
+    },
+    {
+      "id": "bodega-bay-ca",
+      "name": "Bodega Bay",
+      "admin": "CA",
+      "available": false
+    },
+    {
+      "id": "fort-bragg-ca",
+      "name": "Fort Bragg",
+      "admin": "CA",
+      "available": false
+    },
+    {
+      "id": "eureka-ca",
+      "name": "Eureka",
+      "admin": "CA",
+      "available": false
+    },
+    {
+      "id": "brookings-or",
+      "name": "Brookings",
+      "admin": "OR",
+      "available": false
+    },
+    {
+      "id": "newport-or",
+      "name": "Newport",
+      "admin": "OR",
+      "available": false
+    },
+    {
+      "id": "ilwaco-wa",
+      "name": "Ilwaco / Astoria",
+      "admin": "WA",
+      "available": false
+    },
+    {
+      "id": "westport-wa",
+      "name": "Westport",
+      "admin": "WA",
+      "available": false
+    },
+    {
+      "id": "neah-bay-wa",
+      "name": "Neah Bay",
+      "admin": "WA",
+      "available": false
+    },
+    {
+      "id": "ensenada-mx",
+      "name": "Ensenada",
+      "admin": "MX",
+      "available": false
+    },
+    {
+      "id": "magdalena-bay-mx",
+      "name": "Magdalena Bay",
+      "admin": "MX",
+      "available": false
+    },
+    {
+      "id": "cabo-san-lucas-mx",
+      "name": "Cabo San Lucas",
+      "admin": "MX",
+      "available": false
+    },
+    {
+      "id": "san-jose-del-cabo-mx",
+      "name": "San José del Cabo",
+      "admin": "MX",
+      "available": false
+    },
+    {
+      "id": "east-cape-mx",
+      "name": "Los Barriles / East Cape",
+      "admin": "MX",
+      "available": false
+    },
+    {
+      "id": "la-paz-mx",
+      "name": "La Paz",
+      "admin": "MX",
+      "available": false
+    },
+    {
+      "id": "loreto-mx",
+      "name": "Loreto",
+      "admin": "MX",
+      "available": false
+    },
+    {
+      "id": "san-carlos-mx",
+      "name": "San Carlos / Guaymas",
+      "admin": "MX",
+      "available": false
+    },
+    {
+      "id": "bahia-de-los-angeles-mx",
+      "name": "Bahía de los Ángeles",
+      "admin": "MX",
+      "available": false
+    },
+    {
+      "id": "mazatlan-mx",
+      "name": "Mazatlán",
+      "admin": "MX",
+      "available": false
+    },
+    {
+      "id": "cairns-qld",
+      "name": "Cairns / Great Barrier Reef",
+      "admin": "QLD",
+      "available": false
+    },
+    {
+      "id": "port-stephens-nsw",
+      "name": "Port Stephens / Nelson Bay",
+      "admin": "NSW",
+      "available": false
+    },
+    {
+      "id": "exmouth-wa",
+      "name": "Exmouth",
+      "admin": "WA",
+      "available": false
+    }
+  ]
+}

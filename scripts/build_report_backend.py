@@ -20,6 +20,9 @@ RUNTIME_FILES = (
     "package.json", "schedule.mjs", "security.mjs", "service.mjs",
 )
 CATALOG_PATH = "data/report-destinations.json"
+# The server's existing approval catalog is intentionally broader than the
+# website's reviewed U.S. picker. Never replace it with the public UI scope.
+CATALOG_SOURCE_PATH = "backend/reports/data/report-destinations.json"
 FIXED_TIME = (2020, 1, 1, 0, 0, 0)
 MAX_FILE_BYTES = 1024 * 1024
 IDENTIFIER = re.compile(r"[a-z0-9]+(?:-[a-z0-9]+)*\Z")
@@ -125,7 +128,7 @@ def build_package(source: Path, output: Path) -> dict:
     # expand this deployment boundary. Runtime files are at the Functions root.
     entries = {name: source_bytes(source / "backend" / "reports" / name)
                for name in RUNTIME_FILES}
-    entries[CATALOG_PATH] = sanitized_catalog(source_bytes(source / CATALOG_PATH))
+    entries[CATALOG_PATH] = sanitized_catalog(source_bytes(source / CATALOG_SOURCE_PATH))
     validate_runtime(entries)
     buffer = io.BytesIO()
     # Stored entries avoid compressor-version variation in source ZIP hashes.

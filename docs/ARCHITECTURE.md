@@ -109,7 +109,10 @@ does not deploy or enable this backend.
 
 The reader has no contact database, signup, email sender, timer, operator approval
 route or visitor account. A separately deployed upstream timer handles destination
-export and report publication at Eastern noon and midnight. A destination's lookup
+export and report publication. Starting September 20, 2026 at 04:00 UTC, the
+publication slot is once daily at 04:00 UTC; before that instant the old Eastern
+noon/midnight slots remain valid. The publisher, reader and browser use the same
+transition, with no DST shift after it. A destination's lookup
 approval is not proof of available data: the private publisher must supply the
 bounded, dated report JSON contract before a report can be returned. Legacy
 marketing text files are reference material, not live inputs.
@@ -141,8 +144,8 @@ reviewed U.S. destinations; it does not delete or change upstream jobs.
 Lookup approval is not evidence of current data. No per-location resource
 or public generation endpoint was added. The existing read limits remain intact.
 One successful issue is not proof of continuing source availability.
-The visible browser page rechecks the selected approved destination at each Eastern
-noon/midnight boundary, with five-minute retries through the first twenty minutes
+The visible browser page rechecks the selected approved destination at each
+publication boundary, with five-minute retries through the first twenty minutes
 when a report is missing. Hidden tabs recheck on return. This does not generate or
 re-date a report, and a prior-slot report cannot remain current.
 

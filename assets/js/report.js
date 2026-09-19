@@ -41,6 +41,9 @@
   let displayedReportAt = null;
   const retryInterval = 5 * 60 * 1000;
   const retryWindow = 20 * 60 * 1000;
+  const dailyUtcStart = Date.parse('2026-09-20T04:00:00.000Z');
+  const dayMs = 24 * 60 * 60 * 1000;
+  const publicationSchedule = 'Reports are scheduled once daily at 04:00 UTC starting September 20, 2026. Until then, the noon and midnight Eastern schedule remains in place.';
   const eastern = new Intl.DateTimeFormat('en-CA', {
     timeZone: 'America/New_York', year: 'numeric', month: '2-digit', day: '2-digit',
     hour: '2-digit', minute: '2-digit', second: '2-digit', hourCycle: 'h23'
@@ -49,6 +52,11 @@
   const wallTime = (parts) => Date.UTC(parts.year, parts.month - 1, parts.day, parts.hour, parts.minute || 0, parts.second || 0);
 
   function publicationWindow(now) {
+    if (!Number.isFinite(now)) throw new Error('Unavailable');
+    if (now >= dailyUtcStart) {
+      const current = dailyUtcStart + Math.floor((now - dailyUtcStart) / dayMs) * dayMs;
+      return { current, next: current + dayMs };
+    }
     const local = easternParts(now);
     const currentWall = Date.UTC(local.year, local.month - 1, local.day, local.hour >= 12 ? 12 : 0);
     const resolve = (target) => {
@@ -62,7 +70,7 @@
     };
     // Resolve both wall-clock slots independently. Their separation can be
     // eleven or thirteen hours on a daylight-saving transition day.
-    return { current: resolve(currentWall), next: resolve(currentWall + 12 * 60 * 60 * 1000) };
+    return { current: resolve(currentWall), next: Math.min(dailyUtcStart, resolve(currentWall + 12 * 60 * 60 * 1000)) };
   }
 
   function stopFreshnessTimer() {
@@ -357,7 +365,7 @@
         $('selection-status').textContent = 'Checking this issue for ' + label(place) + '.';
         $('report-notice').textContent = 'This destination may still be awaiting its scheduled issue. We will check again during the update window.';
         reportState('Scheduled update window — ' + label(place),
-          'Reports are scheduled for noon and midnight Eastern and publish in batches during the first 20 minutes. A current report is not available yet. No earlier report or historical example has been substituted.');
+          publicationSchedule + ' Reports publish in batches during the first 20 minutes. A current report is not available yet. No earlier report or historical example has been substituted.');
       } else {
         $('selection-status').textContent = missing
         ? 'Report unavailable for ' + label(place) + '.'
@@ -366,7 +374,7 @@
         ? 'No current report has been published for ' + label(place) + '.'
         : 'The report for ' + label(place) + ' could not be loaded. Try Refresh report.';
       reportState('Report unavailable — ' + label(place), missing
-        ? 'Reports are scheduled for noon and midnight Eastern. Missing source data can leave a report unavailable. No other destination or historical example has been substituted.'
+        ? publicationSchedule + ' Missing source data can leave a report unavailable. No other destination or historical example has been substituted.'
         : 'No other destination or historical example has been substituted. No current conditions are inferred from missing data.');
       }
     } finally {

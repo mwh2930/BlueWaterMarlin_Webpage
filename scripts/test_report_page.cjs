@@ -112,7 +112,7 @@ async function noContactControls(page) {
     assert.equal(await page.locator('#report-meta time').innerText(), new Date(report.reportDate).toLocaleString('en-US', { day: 'numeric', month: 'long', year: 'numeric', hour: 'numeric', minute: '2-digit', timeZone: 'America/New_York', timeZoneName: 'short' }));
     assert.match(await page.locator('.source-dates').innerText(), /Example source: 2026-09-12/);
     assert.doesNotMatch(await page.locator('#report-body').innerText(), /14 nm ENE/);
-    for (const [reportDate, expectedTime] of [['2026-09-17T16:00:00.000Z', '12:00 PM EDT'], ['2026-12-17T17:00:00.000Z', '12:00 PM EST'], ['2026-09-17T04:00:00.000Z', '12:00 AM EDT']]) {
+    for (const [reportDate, expectedTime] of [['2026-09-17T16:00:00.000Z', '12:00 PM EDT'], ['2026-12-17T04:00:00.000Z', '11:00 PM EST'], ['2026-09-17T04:00:00.000Z', '12:00 AM EDT']]) {
       reportResponse = { ...report, reportDate };
       await page.clock.setSystemTime(new Date(reportDate));
       const response = page.waitForResponse(url => new URL(url.url()).pathname === '/api/reports/report');
@@ -365,10 +365,10 @@ async function noContactControls(page) {
       await tab.close();
     }
 
-    // Fall-back noon is thirteen hours after midnight; spring-forward noon
-    // is eleven. No premature fetch and no twelve-hour fixed-offset drift.
+    // Historical spring-forward noon is eleven hours after midnight. After
+    // the September cutover, fall-back cannot move the fixed 24-hour UTC slot.
     for (const [start, next, earlyHours] of [
-      ['2026-11-01T04:00:00Z', '2026-11-01T17:00:00Z', 12],
+      ['2026-11-01T04:00:00Z', '2026-11-02T04:00:00Z', 23],
       ['2026-03-08T05:00:00Z', '2026-03-08T16:00:00Z', 10]
     ]) {
       const { tab, state } = await timedPage(start, start);

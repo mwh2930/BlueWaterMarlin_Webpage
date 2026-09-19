@@ -23,7 +23,8 @@ if (!['127.0.0.1', 'localhost'].includes(new URL(origin).hostname)) throw Error(
         if (scale === 2) await page.addStyleTag({ content: 'html { font-size: 200% !important; }' });
         const widthState = await page.evaluate(() => ({ viewport: innerWidth, document: document.documentElement.scrollWidth }));
         assert.ok(widthState.document <= widthState.viewport + 1, `${width}px at ${scale * 100}%: no overflow`);
-        assert.match(await page.locator('#report-services').innerText(), /noon and midnight Eastern/);
+        assert.match(await page.locator('#report-services').innerText(), /Starting September 20, 2026, reports are scheduled once daily at 04:00 UTC/);
+        assert.match(await page.locator('#report-services').innerText(), /Until then, the noon and midnight Eastern schedule remains in place/);
         assert.match(await page.locator('#report-services').innerText(), /not the time every measurement was taken/);
         assert.match(await page.locator('#source-review').innerText(), /not a verified production report source/i);
         assert.match(await page.locator('#source-review').innerText(), /does not mean it supplies your report/);

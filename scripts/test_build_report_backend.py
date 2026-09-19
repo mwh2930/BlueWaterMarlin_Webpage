@@ -24,6 +24,7 @@ class ReportPackageTests(unittest.TestCase):
         self.source = self.root / "website"
         self.backend = self.source / "backend" / "reports"
         self.backend.mkdir(parents=True)
+        (self.backend / "data").mkdir()
         (self.source / "data").mkdir()
         for name in MODULE.RUNTIME_FILES:
             (self.backend / name).write_text("export const test = true;\n", encoding="utf-8")
@@ -39,6 +40,7 @@ class ReportPackageTests(unittest.TestCase):
             {"id": "oregon-inlet-nc", "name": "Oregon Inlet", "admin": "NC",
              "available": False, "coast": "atlantic", "timeZone": "America/New_York"}]}
         self.write_json(self.source / MODULE.CATALOG_PATH, self.catalog)
+        self.write_json(self.source / MODULE.CATALOG_SOURCE_PATH, self.catalog)
 
     def write_json(self, path, value):
         path.write_text(json.dumps(value), encoding="utf-8")
@@ -73,6 +75,52 @@ class ReportPackageTests(unittest.TestCase):
             self.assertTrue(all(marker.encode() not in archive.read(name) for name in archive.namelist()))
             self.assertEqual(len(archive.namelist()), 9)
 
+    def test_backend_catalog_is_independent_of_the_public_picker_catalog(self):
+        # A missing or invalid UI catalog cannot narrow or replace the server
+        # catalog when building a backend-only release.
+        public_path = self.source / MODULE.CATALOG_PATH
+        public_path.write_text("not a backend catalog", encoding="utf-8")
+        first = self.build("separate-catalog.zip")
+        public_path.unlink()
+        second = self.build("without-public-catalog.zip")
+        self.assertEqual(first["sha256"], second["sha256"])
+        with zipfile.ZipFile(first["package"]) as archive:
+            packaged = json.loads(archive.read(MODULE.CATALOG_PATH))
+            self.assertEqual([row["id"] for row in packaged["destinations"]], ["oregon-inlet-nc"])
+
+    def test_missing_backend_catalog_never_falls_back_to_the_public_catalog(self):
+        (self.source / MODULE.CATALOG_SOURCE_PATH).unlink()
+        self.assertTrue((self.source / MODULE.CATALOG_PATH).is_file())
+        with self.assertRaises(OSError):
+            self.build()
+        self.assertFalse((self.root / "reports.zip").exists())
+
+    def test_reviewed_backend_catalog_preserves_76_server_ids_and_60_public_matches(self):
+        backend_bytes = MODULE.source_bytes(MODULE.ROOT / MODULE.CATALOG_SOURCE_PATH)
+        backend_catalog = MODULE.document(backend_bytes)
+        public_catalog = MODULE.document(MODULE.source_bytes(MODULE.ROOT / MODULE.CATALOG_PATH))
+        self.assertEqual(backend_catalog["schemaVersion"], 1)
+        self.assertEqual(len(backend_catalog["destinations"]), 76)
+        by_id = {row["id"]: row for row in backend_catalog["destinations"]}
+        self.assertEqual(len(by_id), 76)
+        self.assertEqual(MODULE.document(MODULE.sanitized_catalog(backend_bytes)), backend_catalog)
+        for row in backend_catalog["destinations"]:
+            self.assertEqual(set(row), {"id", "name", "admin", "available"})
+            self.assertIs(row["available"], False, "Only explicit runtime approval can enable lookup")
+        self.assertEqual(len(public_catalog["destinations"]), 60)
+        self.assertEqual(len({row["id"] for row in public_catalog["destinations"]}), 60)
+        for row in public_catalog["destinations"]:
+            with self.subTest(destination=row["id"]):
+                self.assertIn(row["id"], by_id)
+                self.assertEqual(by_id[row["id"]]["name"], row["name"])
+                self.assertEqual(by_id[row["id"]]["admin"], row["admin"])
+                self.assertIs(row["available"], False)
+        self.write_json(self.source / MODULE.CATALOG_SOURCE_PATH, backend_catalog)
+        package = self.build("full-server-catalog.zip")
+        with zipfile.ZipFile(package["package"]) as archive:
+            self.assertEqual(json.loads(archive.read(MODULE.CATALOG_PATH)), backend_catalog)
+            self.assertNotIn(MODULE.CATALOG_SOURCE_PATH, archive.namelist(), "Archive keeps the established runtime catalog path")
+
     def test_missing_runtime_file_fails_before_creating_zip(self):
         (self.backend / "security.mjs").unlink()
         with self.assertRaises(OSError):
@@ -80,7 +128,7 @@ class ReportPackageTests(unittest.TestCase):
         self.assertFalse((self.root / "reports.zip").exists())
 
     def test_source_and_catalog_symlinks_are_rejected(self):
-        for relative in ("backend/reports/service.mjs", MODULE.CATALOG_PATH):
+        for relative in ("backend/reports/service.mjs", MODULE.CATALOG_SOURCE_PATH):
             with self.subTest(relative=relative):
                 path = self.source / relative
                 original = path.read_bytes()

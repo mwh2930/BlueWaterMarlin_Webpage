@@ -158,8 +158,11 @@ connection**, not that a report is unpublished. A failed catalog connection offe
 in-flight catalog request and has a 30-second browser deadline; it does not add
 automatic catalog polling. Connection recovery loads only the current selection.
 
-For an approved destination, a visible report page checks again at Eastern noon and
-midnight. If publication is not ready, it retries at five-minute checkpoints through
+Starting September 20, 2026 at 04:00 UTC, reports are scheduled once daily at
+04:00 UTC, independent of daylight saving time. Earlier slots retain the prior
+Eastern noon/midnight schedule, including September 19 noon. For an approved
+destination, a visible report page checks again at that publication boundary.
+If publication is not ready, it retries at five-minute checkpoints through
 the first twenty minutes of the slot. Hidden tabs recheck on return, and manual
 refresh remains available. The browser reads published data; it does not generate
 reports or re-date an earlier issue.
@@ -194,7 +197,7 @@ The initial publisher is deployed from `1f57d848be4e82b8ea73e1144679787b6846d858
 on `release/initial-destination-reports-20260918`; 111 focused tests and the full
 release-clean gate passed, with Xcode checks skipped because no app code changed.
 Website commits `2a0d4a3` and `e9c133c` deployed the report-page redesign and
-connection-state fix. The midnight/noon schedule does not guarantee successful
+connection-state fix. The publication schedule does not guarantee successful
 publication or current ocean-source coverage.
 See `backend/reports/README.md` and `docs/REPORT_IMPLEMENTATION.md` for boundaries
 and remaining checks. The static build creates no Azure resources. The separate

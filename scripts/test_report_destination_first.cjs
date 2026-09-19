@@ -255,9 +255,9 @@ async function advanceTo(page, timestamp) {
     await leaves.context.close();
     console.log('All 60 permanent destination pages bind the correct report, reject conflicting queries, fit mobile, and navigate safely');
 
-    // Verify both Eastern issue slots and the winter offset. Publication
+    // Verify both legacy Eastern slots and the new winter UTC slot. Publication
     // window wording is a schedule, never a claim the publisher is running.
-    for (const slot of ['2026-09-18T16:00:00.000Z', '2026-09-19T04:00:00.000Z', '2026-12-18T17:00:00.000Z']) {
+    for (const slot of ['2026-09-18T16:00:00.000Z', '2026-09-19T04:00:00.000Z', '2026-12-18T04:00:00.000Z']) {
       const slotTime = Date.parse(slot);
       const pending = await harness({ time: new Date(slotTime + 30000).toISOString(), reportHandler: route => route.fulfill({ status: 404, json: { error: 'Synthetic missing issue' } }) });
       await pending.page.goto(origin + '/report/?destination=miami-fl');
@@ -283,7 +283,7 @@ async function advanceTo(page, timestamp) {
       await advanceTo(pending.page, slotTime + 60 * 60000);
       assert.equal(pending.requests.length, 5, 'Retries stop after the bounded publication window');
       await pending.context.close();
-      console.log(`${slot}: 404 schedule wording and four bounded Eastern retries passed`);
+      console.log(`${slot}: 404 schedule wording and four bounded publication retries passed`);
     }
 
     for (const { status, time, expected } of [
