@@ -37,8 +37,9 @@ The website exposes 60 U.S. destinations. The existing shared reader and publish
 still approve 76 server destinations. A dedicated, sanitized, disabled-by-default
 backend catalog preserves those existing IDs while the public catalog stays
 unchanged. The nine-file Functions ZIP retains its original archive paths. No
-new approvals, identities, permissions, storage resources or public write routes
-are introduced.
+new destination approvals, service identities, runtime permissions, storage
+resources or public write routes are introduced. Temporary operator inspection
+access and its expiry are recorded below.
 
 ## Release status
 
@@ -52,15 +53,33 @@ Independent cross-language clock checks agreed at 4,416 instants. The publisher
 package changes only four runtime files; the reader package changes only its
 schedule module compared with the retained deployed package.
 
-**Not deployed or pushed.** Read-only preflight found an empty renderer queue and
-two existing poison messages, which were not consumed or changed. Invocation and
-publication evidence support a quiet renderer, but the current operator cannot
-read the durable job and lease records. That evidence is not a certified drain:
-the shared relay enforces exact release identity on queued/deferred work.
-Deployment awaits approval for narrowly scoped read-only inspection, or equivalent
-snapshots from an already-authorized operator. No keys were retrieved, permissions
-changed, producers paused, queues purged, or hosting resources modified.
+The owner approved temporary read-only inspection of operational job and lease
+records. Three snapshots from 15:18:28 through 15:25:35 UTC agreed: the renderer
+queue was empty, all leases were clear, and all 25 expected current-release jobs
+were terminal (23 succeeded, two failed). Two existing poison messages and 12
+unfinished jobs fenced by an older release were left untouched. No storage keys
+were retrieved, producers paused, queues purged, or historical jobs rewritten.
 
-The live schedule remains Eastern noon/midnight. Activation of the September 20
-04:00 UTC transition and its first actual publication must be verified separately.
-An existing chlorophyll-source health failure remains outside this schedule change.
+The publisher ZIP deployment completed successfully at 15:28:25 UTC. Both release
+settings and the health response identify `d5346e9`; the first observed timer
+invocation at 15:30 UTC succeeded without publishing outside its scheduled window.
+The matching reader ZIP deployment completed successfully at 15:32:06 UTC. All
+non-release publisher settings, all reader settings, and reader capacity remained
+unchanged. A post-publisher check returned correct current reports for Miami,
+Venice and San Diego without changing their source dates. Website rollout
+accompanies this commit through the existing main-branch validation/deployment
+workflow; verify that workflow and the live `20260919-daily-utc` script before
+considering the browser rollout complete. Unrelated working-tree drafts are not
+part of this release.
+
+The existing resource-group deletion lock prevented removal of the temporary
+inspection role. The lock was not changed. Instead, only that role's time
+condition was narrowed to expire at 15:00 UTC, confirmed by Azure readback at
+15:34:39 UTC. Its expired assignment record remains; all three pre-existing
+assignments were preserved. No ongoing inspection access was requested.
+
+The deployed schedule retains September 19's noon Eastern issue and changes to
+one daily 04:00 UTC issue on September 20. Its first actual publication remains a
+future verification, not an already-observed success. Existing open browser tabs
+must reload to adopt the matching freshness boundary. Existing source failures
+and intermittent reader latency remain outside this schedule change.
