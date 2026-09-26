@@ -246,7 +246,7 @@ def validate() -> tuple[list[str], list[str]]:
         errors.append("index.html must link to the canonical /privacy/ route")
 
     required_homepage_copy = (
-        "48&nbsp;hours",
+        "Projection up to 48 hours",
         "$34.99",
         "$99.99",
         "$8.33",
