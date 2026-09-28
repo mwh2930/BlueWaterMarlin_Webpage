@@ -20,3 +20,90 @@
 :root .stat-value,:root .stats-grid>div,:root .input-card{min-width:0;overflow-wrap:anywhere}
 :root .primary-cta,:root .secondary-cta,:root .site-nav-cta{height:auto!important;padding-block:10px!important;white-space:normal;max-width:100%;overflow-wrap:anywhere;text-align:center}
 :root .site-footer-inner p{overflow-wrap:anywhere;min-width:0}
+
+/* Homepage actions: translucent, high-contrast controls over the hero photo. */
+:root .site-nav .site-nav-cta,
+:root .hero-primary .hero-actions > a {
+  position: relative;
+  isolation: isolate;
+  border-radius: 999px !important;
+  color: #fff !important;
+  font-weight: 600 !important;
+  letter-spacing: -.015em;
+  text-shadow: 0 1px 2px rgba(0, 21, 42, .42) !important;
+  -webkit-backdrop-filter: blur(20px) saturate(170%) !important;
+  backdrop-filter: blur(20px) saturate(170%) !important;
+  transition: background .2s ease, border-color .2s ease, box-shadow .2s ease, transform .2s ease !important;
+}
+:root .site-nav .site-nav-cta::after,
+:root .hero-primary .hero-actions > a::after {
+  content: "";
+  position: absolute;
+  top: 2px;
+  left: 17%;
+  right: 17%;
+  height: 1px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, .76), transparent);
+  pointer-events: none;
+}
+:root .site-nav .site-nav-cta,
+:root .hero-primary .hero-actions > .primary-cta {
+  border: 1px solid rgba(186, 230, 255, .7) !important;
+  background: linear-gradient(180deg, rgba(72, 174, 245, .9) 0%, rgba(24, 115, 207, .87) 48%, rgba(9, 76, 160, .91) 100%) !important;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .54), inset 0 -1px 0 rgba(0, 36, 87, .45), 0 10px 28px -13px rgba(2, 37, 83, .9), 0 0 0 1px rgba(68, 165, 234, .15) !important;
+}
+:root .hero-primary .hero-actions > .secondary-cta {
+  border: 1px solid rgba(223, 239, 250, .55) !important;
+  background: linear-gradient(180deg, rgba(64, 92, 112, .8), rgba(23, 48, 69, .82) 55%, rgba(14, 35, 57, .9)) !important;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .32), inset 0 -1px 0 rgba(0, 13, 33, .42), 0 10px 28px -13px rgba(0, 15, 38, .9) !important;
+}
+:root .hero-primary .hero-actions > a {
+  min-width: 194px;
+  min-height: 50px !important;
+  padding: 10px 25px !important;
+  text-decoration: none;
+}
+:root .site-nav .site-nav-cta {
+  min-height: 44px !important;
+  padding-inline: 18px !important;
+  text-decoration: none;
+}
+@media (hover: hover) {
+  :root .site-nav .site-nav-cta:hover,
+  :root .hero-primary .hero-actions > .primary-cta:hover {
+    border-color: rgba(222, 247, 255, .92) !important;
+    background: linear-gradient(180deg, rgba(103, 200, 255, .96), rgba(38, 139, 227, .92) 50%, rgba(16, 89, 181, .96)) !important;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, .7), inset 0 -1px 0 rgba(0, 39, 88, .42), 0 15px 32px -13px rgba(13, 83, 158, .84) !important;
+    transform: translateY(-2px) !important;
+  }
+  :root .hero-primary .hero-actions > .secondary-cta:hover {
+    border-color: rgba(242, 249, 255, .84) !important;
+    background: linear-gradient(180deg, rgba(88, 121, 145, .87), rgba(35, 67, 93, .88) 55%, rgba(18, 47, 73, .94)) !important;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, .46), inset 0 -1px 0 rgba(0, 15, 35, .4), 0 15px 32px -13px rgba(0, 32, 68, .9) !important;
+    transform: translateY(-2px) !important;
+  }
+}
+:root .site-nav .site-nav-cta:active,
+:root .hero-primary .hero-actions > a:active { transform: translateY(0) scale(.985) !important; }
+:root .site-nav .site-nav-cta:focus-visible,
+:root .hero-primary .hero-actions > a:focus-visible {
+  outline: 3px solid #fff !important;
+  outline-offset: 3px;
+}
+@media (prefers-reduced-motion: reduce) {
+  :root .site-nav .site-nav-cta,
+  :root .hero-primary .hero-actions > a { transition: none !important; }
+}
+@media (forced-colors: active) {
+  :root .site-nav .site-nav-cta,
+  :root .hero-primary .hero-actions > a {
+    color: ButtonText !important;
+    background: ButtonFace !important;
+    border: 1px solid ButtonText !important;
+    box-shadow: none !important;
+    text-shadow: none !important;
+  }
+  :root .site-nav .site-nav-cta::after,
+  :root .hero-primary .hero-actions > a::after { display: none; }
+}
