@@ -1,0 +1,5 @@
+const {chromium}=require('playwright');const assert=require('node:assert/strict');
+(async()=>{const browser=await chromium.launch({channel:'chrome',headless:true});try{for(const width of [320,390,820,1440]){const page=await browser.newPage({viewport:{width,height:1000},reducedMotion:'reduce'});await page.goto('http://127.0.0.1:8898/');await page.waitForTimeout(1000);
+await page.evaluate(()=>{const sizes=[...document.querySelectorAll('body *')].filter(e=>e instanceof HTMLElement).map(e=>[e,parseFloat(getComputedStyle(e).fontSize)]);for(const[e,size]of sizes)e.style.setProperty('font-size',`${size*2}px`,'important')});
+const bad=await page.evaluate(()=>({width:innerWidth,scroll:document.documentElement.scrollWidth,items:[...document.querySelectorAll('body *')].filter(e=>e.getBoundingClientRect().right>innerWidth+1&&e.getBoundingClientRect().width>0).slice(0,10).map(e=>[e.tagName,e.className,e.textContent.slice(0,100),e.parentElement.className])}));console.log(width,JSON.stringify(bad));assert.ok(bad.scroll<=width+1);
+await page.close();}}finally{await browser.close()}})().catch(e=>{console.error(e);process.exit(1)});

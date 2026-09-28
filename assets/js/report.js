@@ -23,6 +23,53 @@
     if (className) node.className = className;
     return node;
   };
+  // Recognize only explicit standalone headings used by report producers.
+  // Unknown text stays verbatim; never infer a scientific category from values.
+  const reportHeadings = new Set([
+    'sea-surface temperature', 'sea surface temperature', 'chlorophyll',
+    'chlorophyll-a', 'currents', 'weather forecast', 'sargassum',
+    'sargassum (weed)', 'waves', 'eddies'
+  ]);
+  function reportPresentation(text) {
+    const headings = [];
+    for (const match of text.matchAll(/^([^\r\n]+)(?:\r?\n|$)/gm)) {
+      const start = match.index;
+      const paragraphStart = start === 0 || /\r?\n\r?\n$/.test(text.slice(0, start));
+      if (paragraphStart && reportHeadings.has(match[1].toLowerCase())) {
+        headings.push({ start, end: start + match[1].length, title: match[1] });
+      }
+    }
+    if (!headings.length) return [element('pre', text, 'report-text')];
+    const content = element('div', undefined, 'report-text report-structured');
+    content.append(document.createTextNode(text.slice(0, headings[0].start)));
+    const index = element('nav', undefined, 'report-section-index');
+    index.setAttribute('aria-label', 'In this report');
+    index.append(element('p', 'In this report', 'section-index-label'));
+    const links = element('ul');
+    headings.forEach((item, position) => {
+      const section = element('section', undefined, 'report-topic');
+      const heading = element('h3', item.title);
+      heading.id = 'report-topic-' + position;
+      heading.tabIndex = -1;
+      section.setAttribute('aria-labelledby', heading.id);
+      section.append(heading, element('div', text.slice(item.end,
+        headings[position + 1]?.start ?? text.length), 'report-topic-copy'));
+      content.append(section);
+      const row = element('li');
+      const link = element('a', item.title);
+      link.href = '#' + heading.id;
+      link.addEventListener('click', (event) => {
+        event.preventDefault();
+        heading.focus({ preventScroll: true });
+        heading.scrollIntoView({ block: 'start', behavior: 'instant' });
+      });
+      row.append(link); links.append(row);
+    });
+    index.append(links);
+    // This invariant includes every value, unit, date, flag and whitespace byte.
+    if (content.textContent !== text) return [element('pre', text, 'report-text')];
+    return headings.length > 1 ? [index, content] : [content];
+  }
   let destinations = [];
   let matches = [];
   let active = -1;
@@ -90,7 +137,7 @@
     const { current } = publicationWindow(now);
     const due = retryAt(current);
     const stale = attemptedSlot !== current || (displayedReportAt !== null && displayedReportAt < current);
-    // Four bounded retries at :05, :10, :15 and :20 allow the scheduled
+    // Four bounded retries at :05, :10, :15 and :20 UTC allow the scheduled
     // publisher to finish. One second tolerates timer jitter at the last tick;
     // a suspended tab cannot resume an expired retry window.
     const retry = displayedReportAt === null && due !== null && now >= due && now <= current + retryWindow + 1000;
@@ -349,7 +396,7 @@
       $('report-meta').replaceChildren(element('time', date.toLocaleString('en-US', { day: 'numeric', month: 'long', year: 'numeric', hour: 'numeric', minute: '2-digit', timeZone: 'America/New_York', timeZoneName: 'short' })), element('span', 'Water within ' + report.radiusNm + ' nm'));
       $('report-meta').firstChild.dateTime = report.reportDate;
       $('report-notice').textContent = 'Use the report date and source dates below. Approximate areas are not confirmed current positions.';
-      body.replaceChildren(element('pre', report.text, 'report-text'));
+      body.replaceChildren(...reportPresentation(report.text));
       const dates = element('section', undefined, 'report-section source-dates');
       dates.append(element('h3', 'Source dates'));
       report.sourceDates.forEach((source) => dates.append(element('p', source.label + ': ' + source.date, 'source-note')));

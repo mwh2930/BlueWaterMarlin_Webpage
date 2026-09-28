@@ -1,0 +1,22 @@
+/* Visual chrome only. Ocean illustrations, masks and scientific ramps are unchanged. */
+:root .site-nav{background:#101b25!important;backdrop-filter:none!important;-webkit-backdrop-filter:none!important;box-shadow:none!important;border-bottom:1px solid #50606d!important}
+:root .site-nav-cta,:root .primary-cta,:root .secondary-cta{backdrop-filter:none!important;-webkit-backdrop-filter:none!important;box-shadow:none!important;text-shadow:none!important;filter:none!important;transition:background .15s ease,border-color .15s ease!important;min-height:44px!important}
+:root .site-nav-cta,:root .primary-cta{background:#0068bd!important;border:1px solid #8fc8f6!important}
+:root .secondary-cta{background:#182d3d!important;border:1px solid #8da5b7!important}
+:root .site-nav-cta:hover,:root .primary-cta:hover{background:#00569e!important;box-shadow:none!important;transform:none!important}
+:root .secondary-cta:hover{background:#25465d!important;box-shadow:none!important;transform:none!important}
+:root .site-nav-brand,:root .hero-title,:root .hero-expansion,:root .hero-subtitle,:root .closing-wordmark,:root .section-heading h2{text-shadow:none!important;filter:none!important}
+:root .hero-title,:root .closing-wordmark,:root .section-heading h2{background:none!important;color:#f5f7fa!important;-webkit-text-fill-color:currentColor!important}
+:root .diagram-card,:root .readability-card,:root .input-card,:root .source-panel,:root .stats-grid>div,:root .journey-grid>div{background:#152330!important;border-color:#516574!important;box-shadow:none!important}
+:root .stats-grid>div::before,:root .journey-grid>div::before{display:none}
+:root .stats-grid>div,:root .journey-grid>div{animation:none!important;transform:none!important}
+@media(prefers-reduced-motion:reduce){:root .site-nav-cta,:root .primary-cta,:root .secondary-cta{transition:none!important}}
+@media(forced-colors:active){:root .hero-title,:root .closing-wordmark,:root .section-heading h2{color:CanvasText!important}:root .site-nav-cta,:root .primary-cta,:root .secondary-cta{border-color:ButtonText!important}}
+/* Let enlarged text reflow rather than clipping values or navigation. */
+:root .site-nav-inner{height:auto!important;min-height:60px;flex-wrap:wrap;padding-block:8px!important}
+:root .site-nav-brand{white-space:normal!important;overflow:visible!important;overflow-wrap:anywhere;min-width:0}
+:root .hero-tagline{white-space:normal!important;flex-wrap:wrap!important;max-width:100%}
+:root .hero-expansion{min-width:0;overflow-wrap:anywhere}
+:root .stat-value,:root .stats-grid>div,:root .input-card{min-width:0;overflow-wrap:anywhere}
+:root .primary-cta,:root .secondary-cta,:root .site-nav-cta{height:auto!important;padding-block:10px!important;white-space:normal;max-width:100%;overflow-wrap:anywhere;text-align:center}
+:root .site-footer-inner p{overflow-wrap:anywhere;min-width:0}

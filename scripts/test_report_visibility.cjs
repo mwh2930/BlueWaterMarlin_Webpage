@@ -91,7 +91,7 @@ async function revealed(page, name) {
       const after = await position(page);
       assert.equal(after.active, 'destination-search');
       assert.ok(Math.abs(before.scroll - after.scroll) <= 1, 'Report completion does not scroll or steal focus');
-      assert.equal(await page.locator('.report-text').innerText(), fixture(destinations[0]).text);
+      assert.equal(await page.locator('.report-text').textContent(), fixture(destinations[0]).text);
       assert.equal(await page.locator('#report-meta time').getAttribute('datetime'), fixture(destinations[0]).reportDate);
       assert.match(await page.locator('.source-dates').innerText(), /2026-09-18T11:20:00.000Z/);
       assert.match(await page.locator('#selection-status').innerText(), /Report ready for Miami/);
@@ -99,7 +99,7 @@ async function revealed(page, name) {
       await choose('Montauk');
       await page.waitForFunction(() => document.getElementById('report-kind').textContent === 'Published report');
       await revealed(page, 'Montauk');
-      assert.equal(await page.locator('.report-text').innerText(), fixture(destinations[1]).text);
+      assert.equal(await page.locator('.report-text').textContent(), fixture(destinations[1]).text);
       assert.doesNotMatch(await page.locator('#report-body').innerText(), /miami-fl|14 nm ENE/);
       assert.deepEqual(requests, ['miami-fl', 'montauk-ny']);
 
@@ -132,10 +132,10 @@ async function revealed(page, name) {
       // A scheduled issue check is not a new user request to move the viewport.
       await search.click();
       const beforeScheduled = await position(page);
-      issueDate = '2026-09-18T16:00:00.000Z';
+      issueDate = '2026-09-19T04:00:00.000Z';
       await page.clock.setSystemTime(new Date(issueDate));
       await page.evaluate(() => window.dispatchEvent(new Event('pageshow')));
-      await page.waitForFunction(() => document.querySelector('#report-meta time')?.dateTime === '2026-09-18T16:00:00.000Z');
+      await page.waitForFunction(() => document.querySelector('#report-meta time')?.dateTime === '2026-09-19T04:00:00.000Z');
       const afterScheduled = await position(page);
       assert.equal(afterScheduled.active, 'destination-search');
       assert.ok(Math.abs(beforeScheduled.scroll - afterScheduled.scroll) <= 1, 'Scheduled refresh preserves the viewport');

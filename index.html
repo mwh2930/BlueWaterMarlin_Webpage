@@ -4,15 +4,16 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>BlueWater Marlin — B.I.L.L. Offshore Satellite Charts</title>
-<meta name="description" content="B.I.L.L. turns offshore satellite data into clear, honest chart guidance for blue-water anglers.">
+<meta name="description" content="Explore offshore sea-surface temperature, ocean color and projected water breaks with B.I.L.L.">
 <link rel="canonical" href="https://www.bluewatermarlin.com/">
 <meta property="og:title" content="BlueWater Marlin — B.I.L.L.">
-<meta property="og:description" content="Offshore satellite charts designed to show the water clearly without pretending to find the fish.">
+<meta property="og:description" content="Use daily satellite ocean layers and projection tools to plan offshore trips.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://bluewatermarlin.com/">
 <meta property="og:image" content="https://bluewatermarlin.com/assets/hero.jpg">
 <link rel="stylesheet" href="./assets/css/pricing.css">
 <script src="./support.js" defer></script>
+  <link rel="stylesheet" href="/assets/css/precision.css?v=20260918">
 </head>
 <body>
 <a class="skip-link" href="#main">Skip to content</a>
@@ -70,7 +71,6 @@
     .section-heading h2{background:var(--metal-heading) !important;-webkit-background-clip:text !important;background-clip:text !important;-webkit-text-fill-color:transparent !important;color:transparent !important;filter:drop-shadow(0 1px 8px rgba(0,0,0,.34));}
     .closing-wordmark{background:var(--metal-title);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent;filter:drop-shadow(0 1px 8px rgba(0,0,0,.4));}
   }
-  .section-kicker{margin:0;display:inline-flex;align-items:center;justify-content:center;gap:9px;font-size:12px;font-weight:600;line-height:1.3;letter-spacing:.14em;text-transform:uppercase;color:#64b5ff;-webkit-text-fill-color:currentColor;filter:none;}
   .planning-title-sheen{display:inline-block;max-width:100%;text-align:center;color:#f5f7fa;}
   @supports ((-webkit-background-clip:text) or (background-clip:text)){
     .planning-title-sheen{background-image:linear-gradient(108deg,transparent 43%,rgba(229,246,255,.32) 48%,rgba(255,255,255,.68) 50%,rgba(229,246,255,.32) 52%,transparent 57%),linear-gradient(180deg,#fff 4%,#e8eef3 34%,#b7c4cf 60%,#f4f8fb 78%,#aebdca 100%);background-size:220% 100%,100% 100%;background-position:100% 0,0 0;background-repeat:no-repeat;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent;filter:drop-shadow(0 2px 10px rgba(106,171,213,.16));}
@@ -78,29 +78,24 @@
   @keyframes planning-title-sheen{0%,22%{background-position:100% 0,0 0;}46%,100%{background-position:0% 0,0 0;}}
   @media (prefers-reduced-motion:no-preference){.planning-title-sheen{animation:planning-title-sheen 17s ease-in-out infinite;}}
   @media (forced-colors:active){.planning-title-sheen{background:none !important;color:CanvasText !important;-webkit-text-fill-color:CanvasText !important;filter:none !important;animation:none !important;}}
+  .section-kicker{margin:0;display:inline-flex;align-items:center;justify-content:center;gap:9px;font-size:12px;font-weight:600;line-height:1.3;letter-spacing:.14em;text-transform:uppercase;color:#64b5ff;-webkit-text-fill-color:currentColor;filter:none;}
   .section-kicker::before,.section-kicker::after{content:"";display:block;width:22px;height:1px;background:linear-gradient(90deg,transparent,rgba(100,181,255,.5));}
   .section-kicker::after{transform:scaleX(-1);}
   .diagram-card,.readability-card,.input-card,.source-panel{background:var(--surface-raised) !important;border-color:var(--surface-edge) !important;box-shadow:var(--surface-shadow) !important;}
-  .stats-grid > div{position:relative;isolation:isolate;overflow:hidden;padding:20px 14px;border:1px solid var(--surface-edge);border-radius:16px;background:var(--surface-raised);box-shadow:var(--surface-shadow);transition:border-color .22s ease,box-shadow .22s ease,transform .22s ease;animation:stat-enter .55s cubic-bezier(.22,1,.36,1) both;}
+  .stats-grid > div{position:relative;isolation:isolate;overflow:hidden;padding:20px 14px;border:1px solid var(--surface-edge);border-radius:16px;background:var(--surface-raised);box-shadow:var(--surface-shadow);transition:border-color .22s ease,box-shadow .22s ease,transform .22s ease;}
   .stats-grid > div::before{content:"";position:absolute;z-index:-1;inset:-45% -30%;pointer-events:none;background:radial-gradient(circle at 24% 32%,rgba(75,178,255,.11),transparent 38%);opacity:.55;transform:translate3d(-8%,0,0);}
-  .stats-grid > div:nth-child(2){animation-delay:.07s;}
-  .stats-grid > div:nth-child(3){animation-delay:.14s;}
-  .stats-grid > div:nth-child(4){animation-delay:.21s;}
   .stat-value{position:relative;color:#f5f5f7;}
   @supports ((-webkit-background-clip:text) or (background-clip:text)){
     .stat-value{background:none;-webkit-text-fill-color:#f5f5f7;color:#f5f5f7;filter:none;}
   }
   .stats-grid > div > div:last-child{position:relative;}
   @media (hover:hover){.stats-grid > div:hover{transform:translateY(-2px);border-color:rgba(127,212,255,.2);box-shadow:inset 0 1px 0 rgba(255,255,255,.13),0 18px 38px -24px rgba(41,151,255,.34);}}
-  .journey-grid > div{position:relative;isolation:isolate;overflow:hidden;padding:22px 20px;text-align:left;border:1px solid var(--surface-edge);border-radius:16px;background:var(--surface-raised);box-shadow:var(--surface-shadow);transition:border-color .22s ease,box-shadow .22s ease,transform .22s ease;animation:stat-enter .55s cubic-bezier(.22,1,.36,1) both;}
+  .journey-grid > div{position:relative;isolation:isolate;overflow:hidden;padding:22px 20px;text-align:left;border:1px solid var(--surface-edge);border-radius:16px;background:var(--surface-raised);box-shadow:var(--surface-shadow);transition:border-color .22s ease,box-shadow .22s ease,transform .22s ease;}
   .journey-grid > div::before{content:"";position:absolute;z-index:-1;inset:-50% -28%;pointer-events:none;background:radial-gradient(circle at 20% 28%,rgba(75,178,255,.09),transparent 40%);opacity:.5;transform:translate3d(-8%,0,0);}
-  .journey-grid > div:nth-child(2){animation-delay:.08s;}
-  .journey-grid > div:nth-child(3){animation-delay:.16s;}
   @supports ((-webkit-background-clip:text) or (background-clip:text)){
     .journey-grid > div > div:first-child{background:none;-webkit-text-fill-color:#f5f5f7;color:#f5f5f7;filter:none;}
   }
   @media (hover:hover){.journey-grid > div:hover{transform:translateY(-2px);border-color:rgba(127,212,255,.2);box-shadow:inset 0 1px 0 rgba(255,255,255,.13),0 18px 38px -24px rgba(41,151,255,.3);}}
-  @keyframes stat-enter{from{opacity:0;transform:translateY(10px) scale(.985);}to{opacity:1;transform:translateY(0) scale(1);}}
   @keyframes dome-swell{0%,100%{transform:scaleY(.94);}50%{transform:scaleY(1.06);}}
   @keyframes hero-drift{0%{transform:scale(1.02) translate3d(0,0,0);}50%{transform:scale(1.06) translate3d(-1.2%,-0.8%,0);}100%{transform:scale(1.02) translate3d(0,0,0);}}
   @keyframes cone-pulse{0%,100%{opacity:.07;transform:scaleY(.9);}50%{opacity:.2;transform:scaleY(1.08);}}
@@ -219,6 +214,29 @@
     .site-nav-cta{height:36px !important;}
     main > section{scroll-margin-top:calc(60px + env(safe-area-inset-top));}
   }
+  #straight-answers .section-inner{gap:28px !important;}
+  #straight-answers h2{font-size:clamp(1.75rem,3.8vw,2.125rem) !important;line-height:1.15 !important;}
+  #straight-answers .truth-list{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:28px;list-style:none;padding:0;margin:0;width:100%;}
+  #straight-answers .truth-list > li{min-width:0;max-width:none !important;padding:0;border:0;text-align:center;}
+  #straight-answers .truth-list b{font-size:1.125rem !important;line-height:1.3 !important;text-wrap:balance;}
+  #straight-answers .truth-list span{max-width:34ch;margin:10px auto 0 !important;font-size:.9375rem !important;line-height:1.55 !important;}
+  @media (max-width:48rem){
+    #straight-answers .truth-list{grid-template-columns:minmax(0,1fr);max-width:34rem;gap:24px !important;}
+    #straight-answers .truth-list > li:not(:last-child){padding-bottom:24px;border-bottom:1px solid rgba(255,255,255,.08);}
+  }
+  @media (min-width:37.5625rem){
+    .stats-grid{grid-template-columns:repeat(2,minmax(0,1fr)) !important;}
+    .feature-list{display:grid !important;grid-template-columns:repeat(2,minmax(0,1fr));align-items:start;gap:28px 24px !important;}
+    .feature-list > li{grid-column:auto;min-width:0;max-width:33ch !important;justify-self:center;flex:none !important;text-align:center !important;}
+    .feature-list > li:last-child{grid-column:1 / -1;max-width:33ch !important;}
+  }
+  @media (min-width:48.0625rem){
+    .feature-list{display:grid !important;grid-template-columns:repeat(6,minmax(0,1fr));align-items:start;gap:30px 24px !important;}
+    .feature-list > li{grid-column:span 2;min-width:0;max-width:33ch !important;justify-self:center;flex:none !important;text-align:center !important;}
+    .feature-list > li:nth-child(4),.feature-list > li:nth-child(5){grid-column:span 3;}
+  }
+  @media (min-width:48.0625rem){.stats-grid{grid-template-columns:repeat(4,minmax(0,1fr)) !important;}}
+  .closing-kicker{max-width:100%;white-space:normal !important;text-wrap:balance !important;overflow-wrap:anywhere;}
   .closing-showcase{position:relative;isolation:isolate;overflow:hidden;}
   .closing-showcase::before{content:"";position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse 46% 58% at 50% 38%,rgba(58,135,200,.12),transparent 74%);}
   .closing-showcase .section-inner{position:relative;width:calc(100% - 44px);max-width:940px;margin-inline:auto;padding:clamp(36px,5vw,62px) clamp(24px,5vw,68px) !important;gap:24px !important;border:1px solid rgba(178,207,228,.2);border-radius:28px;background:radial-gradient(ellipse 70% 90% at 50% -20%,rgba(147,193,224,.13),transparent 70%),linear-gradient(145deg,#202a34 0%,#151d26 48%,#101820 100%);box-shadow:inset 0 1px 0 rgba(255,255,255,.16),inset 0 -1px 0 rgba(0,0,0,.45),0 28px 72px -44px rgba(37,103,161,.55),0 20px 56px -36px rgba(0,0,0,.95);}
@@ -252,7 +270,7 @@
         
         
         
-        <a class="site-nav-cta" href="#pricing" style="display:inline-flex;align-items:center;height:30px;padding:0 14px;border-radius:980px;background:linear-gradient(180deg,#3ba3ff 0%,#0071e3 52%,#0060c4 100%);box-shadow:inset 0 1px 0 rgba(255,255,255,.34),0 2px 10px -2px rgba(0,113,227,.55);color:#fff;font-size:12px;font-weight:600;letter-spacing:-.01em;" style-hover="filter:brightness(1.08);text-decoration:none;">Coming soon</a>
+        <a class="site-nav-cta" href="#pricing" style="display:inline-flex;align-items:center;height:30px;padding:0 14px;border-radius:980px;background:linear-gradient(180deg,#3ba3ff 0%,#0071e3 52%,#0060c4 100%);box-shadow:inset 0 1px 0 rgba(255,255,255,.34),0 2px 10px -2px rgba(0,113,227,.55);color:#fff;font-size:12px;font-weight:600;letter-spacing:-.01em;" style-hover="filter:brightness(1.08);text-decoration:none;">View plans</a>
       </div>
     </div>
   </nav>
@@ -271,10 +289,10 @@
       </p>
       <p class="hero-subtitle" style="margin:0;font-size:clamp(17px,2.1vw,21px);line-height:1.4;color:rgba(255,255,255,.92);max-width:40ch;text-shadow:0 1px 14px rgba(0,0,0,.45);">The satellite chart that carries the break forward to the hour you arrive.</p>
       <div class="hero-actions" style="display:flex;flex-wrap:wrap;gap:14px;justify-content:center;margin-top:6px;">
-        <a class="primary-cta" href="#pricing" style="display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:0 24px;border-radius:980px;background:linear-gradient(180deg,#3ba3ff 0%,#0071e3 52%,#0060c4 100%);box-shadow:inset 0 1px 0 rgba(255,255,255,.34),0 2px 10px -2px rgba(0,113,227,.55);color:#fff;font-size:17px;" style-hover="filter:brightness(1.08);text-decoration:none;">Coming to the App Store</a>
+        <a class="primary-cta" href="#pricing" style="display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:0 24px;border-radius:980px;background:linear-gradient(180deg,#3ba3ff 0%,#0071e3 52%,#0060c4 100%);box-shadow:inset 0 1px 0 rgba(255,255,255,.34),0 2px 10px -2px rgba(0,113,227,.55);color:#fff;font-size:17px;" style-hover="filter:brightness(1.08);text-decoration:none;">View plans</a>
         <a class="secondary-cta" href="/report/" style="display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:0 24px;border-radius:980px;background:transparent;color:#fff;border:1px solid rgba(255,255,255,.7);font-size:17px;" style-hover="background:rgba(255,255,255,.12);text-decoration:none;">Free Report</a>
       </div>
-      <p class="hero-note" style="margin:4px 0 0;font-size:12px;color:rgba(255,255,255,.66);letter-spacing:-.01em;">At launch, SST and tap-to-read are free. Pro pricing is $34.99 a month or $99.99 a year. Final App Store price may vary.</p>
+      <p class="hero-note" style="margin:4px 0 0;font-size:12px;color:rgba(255,255,255,.66);letter-spacing:-.01em;">At launch: free SST and tap-to-read; Pro is $34.99/month or $99.99/year. Final App Store prices may vary.</p>
     </div>
   </section>
 
@@ -283,7 +301,7 @@
     <div class="section-inner" style="max-width:940px;margin:0 auto;padding:0 22px;display:flex;flex-direction:column;align-items:center;gap:28px;">
       <div class="section-heading" style="max-width:560px;display:flex;flex-direction:column;gap:12px;align-items:center;">
         <h2 style="background:linear-gradient(178deg,#ffffff 12%,#d6d6db 62%,#a8a8ae 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:#f5f5f7;margin:0;font-size:clamp(30px,4.6vw,42px);line-height:1.08;letter-spacing:-.024em;font-weight:600;text-wrap:balance;">Project the break</h2>
-        <p style="margin:0;font-size:clamp(17px,2.1vw,20px);line-height:1.4;color:#a1a1a6;max-width:40ch;">An edge walks ten miles overnight on two knots of set with fifteen behind it. Bill carries it forward to your arrival hour.</p>
+        <p style="margin:0;font-size:clamp(17px,2.1vw,20px);line-height:1.4;color:#a1a1a6;max-width:40ch;">A satellite pass is a snapshot. Current and wind can move the edge before you arrive.</p>
       </div>
       <figure class="diagram-card" style="border:1px solid rgba(255,255,255,.085);box-shadow:inset 0 1px 0 rgba(255,255,255,.13),inset 0 -1px 0 rgba(0,0,0,.55),0 8px 24px -8px rgba(0,0,0,.7);margin:0;width:100%;max-width:760px;background:linear-gradient(180deg,#27272b 0%,#1a1a1c 52%,#131315 100%);border-radius:18px;padding:28px 26px 22px;display:flex;flex-direction:column;gap:16px;">
         <figcaption style="font-size:14px;font-weight:600;letter-spacing:-.01em;text-align:left;">How far the edge walks while the chart holds still</figcaption>
@@ -345,8 +363,6 @@
           </g>
         </svg>
         </div>
-        <p style="margin:0;font-size:12px;line-height:1.4;font-weight:600;letter-spacing:.02em;color:#8e8e93;text-align:left;max-width:60ch;">Local time — the 05:00 pass is 09:00Z. The shaded band widens with the carry.</p>
-        <p style="margin:0;font-size:13px;line-height:1.42;color:#a1a1a6;text-align:left;max-width:64ch;">Both lines describe the same illustrated edge over the same twenty-six hours. The dashed line treats the last observation as stationary, as a retrospective-only view must. A front does not travel at the full speed of the current along it, but at a fraction of it — and that fraction grows as the wind fills in overnight. Barely half a mile in the first six hours, most of the distance after dark, ten miles by the time you are on the numbers: four tenths of a knot averaged across the night, and well over that by dawn. The money goes down at 21:00, when the picture is already ten hours old.</p>
       </figure>
 
 
@@ -357,7 +373,7 @@
     <div class="section-inner" style="max-width:940px;margin:0 auto;padding:0 22px;display:flex;flex-direction:column;align-items:center;gap:28px;">
       <div class="section-heading" style="max-width:600px;display:flex;flex-direction:column;gap:12px;align-items:center;">
         <h2 style="background:linear-gradient(178deg,#ffffff 12%,#d6d6db 62%,#a8a8ae 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:#f5f5f7;margin:0;font-size:clamp(30px,4.6vw,42px);line-height:1.08;letter-spacing:-.024em;font-weight:600;text-wrap:balance;">What cloud cover changes.</h2>
-        <p style="margin:0;font-size:clamp(17px,2.1vw,20px);line-height:1.4;color:#a1a1a6;max-width:44ch;">Infrared temperature observations can be blocked by cloud. Blended radar-altimetry sea-height data may still provide eddy context, while a projection continues only where current and wind inputs are available.</p>
+        <p style="margin:0;font-size:clamp(17px,2.1vw,20px);line-height:1.4;color:#a1a1a6;max-width:44ch;">Cloud can block infrared temperature readings. Altimetry may still show eddy context; projections need current and wind data.</p>
       </div>
 
       <figure class="diagram-card" style="border:1px solid rgba(255,255,255,.085);box-shadow:inset 0 1px 0 rgba(255,255,255,.13),inset 0 -1px 0 rgba(0,0,0,.55),0 8px 24px -8px rgba(0,0,0,.7);margin:0;width:100%;max-width:760px;background:linear-gradient(180deg,#27272b 0%,#1a1a1c 52%,#131315 100%);border-radius:18px;padding:28px 26px 22px;display:flex;flex-direction:column;gap:16px;">
@@ -391,10 +407,7 @@
 
         </svg>
         </div>
-        <p style="margin:0;font-size:12px;line-height:1.4;font-weight:600;letter-spacing:.02em;color:#8e8e93;text-align:left;max-width:60ch;">Left: temperature unavailable through cloud. Right: sea-height-derived eddy context may remain available.</p>
-        <p style="margin:0;font-size:13px;line-height:1.42;color:#a1a1a6;text-align:left;max-width:64ch;">B.I.L.L.'s eddy context comes from blended altimetry rather than one infrared image. It can add context during cloud cover, but it does not replace a missing temperature observation.</p>
       </figure>
-      <p style="margin:0;font-size:13px;line-height:1.42;color:#a1a1a6;max-width:56ch;">Water color needs sun and a clear sky. Where cloud thins the pass, the gap is filled from the daily gap-filled analysis so your chart stays whole. The pass date stays on screen and the header names the source.</p>
     </div>
   </section>
 
@@ -430,7 +443,7 @@
       <div class="section-heading" style="max-width:560px;display:flex;flex-direction:column;gap:12px;align-items:center;">
         <p class="section-kicker">Eddy science</p>
         <h2 style="background:linear-gradient(178deg,#ffffff 12%,#d6d6db 62%,#a8a8ae 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:#f5f5f7;margin:0;font-size:clamp(30px,4.6vw,42px);line-height:1.08;letter-spacing:-.024em;font-weight:600;text-wrap:balance;">How sea-height data reveals eddies.</h2>
-        <p style="margin:0;font-size:clamp(17px,2.1vw,20px);line-height:1.4;color:#a1a1a6;max-width:44ch;">Radar altimetry measures sea-surface height. Research has shown how broad height anomalies can be used to identify and track mesoscale eddies.</p>
+        <p style="margin:0;font-size:clamp(17px,2.1vw,20px);line-height:1.4;color:#a1a1a6;max-width:44ch;">Radar altimetry measures sea height; broad anomalies can reveal and track mesoscale eddies.</p>
       </div>
 
       <figure class="diagram-card" style="border:1px solid rgba(255,255,255,.085);box-shadow:inset 0 1px 0 rgba(255,255,255,.13),inset 0 -1px 0 rgba(0,0,0,.55),0 8px 24px -8px rgba(0,0,0,.7);margin:0;width:100%;max-width:760px;background:linear-gradient(180deg,#27272b 0%,#1a1a1c 52%,#131315 100%);border-radius:18px;padding:28px 26px 22px;display:flex;flex-direction:column;gap:18px;">
@@ -494,9 +507,6 @@
           <div><div style="font-size:26px;font-weight:600;letter-spacing:-.024em;line-height:1;font-variant-numeric:tabular-nums;">32 wk</div><div style="font-size:12px;color:#a1a1a6;margin-top:5px;">Average lifetime, travelling about 550 km before it loses its identity</div></div>
         </div>
 
-        <p style="margin:0;font-size:13px;line-height:1.42;color:#a1a1a6;text-align:left;max-width:66ch;">Warm water is less dense, so a warm-core eddy can form a low dome at the sea surface. Radar altimeters estimate sea-surface height by timing a pulse to the surface and back; that observation is not blocked by ordinary cloud cover.</p>
-        <p style="margin:0;font-size:13px;line-height:1.42;color:#a1a1a6;text-align:left;max-width:66ch;">These figures come from the published research and the Sentinel-6 reference above. They are here to show how an eddy behaves, not to describe a measurement BlueWater Marlin — B.I.L.L. has taken. In the app, Bill picks out eddy candidates from blended NOAA altimetry and estimates a half-amplitude radius for each one.</p>
-        <p style="margin:0;font-size:12px;line-height:1.4;color:#8e8e93;text-align:left;max-width:66ch;">Sources: Chelton, Schlax &amp; Samelson, <i>Global observations of nonlinear mesoscale eddies</i>, Progress in Oceanography 91 (2011) — mean amplitude 8 cm, speed-based radius 90 km, mean lifetime 32 weeks, mean propagation 550 km. Sentinel-6 Michael Freilich sea-surface-height accuracy: 5.8 cm within hours, 3.5 cm at two days, orbit 1,336 km, ten-day repeat (NASA / ESA / EUMETSAT).</p>
       </figure>
     </div>
   </section>
@@ -524,7 +534,7 @@
         <div class="input-card" style="border:1px solid rgba(255,255,255,.085);box-shadow:inset 0 1px 0 rgba(255,255,255,.13),inset 0 -1px 0 rgba(0,0,0,.55),0 8px 24px -8px rgba(0,0,0,.7);background:linear-gradient(180deg,#27272b 0%,#1a1a1c 52%,#131315 100%);border-radius:18px;padding:22px 20px;display:flex;flex-direction:column;gap:6px;align-items:center;">
           <svg viewBox="0 0 24 24" fill="none" stroke="#2997ff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="width:28px;height:28px;margin-bottom:2px;"><path d="M3 9c2-2.2 4-2.2 6 0s4 2.2 6 0 4-2.2 6 0"></path><path d="M3 15c2-2.2 4-2.2 6 0s4 2.2 6 0 4-2.2 6 0"></path></svg>
           <h3 style="margin:0;font-size:19px;font-weight:600;line-height:1.2;">Currents</h3>
-          <p style="margin:0;font-size:14px;color:#a1a1a6;letter-spacing:-.012em;max-width:28ch;">Water flows around the hills and hollows of the sea surface, drawn as arrows colored by speed.</p>
+          <p style="margin:0;font-size:14px;color:#a1a1a6;letter-spacing:-.012em;max-width:28ch;">Arrows show surface-current direction and speed.</p>
           <p style="margin:3px 0 0;font-size:11px;color:#a1a1a6;letter-spacing:.02em;">0.2° · DAILY</p>
         </div>
         <div class="input-card" style="border:1px solid rgba(255,255,255,.085);box-shadow:inset 0 1px 0 rgba(255,255,255,.13),inset 0 -1px 0 rgba(0,0,0,.55),0 8px 24px -8px rgba(0,0,0,.7);background:linear-gradient(180deg,#27272b 0%,#1a1a1c 52%,#131315 100%);border-radius:18px;padding:22px 20px;display:flex;flex-direction:column;gap:6px;align-items:center;">
@@ -592,7 +602,6 @@
     <div class="section-inner" style="max-width:940px;margin:0 auto;padding:0 22px;display:flex;flex-direction:column;align-items:center;gap:28px;">
       <div class="section-heading" style="max-width:560px;display:flex;flex-direction:column;gap:12px;align-items:center;">
         <h2 style="background:linear-gradient(178deg,#ffffff 12%,#d6d6db 62%,#a8a8ae 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:#f5f5f7;margin:0;font-size:clamp(30px,4.6vw,42px);line-height:1.08;letter-spacing:-.024em;font-weight:600;text-wrap:balance;">Public data sources.</h2>
-        <p style="margin:0;font-size:clamp(17px,2.1vw,20px);line-height:1.4;color:#a1a1a6;max-width:40ch;">B.I.L.L. uses public data from established ocean and weather programs.</p>
       </div>
       <div class="source-panel" style="border:1px solid rgba(255,255,255,.085);box-shadow:inset 0 1px 0 rgba(255,255,255,.13),inset 0 -1px 0 rgba(0,0,0,.55),0 8px 24px -8px rgba(0,0,0,.7);box-sizing:border-box;width:100%;max-width:560px;background:linear-gradient(180deg,#27272b 0%,#1a1a1c 52%,#131315 100%);border-radius:18px;overflow:hidden;">
         <div class="source-row" style="display:flex;align-items:center;gap:12px;padding:12px 18px;text-align:left;"><svg viewBox="0 0 24 24" fill="none" stroke="#2997ff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="width:20px;height:20px;flex:none;"><circle cx="12" cy="12" r="4.2"></circle><path d="M4 12a8 3.1 0 1 0 16 0a8 3.1 0 1 0 -16 0"></path></svg><b style="font-size:15px;font-weight:600;letter-spacing:-.01em;">NASA</b><span style="margin-left:auto;font-size:13px;color:#a1a1a6;text-align:right;">MUR sea temperature</span></div>
@@ -604,14 +613,14 @@
     </div>
   </section>
 
-  <section style="padding:88px 0;">
+  <section id="straight-answers" aria-labelledby="straight-answers-title" style="padding:88px 0;">
     <div class="section-inner" style="max-width:940px;margin:0 auto;padding:0 22px;display:flex;flex-direction:column;align-items:center;gap:28px;">
       <div class="section-heading" style="max-width:600px;display:flex;flex-direction:column;gap:12px;align-items:center;">
-        <h2 style="background:linear-gradient(178deg,#ffffff 12%,#d6d6db 62%,#a8a8ae 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:#f5f5f7;margin:0;font-size:clamp(30px,4.6vw,42px);line-height:1.08;letter-spacing:-.024em;font-weight:600;text-wrap:balance;">Straight Answers</h2>
+        <h2 id="straight-answers-title" style="background:linear-gradient(178deg,#ffffff 12%,#d6d6db 62%,#a8a8ae 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:#f5f5f7;margin:0;font-size:clamp(30px,4.6vw,42px);line-height:1.08;letter-spacing:-.024em;font-weight:600;text-wrap:balance;">Straight Answers</h2>
         
       </div>
-      <ul class="truth-list" style="display:flex;flex-wrap:wrap;justify-content:center;gap:22px 26px;list-style:none;padding:0;margin:0;width:100%;">
-        <li style="flex:0 1 276px;max-width:33ch;"><b style="display:block;font-size:19px;font-weight:600;line-height:1.2;">Clouds Block</b><span style="display:block;color:#a1a1a6;font-size:14px;line-height:1.45;margin-top:6px;">Cloud can block infrared observations for days. When that happens your water-color chart fills the gap from the daily gap-filled analysis. The pass date stays on screen, and the projection widens its error bar.</span></li>
+      <ul class="truth-list">
+        <li style="flex:0 1 276px;max-width:33ch;"><b style="display:block;font-size:19px;font-weight:600;line-height:1.2;">Clouds Block</b><span style="display:block;color:#a1a1a6;font-size:14px;line-height:1.45;margin-top:6px;">Cloud can block infrared for days. Water-color gaps use daily gap-filled analysis; pass dates and sources stay visible. Projection uncertainty widens.</span></li>
         <li style="flex:0 1 276px;max-width:33ch;"><b style="display:block;font-size:19px;font-weight:600;line-height:1.2;">Not a chartplotter.</b><span style="display:block;color:#a1a1a6;font-size:14px;line-height:1.45;margin-top:6px;">This is a planning tool. It doesn't replace a GPS or official charts. Verify against them, every time.</span></li>
         <li style="flex:0 1 276px;max-width:33ch;"><b style="display:block;font-size:19px;font-weight:600;line-height:1.2;">Works from published feeds.</b><span style="display:block;color:#a1a1a6;font-size:14px;line-height:1.45;margin-top:6px;">The ocean layers are not real-time; source ages vary. Changing ocean layers show source or analysis time where applicable.</span></li>
       </ul>
@@ -721,7 +730,7 @@
 </div>
 
 </x-dc>
-<script type="text/x-dc" data-dc-script data-props="{&quot;readabilityUrl&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Data&quot;,&quot;label&quot;:&quot;Readability endpoint URL&quot;},&quot;defaultLayer&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;sst&quot;,&quot;chl&quot;,&quot;cur&quot;,&quot;edd&quot;],&quot;default&quot;:&quot;sst&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Chart&quot;},&quot;showReadability&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Sections&quot;},&quot;scrollReveal&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Sections&quot;,&quot;label&quot;:&quot;Fade sections in on scroll&quot;}}">
+<script type="text/x-dc" data-dc-script data-props="{&quot;readabilityUrl&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Data&quot;,&quot;label&quot;:&quot;Readability endpoint URL&quot;},&quot;defaultLayer&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;sst&quot;,&quot;chl&quot;,&quot;cur&quot;,&quot;edd&quot;],&quot;default&quot;:&quot;sst&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Chart&quot;},&quot;showReadability&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Sections&quot;}}">
 class Component extends DCLogic {
   constructor(p){
     super(p);
@@ -733,111 +742,7 @@ class Component extends DCLogic {
 
   }
 
-  componentDidMount(){ this.paintHero(); this.loadReadability(); this.initReveal(); }
-
-  componentWillUnmount(){
-    if (this._detach) this._detach();
-  }
-
-  // Fade sections in as they scroll up. Only touches elements that start below
-  // the fold, and only while a scroll container can actually be resolved --
-  // in an embedded host the page itself is not the scroller.
-  initReveal(){
-    if (this.props.scrollReveal === false) return;
-    if (window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-
-    var self = this;
-    var targets = [];
-    document.body.querySelectorAll("section, footer").forEach(function(el){
-      if (el.getBoundingClientRect().top > window.innerHeight * 0.9) targets.push(el);
-    });
-    if (!targets.length) return;
-
-    var pending = targets.slice(), revealedAny = false;
-
-    var reveal = function(el){
-      revealedAny = true;
-      el.style.opacity = "1";
-      el.style.transform = "none";
-      setTimeout(function(){ el.style.willChange = "auto"; }, 800);
-    };
-    var hide = function(el){
-      el.style.opacity = "0";
-      el.style.transform = "translateY(18px)";
-      el.style.transition = "opacity .7s cubic-bezier(.22,.61,.36,1), transform .7s cubic-bezier(.22,.61,.36,1)";
-      el.style.willChange = "opacity, transform";
-    };
-    var revealAll = function(){ pending.forEach(reveal); pending = []; };
-
-    // the scroller may be an ancestor in the host, not this document
-    var scroller = null;
-    for (var n = document.body; n; n = n.parentElement){
-      var ov = getComputedStyle(n).overflowY;
-      if (n.scrollHeight > n.clientHeight + 40 && (ov === "auto" || ov === "scroll" || n === document.body)){ scroller = n; break; }
-    }
-    var listenOn = scroller && scroller !== document.body ? scroller : window;
-
-    targets.forEach(hide);
-
-    var queued = false;
-    var pass = function(){
-      pending = pending.filter(function(el){
-        if (el.getBoundingClientRect().top < window.innerHeight * 0.92){ reveal(el); return false; }
-        return true;
-      });
-      if (!pending.length) detach();
-    };
-    var onScroll = function(){
-      if (queued) return;
-      queued = true;
-      requestAnimationFrame(function(){ queued = false; pass(); });
-    };
-
-    var io = null;
-    if (window.IntersectionObserver){
-      io = new IntersectionObserver(function(entries){
-        entries.forEach(function(e){
-          if (!e.isIntersecting) return;
-          reveal(e.target);
-          pending = pending.filter(function(el){ return el !== e.target; });
-          io.unobserve(e.target);
-        });
-      }, { threshold: 0.05 });
-      targets.forEach(function(el){ io.observe(el); });
-    }
-
-    var detach = function(){
-      listenOn.removeEventListener("scroll", onScroll);
-      window.removeEventListener("resize", onScroll);
-      if (io) io.disconnect();
-      if (self._poll) clearInterval(self._poll);
-      if (self._hardStop) clearTimeout(self._hardStop);
-    };
-    this._detach = detach;
-
-    // scroll and IO are accelerators; the poll is what actually guarantees the
-    // reveal, since an embedded host may deliver neither
-    listenOn.addEventListener("scroll", onScroll, { passive: true });
-    window.addEventListener("resize", onScroll);
-
-    // Can this document's scroll position actually be written? Height alone
-    // proves nothing: in an embedded host the ancestor owns scrolling and lives
-    // outside this document, so nothing in here can ever hear or move it.
-    var scrollWritable = function(){
-      var el = (listenOn === window) ? document.documentElement : listenOn;
-      if (el.scrollHeight - el.clientHeight <= 40) return false;
-      var was = el.scrollTop;
-      el.scrollTop = was + 1;
-      var moved = el.scrollTop !== was;
-      el.scrollTop = was;
-      return moved;
-    };
-
-    if (!scrollWritable()){ revealAll(); detach(); return; }
-
-    this._poll = setInterval(pass, 160);
-    pass();
-  }
+  componentDidMount(){ this.paintHero(); this.loadReadability(); }
 
   // ---- noise field ----
   hash(x,y,s){ var n = Math.sin(x*127.1 + y*311.7 + s*74.7)*43758.5453; return n - Math.floor(n); }
@@ -1195,10 +1100,8 @@ class Component extends DCLogic {
 
   readSub(){
     var verb = this.measured() ? "We publish" : "We will publish";
-    return "Clouds decide how much of a month the cameras get to see. " + verb
-      + " that count per region, cloudy months included, because a chart nobody grades is just a picture.";
+    return verb + " monthly clear-pass coverage by region, including cloudy days.";
   }
-
 
   renderVals(){
     var self = this, L = this.state.layer;
