@@ -166,14 +166,14 @@
   }
   setQuery(requested);
 
-  async function jsonRequest(path, signal) {
+  async function jsonRequest(path, signal, timeoutMs = 30000) {
     const controller = new AbortController();
     const cancel = () => controller.abort();
     signal?.addEventListener('abort', cancel, { once: true });
     if (signal?.aborted) controller.abort();
     // Allow the Functions host to cold-start before its bounded request runs.
     // This browser deadline does not extend the server's eight-second Blob read.
-    const timeout = setTimeout(cancel, 30000);
+    const timeout = setTimeout(cancel, timeoutMs);
     try {
       const response = await fetch(path, { method: 'GET', credentials: 'omit', cache: 'no-store', redirect: 'error', referrerPolicy: 'no-referrer', signal: controller.signal });
       if (!response.ok) {
@@ -386,7 +386,17 @@
       lastAttemptAt = Date.now();
       attemptedSlot = publicationWindow(lastAttemptAt).current;
       if (!place.available) throw new Error('Not published');
-      const report = await jsonRequest('/api/reports/report?destination=' + encodeURIComponent(place.id), reportController.signal);
+      const path = '/api/reports/report?destination=' + encodeURIComponent(place.id);
+      const signal = reportController.signal;
+      let report;
+      try {
+        report = await jsonRequest(path, signal, 20000);
+      } catch (firstError) {
+        if (signal.aborted || sequence !== reportSequence || (firstError.status && firstError.status !== 503)) throw firstError;
+        $('selection-status').textContent = 'Still checking the report for ' + label(place) + '.';
+        $('report-notice').textContent = 'The report service is taking longer than usual. Trying once more.';
+        report = await jsonRequest(path, signal, 25000);
+      }
       if (sequence !== reportSequence) return;
       if (!validReport(report, place)) throw new Error('Unavailable');
       const date = new Date(report.reportDate);

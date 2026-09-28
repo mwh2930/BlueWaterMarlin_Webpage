@@ -36,7 +36,7 @@ const fixture = place => ({
       const context = await browser.newContext({ hasTouch: touch, isMobile: touch, viewport: { width: touch ? 390 : 1280, height: 900 } });
       const page = await context.newPage();
       const errors = [], requests = [];
-      let missingStatus = 404;
+      let missingStatus = 404, nextMiamiStatuses = [];
       page.on('pageerror', error => errors.push(error.message));
       await page.clock.install({ time: new Date(now) });
       await page.route('**/data/report-destinations.json', route => route.fulfill({ json: { schemaVersion: 1, destinations: scope } }));
@@ -46,9 +46,12 @@ const fixture = place => ({
         const id = url.searchParams.get('destination');
         requests.push(id);
         const place = places.find(p => p.id === id);
-        return id === 'miami-fl'
-          ? route.fulfill({ status: missingStatus, json: { error: 'Synthetic unavailable response.' } })
-          : route.fulfill({ json: fixture(place) });
+        if (id === 'miami-fl') {
+          const status = nextMiamiStatuses.length ? nextMiamiStatuses.shift() : missingStatus;
+          return status === 200 ? route.fulfill({ json: fixture(place) })
+            : route.fulfill({ status, json: { error: 'Synthetic unavailable response.' } });
+        }
+        return route.fulfill({ json: fixture(place) });
       });
       await page.goto(origin + '/report/');
       await page.waitForFunction(() => document.querySelector('#service-status').textContent.startsWith('Reports are read'));
@@ -104,6 +107,14 @@ const fixture = place => ({
       assert.match(await page.locator('#report-body').innerText(), /Miami, FL/);
       assert.match(await page.locator('#report-notice').innerText(), /No current report has been published for Miami, FL/);
       assert.doesNotMatch(await page.locator('#report-body').innerText(), /Synthetic report|14 nm ENE/);
+      // A transient service failure retries once and keeps the selected report.
+      nextMiamiStatuses = [503, 200];
+      await page.locator('#refresh-report').click();
+      await page.waitForFunction(() => document.querySelector('#report-kind').textContent === 'Published report');
+      assert.match(await page.locator('#report-body').innerText(), /Synthetic report for Miami/);
+      assert.equal(nextMiamiStatuses.length, 0);
+
+      // Two service failures stop after the bounded retry and show an honest error.
       missingStatus = 503;
       await page.locator('#refresh-report').click();
       await page.waitForFunction(() => document.querySelector('#report-sheet').getAttribute('aria-busy') === 'false');
@@ -116,7 +127,7 @@ const fixture = place => ({
       await search.fill('Newport');
       assert.equal(await page.getByRole('option').count(), 2);
       await search.press('Enter');
-      assert.equal(requests.length, 8, 'Duplicate exact names cannot select either destination implicitly');
+      assert.equal(requests.length, 11, 'Duplicate exact names cannot select either destination implicitly');
       assert.equal(await page.locator('#report-title').innerText(), 'Choose your destination');
       assert.match(await page.locator('#selection-status').innerText(), /matching results/);
       const newportOregon = page.getByRole('option', { name: /Newport, OR/ });
@@ -138,7 +149,7 @@ const fixture = place => ({
       await search.fill('SAN JOSE DEL CABO');
       assert.equal(await page.getByRole('option').count(), 0);
       await search.press('Enter');
-      assert.equal(requests.length, 10, 'Out-of-scope locations do not reach the report API');
+      assert.equal(requests.length, 13, 'Out-of-scope locations do not reach the report API');
       assert.equal(await page.locator('#report-title').innerText(), 'Choose your destination');
 
       // Typing without an accent preserves the catalog's original U.S. label.
@@ -149,7 +160,7 @@ const fixture = place => ({
       assert.equal(await page.locator('#report-title').innerText(), 'San José, CA');
       assert.match(await page.locator('#report-body').innerText(), /Synthetic report for San José, CA/);
       assert.deepEqual(errors, []);
-      assert.deepEqual(requests, ['montauk-ny', 'venice-la', 'montauk-ny', 'montauk-ny', 'venice-la', 'montauk-ny', 'miami-fl', 'miami-fl', 'newport-or', 'newport-ri', 'san-jose-ca']);
+      assert.deepEqual(requests, ['montauk-ny', 'venice-la', 'montauk-ny', 'montauk-ny', 'venice-la', 'montauk-ny', 'miami-fl', 'miami-fl', 'miami-fl', 'miami-fl', 'miami-fl', 'newport-or', 'newport-ri', 'san-jose-ca']);
       const dimensions = await page.evaluate(() => ({ width: innerWidth, scroll: document.documentElement.scrollWidth }));
       assert.ok(dimensions.scroll <= dimensions.width, 'Destination messages fit the viewport');
       console.log(`${touch ? 'touch' : 'mouse'} Enter, exact-versus-partial matches, duplicate names, accents, composition, and missing/error states passed`);
